@@ -12,7 +12,7 @@ export default function HomePage() {
       <HomePageContent
         t={t}
         locale="en"
-        sections={["hero", "about", "services", "footer"]}
+        sections={["hero", "about", "services", "explore", "footer"]}
       />
     </div>
   );
