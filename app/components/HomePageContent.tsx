@@ -574,6 +574,151 @@ export function HomePageContent({
         </div>
       </section>
 
+      {/* ============== BREAST CANCER DEEP-DIVE ============== */}
+      <section
+        id="breast-cancer"
+        className="relative scroll-mt-20 overflow-hidden border-t border-zinc-200/80 bg-gradient-to-b from-pink-50/40 via-white to-white px-4 py-32 dark:border-zinc-800/40 dark:from-pink-950/10 dark:via-zinc-950 dark:to-zinc-950 sm:px-6"
+      >
+        {/* Pink-tinted awareness accents in the corners — signals breast
+            cancer without overwhelming the copy. */}
+        <div
+          aria-hidden
+          className="pointer-events-none absolute start-6 top-16 hidden text-pink-500/25 dark:text-pink-300/20 sm:block"
+        >
+          <AwarenessRibbon className="h-20 w-14" />
+        </div>
+        <div
+          aria-hidden
+          className="pointer-events-none absolute end-6 bottom-20 hidden -rotate-12 text-pink-400/25 dark:text-pink-300/15 sm:block"
+        >
+          <AwarenessRibbon className="h-28 w-20" />
+        </div>
+
+        <div className="relative mx-auto max-w-6xl">
+          <Reveal>
+            <div className="flex items-center justify-center gap-2">
+              <span className="text-pink-500 dark:text-pink-300">
+                <AwarenessRibbon className="h-4 w-3" />
+              </span>
+              <p className="text-center text-xs font-medium uppercase tracking-[0.2em] text-zinc-500 dark:text-zinc-400">
+                {t.breastCancer.eyebrow}
+              </p>
+            </div>
+            <h2 className="mt-4 text-center text-4xl font-semibold tracking-tight text-zinc-900 dark:text-zinc-50 sm:text-5xl">
+              {t.breastCancer.heading}
+            </h2>
+            <p className="mx-auto mt-6 max-w-3xl text-center text-lg text-zinc-600 dark:text-zinc-400">
+              {t.breastCancer.subtitle}
+            </p>
+          </Reveal>
+
+          {/* Stats strip */}
+          <div className="mt-14 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+            {t.breastCancer.stats.map((s, i) => (
+              <Reveal key={s.label} delay={i * 60}>
+                <div className="card flex h-full flex-col gap-1 p-5">
+                  <p className="text-3xl font-semibold tracking-tight text-pink-600 dark:text-pink-300">
+                    {s.value}
+                  </p>
+                  <p className="text-sm leading-snug text-zinc-700 dark:text-zinc-300">
+                    {s.label}
+                  </p>
+                  <p className="mt-auto pt-2 text-[11px] font-medium uppercase tracking-wider text-zinc-500 dark:text-zinc-500">
+                    {s.source}
+                  </p>
+                </div>
+              </Reveal>
+            ))}
+          </div>
+
+          {/* Intro paragraph */}
+          <Reveal delay={160}>
+            <p className="mx-auto mt-12 max-w-3xl text-center text-base leading-relaxed text-zinc-600 dark:text-zinc-400">
+              {t.breastCancer.intro}
+            </p>
+          </Reveal>
+
+          {/* Procedures */}
+          <Reveal>
+            <h3 className="mt-20 text-center text-2xl font-semibold tracking-tight text-zinc-900 dark:text-zinc-50">
+              {t.breastCancer.proceduresHeading}
+            </h3>
+          </Reveal>
+          <div className="mt-10 grid gap-5 sm:grid-cols-2">
+            {t.breastCancer.procedures.map((p, i) => (
+              <Reveal key={p.name} delay={i * 60}>
+                <article className="card relative flex h-full flex-col overflow-hidden p-6">
+                  <span
+                    aria-hidden
+                    className="absolute inset-x-0 top-0 h-0.5 bg-gradient-to-r from-pink-400 via-pink-300 to-rose-300 opacity-70"
+                  />
+                  <h4 className="text-lg font-semibold text-zinc-900 dark:text-zinc-100">
+                    {p.name}
+                  </h4>
+                  <p className="mt-2 text-sm leading-relaxed text-zinc-600 dark:text-zinc-400">
+                    {p.body}
+                  </p>
+                  <p className="mt-4 rounded-lg bg-pink-50/70 px-3 py-2 text-xs leading-relaxed text-pink-900/80 dark:bg-pink-950/30 dark:text-pink-200/80">
+                    <span className="font-semibold">
+                      {locale === "fa" ? "اندیکاسیون: " : "Typical indication: "}
+                    </span>
+                    {p.indication}
+                  </p>
+                </article>
+              </Reveal>
+            ))}
+          </div>
+
+          {/* Warning signs + approach */}
+          <div className="mt-20 grid gap-6 lg:grid-cols-2">
+            <Reveal>
+              <div className="card flex h-full flex-col p-6">
+                <h3 className="text-xl font-semibold tracking-tight text-zinc-900 dark:text-zinc-50">
+                  {t.breastCancer.signsHeading}
+                </h3>
+                <ul className="mt-4 flex-1 space-y-2.5 text-sm leading-relaxed text-zinc-700 dark:text-zinc-300">
+                  {t.breastCancer.signs.map((s) => (
+                    <li key={s} className="flex items-start gap-2.5">
+                      <span
+                        aria-hidden
+                        className="mt-1.5 inline-block h-1.5 w-1.5 shrink-0 rounded-full bg-pink-500 dark:bg-pink-300"
+                      />
+                      <span>{s}</span>
+                    </li>
+                  ))}
+                </ul>
+                <p className="mt-4 text-xs leading-relaxed text-zinc-500 dark:text-zinc-500">
+                  {t.breastCancer.signsFootnote}
+                </p>
+              </div>
+            </Reveal>
+            <Reveal delay={80}>
+              <div className="card flex h-full flex-col p-6">
+                <h3 className="text-xl font-semibold tracking-tight text-zinc-900 dark:text-zinc-50">
+                  {t.breastCancer.approachHeading}
+                </h3>
+                <p className="mt-4 flex-1 text-sm leading-relaxed text-zinc-600 dark:text-zinc-400">
+                  {t.breastCancer.approachBody}
+                </p>
+                <a
+                  href="#contact"
+                  className="mt-6 inline-flex w-max items-center gap-1 rounded-full bg-pink-600 px-5 py-2.5 text-sm font-medium text-white transition hover:bg-pink-700"
+                >
+                  {t.breastCancer.cta}
+                  <span aria-hidden>→</span>
+                </a>
+              </div>
+            </Reveal>
+          </div>
+
+          <Reveal delay={200}>
+            <p className="mt-10 text-center text-[11px] leading-relaxed text-zinc-500 dark:text-zinc-500">
+              {t.breastCancer.sourcesLabel}
+            </p>
+          </Reveal>
+        </div>
+      </section>
+
       {/* ============== RESEARCH ============== */}
       <section
         id="research"
