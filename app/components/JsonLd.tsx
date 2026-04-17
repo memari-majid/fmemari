@@ -1,7 +1,7 @@
 import { SITE, SITE_URL, SCHOLAR_METRICS } from "@/lib/site";
 import type { Locale } from "@/lib/i18n";
 
-const PERSIAN_NAME = "دکتر فریدون مماری";
+const PERSIAN_NAME = "دکتر فریدون معماری";
 
 export function JsonLd({ locale }: { locale: Locale }) {
   const sameAs = [
