@@ -13,9 +13,10 @@ import {
 import { Publications } from "@/app/components/Publications";
 import { Reveal } from "@/app/components/Reveal";
 import { ScrollToTop } from "@/app/components/ScrollToTop";
-import { SCHOLAR_METRICS, SITE } from "@/lib/site";
+import { CLINIC, SCHOLAR_METRICS, SITE } from "@/lib/site";
 import {
   formatNumber,
+  localizeDigits,
   type Dictionary,
   type Locale,
 } from "@/lib/i18n";
@@ -185,6 +186,28 @@ export function HomePageContent({
 
         <div className="relative z-10 mx-auto min-w-0 max-w-4xl px-4 text-center sm:px-6">
           <Reveal>
+            {/* Awareness-ribbon cluster — signals the cancer-research focus
+                through the four cancer-specialties Dr. Memari operates on:
+                breast, stomach, colorectal, and thyroid. The ribbons are
+                decorative, but the SVG `<title>` provides accessible labels. */}
+            <div
+              aria-hidden={false}
+              aria-label={
+                locale === "fa"
+                  ? "نمادهای آگاهی از سرطان"
+                  : "Cancer-awareness ribbons"
+              }
+              className="mb-4 flex items-center justify-center gap-1.5"
+            >
+              {CANCER_RIBBON_COLORS.map((color, i) => (
+                <span key={i} className={color}>
+                  <AwarenessRibbon
+                    className="h-4 w-3 drop-shadow-sm"
+                    title={t.services.awarenessLabels[i]}
+                  />
+                </span>
+              ))}
+            </div>
             <p className="mb-6 text-xs font-medium uppercase tracking-[0.2em] text-zinc-500 dark:text-zinc-400">
               {t.hero.role}
             </p>
@@ -591,6 +614,70 @@ export function HomePageContent({
         </div>
       </section>
 
+      {/* ============== NEWS / ADVANCES ============== */}
+      <section
+        id="news"
+        className="relative scroll-mt-20 overflow-hidden border-t border-zinc-200/80 bg-zinc-50/70 px-4 py-32 dark:border-zinc-800/40 dark:bg-zinc-900/40 sm:px-6"
+      >
+        {/* Subtle helix motif — ties the news strip visually to the research
+            themes (ncRNA, CAR-T, gene editing) while keeping the card area
+            readable. */}
+        <DnaHelixBackground className="pointer-events-none absolute -top-10 end-0 -z-0 hidden h-80 w-80 rotate-12 text-emerald-500/10 dark:text-emerald-400/[0.08] sm:block" />
+        <div className="relative mx-auto max-w-6xl">
+          <Reveal>
+            <div className="flex items-center justify-center gap-2">
+              <span
+                aria-hidden
+                className="inline-flex h-2 w-2 rounded-full bg-emerald-500 shadow-[0_0_0_4px_rgba(16,185,129,0.15)] motion-safe:animate-pulse"
+              />
+              <p className="text-center text-xs font-medium uppercase tracking-[0.2em] text-zinc-500 dark:text-zinc-400">
+                {t.news.eyebrow}
+              </p>
+            </div>
+            <h2 className="mt-4 text-center text-4xl font-semibold tracking-tight text-zinc-900 dark:text-zinc-50 sm:text-5xl">
+              {t.news.heading}
+            </h2>
+            <p className="mx-auto mt-6 max-w-2xl text-center text-lg text-zinc-600 dark:text-zinc-400">
+              {t.news.subtitle}
+            </p>
+          </Reveal>
+          <div className="mt-16 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+            {t.news.items.map((item, i) => (
+              <Reveal key={item.title} delay={i * 60}>
+                <article className="card group relative flex h-full flex-col overflow-hidden p-6">
+                  <span
+                    aria-hidden
+                    className="absolute inset-x-0 top-0 h-0.5 bg-gradient-to-r from-emerald-400 via-teal-400 to-sky-400 opacity-70"
+                  />
+                  <div className="flex items-center justify-between gap-3">
+                    <span className="inline-flex items-center gap-1.5 rounded-full border border-emerald-200/80 bg-emerald-50/70 px-2.5 py-0.5 text-[11px] font-medium text-emerald-800 dark:border-emerald-900/50 dark:bg-emerald-950/40 dark:text-emerald-300">
+                      <span className="text-pink-500 dark:text-pink-300">
+                        <AwarenessRibbon className="h-3 w-2" />
+                      </span>
+                      {item.tag}
+                    </span>
+                    <span className="text-[11px] font-medium text-zinc-500 dark:text-zinc-400">
+                      {item.year}
+                    </span>
+                  </div>
+                  <h3 className="mt-4 text-lg font-semibold text-zinc-900 dark:text-zinc-100">
+                    {item.title}
+                  </h3>
+                  <p className="mt-2 flex-1 text-sm leading-relaxed text-zinc-600 dark:text-zinc-400">
+                    {item.body}
+                  </p>
+                </article>
+              </Reveal>
+            ))}
+          </div>
+          <Reveal delay={200}>
+            <p className="mx-auto mt-10 max-w-2xl text-center text-[11px] leading-relaxed text-zinc-500 dark:text-zinc-500">
+              {t.news.footnote}
+            </p>
+          </Reveal>
+        </div>
+      </section>
+
       {/* ============== PUBLICATIONS ============== */}
       <section
         id="publications"
@@ -730,7 +817,7 @@ export function HomePageContent({
             </div>
           </Reveal>
 
-          <div className="mt-20 grid gap-4 sm:grid-cols-2">
+          <div className="mt-20 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
             <Reveal delay={80}>
               <a
                 href={`mailto:${SITE.email}`}
@@ -771,6 +858,58 @@ export function HomePageContent({
                   {t.contact.cards.locationLine}
                 </p>
               </a>
+            </Reveal>
+            <Reveal delay={160}>
+              <div className="card flex flex-col gap-2 p-6">
+                <p className="text-xs font-medium uppercase tracking-wider text-emerald-700 dark:text-emerald-400">
+                  {t.contact.cards.clinicLabel}
+                </p>
+                <p className="text-base font-semibold text-zinc-900 dark:text-zinc-100">
+                  {t.contact.cards.clinicName}
+                </p>
+                <p className="text-xs leading-relaxed text-zinc-600 dark:text-zinc-400">
+                  {localizeDigits(
+                    locale === "fa" ? CLINIC.addressFa : CLINIC.addressEn,
+                    locale,
+                  )}
+                </p>
+                <div className="mt-1 flex flex-col gap-1.5 text-xs text-zinc-600 dark:text-zinc-400">
+                  <div className="flex items-baseline gap-2">
+                    <span className="shrink-0 text-[10px] font-semibold uppercase tracking-wider text-zinc-500 dark:text-zinc-500">
+                      {t.contact.cards.clinicPhoneLabel}
+                    </span>
+                    <a
+                      href={`tel:${CLINIC.phone}`}
+                      dir="ltr"
+                      className="font-medium text-zinc-800 transition-colors hover:text-emerald-700 dark:text-zinc-200 dark:hover:text-emerald-400"
+                    >
+                      {locale === "fa"
+                        ? localizeDigits(CLINIC.phoneDisplayFa, locale)
+                        : CLINIC.phoneDisplay}
+                    </a>
+                  </div>
+                  <div className="flex items-baseline gap-2">
+                    <span className="shrink-0 text-[10px] font-semibold uppercase tracking-wider text-zinc-500 dark:text-zinc-500">
+                      {t.contact.cards.clinicHoursLabel}
+                    </span>
+                    <span>
+                      {localizeDigits(
+                        locale === "fa" ? CLINIC.hoursFa : CLINIC.hoursEn,
+                        locale,
+                      )}
+                    </span>
+                  </div>
+                </div>
+                <a
+                  href={CLINIC.mapsUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="mt-2 inline-flex w-max items-center gap-1 text-xs font-medium text-emerald-700 hover:text-emerald-800 dark:text-emerald-400 dark:hover:text-emerald-300"
+                >
+                  {t.contact.cards.clinicMapsLabel}
+                  <span aria-hidden>→</span>
+                </a>
+              </div>
             </Reveal>
           </div>
 

@@ -1,4 +1,4 @@
-import { SITE, SITE_URL, SCHOLAR_METRICS } from "@/lib/site";
+import { CLINIC, SITE, SITE_URL, SCHOLAR_METRICS } from "@/lib/site";
 import type { Locale } from "@/lib/i18n";
 
 const PERSIAN_NAME = "دکتر فریدون معماری";
@@ -45,6 +45,24 @@ export function JsonLd({ locale }: { locale: Locale }) {
       },
       address: {
         "@type": "PostalAddress",
+        addressLocality: SITE.addressLocality,
+        addressCountry: SITE.addressCountry,
+      },
+    },
+    hasPOS: {
+      "@type": "MedicalClinic",
+      name:
+        locale === "fa"
+          ? "مطب دکتر فریدون معماری — ساختمان پزشکان توانیر"
+          : "Dr. Fereidoon Memari's Office — Tavanir Physicians Building",
+      telephone: CLINIC.phone,
+      hasMap: CLINIC.mapsUrl,
+      url: CLINIC.mapsUrl,
+      openingHours: "Su,Tu,Th 16:00-18:00",
+      address: {
+        "@type": "PostalAddress",
+        streetAddress:
+          locale === "fa" ? CLINIC.addressFa : CLINIC.addressEn,
         addressLocality: SITE.addressLocality,
         addressCountry: SITE.addressCountry,
       },

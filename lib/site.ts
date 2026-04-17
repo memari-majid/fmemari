@@ -38,6 +38,39 @@ export const SITE = {
   nobatIr: "" as string,
 } as const;
 
+/**
+ * Private clinic (مطب) details. This is the outpatient consultation office
+ * where Dr. Memari sees non-hospital-admitted patients, separate from his
+ * appointments at the Cancer Institute and Laleh / Sasan hospitals.
+ *
+ * Sources: published directory listings (nobat.ir, doctor-yab, paziresh24)
+ * and the Balad/Neshan map record for the practice.
+ */
+export const CLINIC = {
+  /** Full international phone, suitable for tel: links. */
+  phone: "+982188879169",
+  /** English display phone. */
+  phoneDisplay: "+98 21 8887 9169",
+  /** Farsi display phone (Iranian digits applied at render time). */
+  phoneDisplayFa: "021-88879169",
+  /** English street address for structured data / LTR UIs. */
+  addressEn:
+    "No. 30, Tavanir Physicians Building, 4th Floor, Unit 19, Tavanir St. (near Hemmat Expressway), Tehran, Iran",
+  /** Farsi address. Western digits on purpose — the render helper converts. */
+  addressFa:
+    "تهران، خیابان توانیر، نرسیده به بزرگراه همت، پلاک 30، ساختمان پزشکان توانیر، طبقه 4، واحد 19",
+  /** Short postal/locality line for the hero / footer. */
+  locality: "Tavanir, Tehran",
+  localityFa: "توانیر، تهران",
+  /** Opening hours in OpenGraph-friendly form (ISO-8601-ish day tokens). */
+  hoursEn: "Even-numbered days of the Iranian week, 4:00 PM – 6:00 PM",
+  hoursFa: "روزهای زوج، ساعت 16 تا 18",
+  /** Public map link. Neshan record for the clinic. */
+  mapsUrl:
+    "https://neshan.org/maps/places/bdc2e6cff263efebde2cf2ba612ee663",
+  mapsLabel: "Neshan",
+} as const;
+
 export const SCHOLAR_METRICS = {
   citationsTotal: 582,
   citationsSince2021: 481,

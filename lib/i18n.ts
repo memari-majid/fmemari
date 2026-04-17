@@ -181,7 +181,26 @@ export type Dictionary = {
       emailNote: string;
       affiliationLabel: string;
       locationLine: string;
+      clinicLabel: string;
+      clinicName: string;
+      clinicPhoneLabel: string;
+      clinicHoursLabel: string;
+      clinicMapsLabel: string;
     };
+  };
+
+  // ---- Research news / breakthroughs
+  news: {
+    eyebrow: string;
+    heading: string;
+    subtitle: string;
+    items: {
+      tag: string;
+      title: string;
+      body: string;
+      year: string;
+    }[];
+    footnote: string;
   };
 
   // ---- FAQ
@@ -214,6 +233,7 @@ export const en: Dictionary = {
       { label: "About", href: "#about" },
       { label: "Services", href: "#services" },
       { label: "Research", href: "#research" },
+      { label: "Advances", href: "#news" },
       { label: "Publications", href: "#publications" },
       { label: "Teaching", href: "#teaching" },
       { label: "Contact", href: "#contact" },
@@ -418,7 +438,53 @@ export const en: Dictionary = {
       emailNote: "Replied to as Dr. Memari's schedule allows.",
       affiliationLabel: "Affiliation",
       locationLine: "Tehran, Iran",
+      clinicLabel: "Private clinic",
+      clinicName: "Tavanir Physicians Building",
+      clinicPhoneLabel: "Phone",
+      clinicHoursLabel: "Consultation hours",
+      clinicMapsLabel: "Open in Neshan Maps",
     },
+  },
+
+  news: {
+    eyebrow: "Field updates",
+    heading: "Recent advances in cancer research",
+    subtitle:
+      "A curated, non-exhaustive view of 2025 breakthroughs closest to Dr. Memari's research lines — surgical oncology, non-coding RNAs and immunotherapy, and digital / AI-assisted detection.",
+    items: [
+      {
+        tag: "mRNA vaccines",
+        year: "2024–2025",
+        title: "Personalized mRNA cancer vaccines cross the clinical threshold",
+        body: "Phase-2 data for mRNA-4157 with pembrolizumab showed a ~44% reduction in melanoma recurrence, and a pancreatic-cancer trial at Memorial Sloan Kettering with BioNTech reported vaccine-induced T-cell responses persisting for nearly four years after treatment.",
+      },
+      {
+        tag: "KRAS inhibitors",
+        year: "2025",
+        title: "First-in-class KRAS-G12D drugs enter human trials",
+        body: "A phase-1 inhibitor targeting KRAS-G12D produced substantial tumor shrinkage in roughly 61% of early non-small-cell lung-cancer patients — the first drug against a mutation long considered undruggable. Pan-KRAS compounds and PROTAC degraders are advancing in parallel for pancreatic cancer.",
+      },
+      {
+        tag: "Cellular therapy",
+        year: "2025",
+        title: "CAR-T crosses into solid tumors",
+        body: "CLDN18.2-directed CAR-T cells demonstrated survival benefits in advanced gastric and gastroesophageal-junction cancers — the first clear solid-tumor CAR-T win — while off-the-shelf allogeneic CAR-T platforms continued progressing through phase 1/2 trials.",
+      },
+      {
+        tag: "Multi-cancer early detection",
+        year: "2025",
+        title: "AI-powered liquid biopsy approaches multi-cancer screening",
+        body: "A cell-free-RNA assay combined with AI classifiers detected colorectal, lung, prostate, pancreatic, and breast cancers across 1,000+ patient samples with a 92% AUC and 80% sensitivity for stage-I disease — moving multi-cancer early detection (MCED) blood tests closer to primary-care use.",
+      },
+      {
+        tag: "Gene editing",
+        year: "2025",
+        title: "CRISPR-edited TILs erase metastases in gastrointestinal cancer",
+        body: "A University of Minnesota team reported that CRISPR-edited tumor-infiltrating lymphocytes cleared metastatic disease in a patient with advanced gastrointestinal cancer — an early but striking demonstration of gene-edited adoptive cell therapy in solid tumors.",
+      },
+    ],
+    footnote:
+      "Summaries from AACR, ASCO, and peer-reviewed coverage. Individual trial results do not constitute medical advice.",
   },
 
   faq: {
@@ -469,6 +535,15 @@ const FA_DIGITS = "۰۱۲۳۴۵۶۷۸۹";
 const toFaDigits = (n: number | string): string =>
   String(n).replace(/[0-9]/g, (d) => FA_DIGITS[Number(d)]);
 
+/**
+ * Convert any Western-digit runs in a string to Persian digits when the
+ * locale is `fa`. Safe for mixed Farsi + ASCII text like addresses and
+ * opening hours.
+ */
+export function localizeDigits(s: string, locale: Locale): string {
+  return locale === "fa" ? toFaDigits(s) : s;
+}
+
 export const fa: Dictionary = {
   locale: "fa",
   direction: "rtl",
@@ -479,6 +554,7 @@ export const fa: Dictionary = {
       { label: "درباره", href: "#about" },
       { label: "تخصص‌ها", href: "#services" },
       { label: "پژوهش", href: "#research" },
+      { label: "پیشرفت‌ها", href: "#news" },
       { label: "مقالات", href: "#publications" },
       { label: "تدریس", href: "#teaching" },
       { label: "تماس", href: "#contact" },
@@ -686,7 +762,53 @@ export const fa: Dictionary = {
       emailNote: "پاسخ‌گویی متناسب با برنامه‌ی دکتر معماری انجام می‌شود.",
       affiliationLabel: "محل خدمت",
       locationLine: "تهران، ایران",
+      clinicLabel: "مطب شخصی",
+      clinicName: "ساختمان پزشکان توانیر",
+      clinicPhoneLabel: "تلفن",
+      clinicHoursLabel: "ساعات ویزیت",
+      clinicMapsLabel: "مشاهده روی نقشه نشان",
     },
+  },
+
+  news: {
+    eyebrow: "رویدادهای علمی",
+    heading: "تازه‌ترین پیشرفت‌های پژوهش سرطان",
+    subtitle:
+      "گزیده‌ای از مهم‌ترین دستاوردهای سال ۲۰۲۵ در زمینه‌های نزدیک به خط پژوهشی دکتر معماری — جراحی انکولوژی، RNAهای غیرکدکننده و ایمنی‌درمانی، و تشخیص دیجیتال با کمک هوش مصنوعی.",
+    items: [
+      {
+        tag: "واکسن‌های mRNA",
+        year: "۲۰۲۴–۲۰۲۵",
+        title: "عبور واکسن‌های شخصی‌سازی‌شده mRNA از آستانه‌ی بالینی",
+        body: "داده‌های فاز ۲ واکسن mRNA-4157 همراه با پمبرولیزوماب حدود ۴۴ درصد کاهش عود ملانوم را نشان داد و کارآزمایی سرطان پانکراس در مرکز اسلون‌کترینگ با همکاری BioNTech گزارش کرد که پاسخ سلول‌های T حاصل از واکسن تا حدود چهار سال پس از درمان پایدار مانده است.",
+      },
+      {
+        tag: "مهارکننده‌های KRAS",
+        year: "۲۰۲۵",
+        title: "ورود نخستین داروهای KRAS-G12D به کارآزمایی‌های انسانی",
+        body: "یک مهارکننده‌ی فاز ۱ علیه جهش KRAS-G12D در حدود ۶۱ درصد از بیماران سرطان ریه‌ی غیرسلول‌کوچک، کاهش قابل‌توجه اندازه‌ی تومور ایجاد کرد — نخستین داروی موفق علیه جهشی که تا امروز «غیرقابل مهار» دانسته می‌شد. ترکیبات پان-KRAS و تخریب‌کننده‌های PROTAC نیز به‌موازات برای سرطان پانکراس در دست توسعه‌اند.",
+      },
+      {
+        tag: "سلول‌درمانی",
+        year: "۲۰۲۵",
+        title: "گذر CAR-T به تومورهای جامد",
+        body: "در مهم‌ترین نشست‌های علمی ۲۰۲۵، سلول‌های CAR-T هدف‌گرفته با CLDN18.2 در سرطان‌های پیشرفته‌ی معده و محل اتصال معده و مری، مزیت بقا نشان دادند — نخستین پیروزی روشن CAR-T در یک تومور جامد. سکوهای CAR-T آلوژنیک و «آماده‌مصرف» نیز در کارآزمایی‌های فاز ۱/۲ پیش رفتند.",
+      },
+      {
+        tag: "تشخیص زودهنگام چند-سرطانی",
+        year: "۲۰۲۵",
+        title: "نزدیک‌شدن بیوپسی مایع مبتنی بر هوش مصنوعی به غربالگری چندگانه",
+        body: "یک آزمایش مبتنی بر RNAی خارج‌سلولی همراه با طبقه‌بندی‌کننده‌های هوش مصنوعی در بیش از ۱۰۰۰ نمونه، پنج سرطان روده‌ی بزرگ، ریه، پروستات، پانکراس و پستان را با AUC حدود ۹۲٪ و حساسیت ۸۰٪ برای بیماری مرحله‌ی I تشخیص داد؛ گامی مهم برای نزدیک‌تر شدن آزمایش‌های خون MCED به مراقبت اولیه.",
+      },
+      {
+        tag: "ویرایش ژن",
+        year: "۲۰۲۵",
+        title: "پاک‌سازی متاستاز سرطان گوارش با TIL ویرایش‌شده با CRISPR",
+        body: "پژوهشگران دانشگاه مینه‌سوتا گزارش کردند که لنفوسیت‌های نفوذکننده به تومور (TIL) پس از ویرایش با CRISPR توانستند بیماری متاستاتیک را در یک بیمار مبتلا به سرطان پیشرفته‌ی گوارش از بین ببرند — نمایشی اولیه اما چشم‌گیر از سلول‌درمانی اتولوگ ویرایش‌شده‌ی ژنی در تومورهای جامد.",
+      },
+    ],
+    footnote:
+      "برگرفته از گزارش‌های AACR، ASCO و منابع داور-پسند. نتایج کارآزمایی‌های منفرد جایگزین توصیه‌ی پزشکی نیستند.",
   },
 
   faq: {
