@@ -1,18 +1,22 @@
 import type { Metadata, Viewport } from "next";
-import "./globals.css";
+import "../globals.css";
 import { ThemeProvider } from "@/app/components/ThemeProvider";
 import { SITE, SITE_URL } from "@/lib/site";
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   title: {
-    default:
-      "Dr. Fereidoon Memari — Surgical Oncologist & Cancer Researcher",
+    default: "Dr. Fereidoon Memari — Surgical Oncologist & Cancer Researcher",
     template: "%s | Dr. Fereidoon Memari",
   },
   description: SITE.description,
   alternates: {
     canonical: "/",
+    languages: {
+      en: "/",
+      fa: "/fa",
+      "x-default": "/",
+    },
   },
   openGraph: {
     title: SITE.fullName,
@@ -22,6 +26,7 @@ export const metadata: Metadata = {
     siteName: SITE.name,
     type: "profile",
     locale: "en_US",
+    alternateLocale: ["fa_IR"],
     images: [
       {
         url: "/fereidoon-memari.jpg",
@@ -80,13 +85,13 @@ export const viewport: Viewport = {
   viewportFit: "cover",
 };
 
-export default function RootLayout({
+export default function EnRootLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html lang="en" dir="ltr" suppressHydrationWarning>
       <body className="min-w-0 overflow-x-hidden antialiased">
         <ThemeProvider>{children}</ThemeProvider>
       </body>

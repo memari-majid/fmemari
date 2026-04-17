@@ -1,6 +1,9 @@
 import { SITE, SITE_URL, SCHOLAR_METRICS } from "@/lib/site";
+import type { Locale } from "@/lib/i18n";
 
-export function JsonLd() {
+const PERSIAN_NAME = "دکتر فریدون مماری";
+
+export function JsonLd({ locale }: { locale: Locale }) {
   const sameAs = [
     SITE.scholar,
     SITE.orcid,
@@ -10,13 +13,21 @@ export function JsonLd() {
     SITE.nobatIr,
   ].filter((s): s is string => Boolean(s && s.length > 0));
 
+  // Both locales advertise the same set of name spellings so search engines
+  // associate each variant with the same Person.
+  const alternateNames = [
+    SITE.shortName,
+    SITE.nameAlternate,
+    PERSIAN_NAME,
+  ].filter((n) => n !== SITE.fullName);
+
   const data = {
     "@context": "https://schema.org",
     "@type": "Physician",
-    name: SITE.fullName,
-    alternateName: [SITE.shortName, SITE.nameAlternate],
+    name: locale === "fa" ? PERSIAN_NAME : SITE.fullName,
+    alternateName: alternateNames,
     honorificPrefix: SITE.honorific,
-    url: SITE_URL,
+    url: locale === "fa" ? `${SITE_URL}/fa` : SITE_URL,
     image: `${SITE_URL}/fereidoon-memari.jpg`,
     jobTitle: `${SITE.academicRank}, Surgical Oncologist`,
     description: SITE.description,
@@ -52,6 +63,7 @@ export function JsonLd() {
       "Cancer immunotherapy",
       "Digital health for cancer survivors",
     ],
+    knowsLanguage: ["en", "fa"],
     availableService: [
       {
         "@type": "MedicalProcedure",

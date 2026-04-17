@@ -64,6 +64,23 @@ Publication data lives in [`lib/publications.ts`](./lib/publications.ts) as a si
 
 `SCHOLAR_METRICS` (h-index, total citations, etc.) lives in [`lib/site.ts`](./lib/site.ts) and is rendered in the hero.
 
+## Languages (English + Persian)
+
+The site is fully bilingual:
+
+- **`/`** serves the English version (`<html lang="en" dir="ltr">`)
+- **`/fa`** serves the Persian version (`<html lang="fa-IR" dir="rtl">`) with the [Vazirmatn](https://github.com/rastikerdar/vazirmatn) font (loaded via `next/font/google`) and Persian numerals throughout
+
+The two versions share component code; only the dictionary differs. A small EN/FA toggle lives in the navbar on every page. Both pages emit `hreflang` `alternate` link tags pointing at the other language and the sitemap declares both URLs as alternates.
+
+### Editing translations
+
+All UI strings live in [`lib/i18n.ts`](./lib/i18n.ts) — one big typed `Dictionary` shape with two implementations (`en` and `fa`). To change a string in one language, edit the corresponding leaf in that dictionary and TypeScript will tell you if anything is missing in the other.
+
+Some content stays in English on the Persian site by design — these are bibliographic records (paper titles, journal names) and the email address. This is standard practice on bilingual academic sites because the underlying citation records are English.
+
+> **Translation review:** the Persian translations were produced from the English source with care for medical terminology, but should still be reviewed by a native Persian speaker familiar with surgical-oncology vocabulary before being treated as final.
+
 ## Open items (need confirmation from Dr. Memari)
 
 The following placeholders are wired up but currently empty in `lib/site.ts`. Fill them in to enable the corresponding profile links in the footer / JSON-LD:
@@ -71,7 +88,6 @@ The following placeholders are wired up but currently empty in `lib/site.ts`. Fi
 - ORCID iD (`SITE.orcid`)
 - Scopus author ID (`SITE.scopus`)
 - ResearchGate profile (`SITE.researchgate`)
-- Whether a Farsi-language version is needed (currently English-only)
 - Clinical appointments, teaching courses, and grants to highlight
 
 The profile photo lives at `public/fereidoon-memari.jpg`. To swap it, replace

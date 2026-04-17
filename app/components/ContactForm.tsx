@@ -2,20 +2,12 @@
 
 import { useState } from "react";
 import { SITE } from "@/lib/site";
-
-const CATEGORY_LABEL: Record<string, string> = {
-  collaboration: "Research collaboration",
-  publication: "Publication inquiry",
-  student: "Student / supervision",
-  speaking: "Speaking & invited talks",
-  clinical: "Clinical inquiry",
-  general: "General",
-};
+import type { Dictionary } from "@/lib/i18n";
 
 const inputClass =
-  "w-full rounded-lg border border-zinc-300 bg-white px-4 py-2.5 text-base text-zinc-900 placeholder:text-zinc-500 focus:border-sky-600 focus:outline-none focus:ring-1 focus:ring-sky-600 sm:text-sm dark:border-zinc-800 dark:bg-zinc-900/60 dark:text-zinc-100 dark:placeholder:text-zinc-500";
+  "w-full rounded-lg border border-zinc-300 bg-white px-4 py-2.5 text-base text-zinc-900 placeholder:text-zinc-500 focus:border-emerald-600 focus:outline-none focus:ring-1 focus:ring-emerald-600 sm:text-sm dark:border-zinc-800 dark:bg-zinc-900/60 dark:text-zinc-100 dark:placeholder:text-zinc-500";
 
-export function ContactForm() {
+export function ContactForm({ t }: { t: Dictionary["contact"]["form"] }) {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [message, setMessage] = useState("");
@@ -63,7 +55,7 @@ export function ContactForm() {
       setMessage("");
     } catch {
       setStatus("error");
-      setErrorMsg("Network error. Please try again or email directly.");
+      setErrorMsg(t.networkError);
     }
   }
 
@@ -75,7 +67,7 @@ export function ContactForm() {
             htmlFor="contact-name"
             className="mb-1.5 block text-xs font-medium text-zinc-600 dark:text-zinc-400"
           >
-            Name
+            {t.name}
           </label>
           <input
             id="contact-name"
@@ -86,7 +78,7 @@ export function ContactForm() {
             value={name}
             onChange={(e) => setName(e.target.value)}
             className={inputClass}
-            placeholder="Your name"
+            placeholder={t.namePlaceholder}
           />
         </div>
         <div>
@@ -94,7 +86,7 @@ export function ContactForm() {
             htmlFor="contact-email"
             className="mb-1.5 block text-xs font-medium text-zinc-600 dark:text-zinc-400"
           >
-            Email
+            {t.email}
           </label>
           <input
             id="contact-email"
@@ -105,7 +97,8 @@ export function ContactForm() {
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             className={inputClass}
-            placeholder="you@institution.edu"
+            placeholder={t.emailPlaceholder}
+            dir="ltr"
           />
         </div>
       </div>
@@ -114,7 +107,7 @@ export function ContactForm() {
           htmlFor="contact-message"
           className="mb-1.5 block text-xs font-medium text-zinc-600 dark:text-zinc-400"
         >
-          Message
+          {t.message}
         </label>
         <textarea
           id="contact-message"
@@ -124,32 +117,30 @@ export function ContactForm() {
           value={message}
           onChange={(e) => setMessage(e.target.value)}
           className={inputClass}
-          placeholder="Briefly describe your collaboration, citation question, or invitation."
+          placeholder={t.messagePlaceholder}
         />
       </div>
       <p className="text-[11px] leading-relaxed text-zinc-500 dark:text-zinc-500">
-        This form is not intended for individual medical advice. For clinical
-        questions, please consult your treating physician or contact the Cancer
-        Institute of Iran directly.
+        {t.disclaimer}
       </p>
       <div className="flex flex-wrap items-center gap-4">
         <button
           type="submit"
           disabled={status === "loading"}
-          className="rounded-lg bg-sky-600 px-6 py-2.5 text-sm font-semibold text-white transition hover:bg-sky-500 disabled:opacity-60"
+          className="rounded-lg bg-emerald-600 px-6 py-2.5 text-sm font-semibold text-white transition hover:bg-emerald-500 disabled:opacity-60"
         >
-          {status === "loading" ? "Sending…" : "Send message"}
+          {status === "loading" ? t.submitting : t.submit}
         </button>
         {status === "success" && (
-          <div className="w-full space-y-3 rounded-xl border border-emerald-200 bg-emerald-50/80 px-4 py-3 text-left dark:border-emerald-900/50 dark:bg-emerald-950/20">
+          <div className="w-full space-y-3 rounded-xl border border-emerald-200 bg-emerald-50/80 px-4 py-3 text-start dark:border-emerald-900/50 dark:bg-emerald-950/20">
             <p className="text-sm font-medium text-emerald-800 dark:text-emerald-400">
-              Message received
+              {t.successHeading}
             </p>
             {category && (
               <p className="text-xs text-zinc-600 dark:text-zinc-500">
-                Routed as:{" "}
+                {t.routedAs}{" "}
                 <span className="font-medium text-zinc-800 dark:text-zinc-300">
-                  {CATEGORY_LABEL[category] ?? category}
+                  {t.categoryLabels[category] ?? category}
                 </span>
               </p>
             )}
@@ -165,10 +156,11 @@ export function ContactForm() {
         )}
       </div>
       <p className="text-xs text-zinc-500 dark:text-zinc-600">
-        Prefer email? Reach Dr. Memari at{" "}
+        {t.preferEmail}{" "}
         <a
           href={`mailto:${SITE.email}`}
-          className="break-all text-sky-600 hover:underline dark:text-sky-400"
+          className="break-all text-emerald-600 hover:underline dark:text-emerald-400"
+          dir="ltr"
         >
           {SITE.emailDisplay}
         </a>

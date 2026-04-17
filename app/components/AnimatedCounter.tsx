@@ -1,15 +1,18 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import { formatNumber, type Locale } from "@/lib/i18n";
 
 export function AnimatedCounter({
   end,
   suffix = "",
   duration = 2000,
+  locale = "en",
 }: {
   end: number;
   suffix?: string;
   duration?: number;
+  locale?: Locale;
 }) {
   const ref = useRef<HTMLSpanElement>(null);
   const [value, setValue] = useState(0);
@@ -41,7 +44,7 @@ export function AnimatedCounter({
 
   return (
     <span ref={ref}>
-      {value}
+      {formatNumber(value, locale)}
       {suffix}
     </span>
   );

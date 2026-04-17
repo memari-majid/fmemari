@@ -8,91 +8,70 @@ import { Publications } from "@/app/components/Publications";
 import { Reveal } from "@/app/components/Reveal";
 import { ScrollToTop } from "@/app/components/ScrollToTop";
 import { SCHOLAR_METRICS, SITE } from "@/lib/site";
+import {
+  formatNumber,
+  type Dictionary,
+  type Locale,
+} from "@/lib/i18n";
 
 /* ------------------------------------------------------------------ */
-/*  Data                                                               */
+/*  Tiny inline-markdown renderer                                      */
+/*  Supports **bold** and *italic* — just enough for the dictionary    */
+/*  prose without pulling in a real markdown library.                  */
 /* ------------------------------------------------------------------ */
 
-const HERO_METRICS = [
-  {
-    value: SCHOLAR_METRICS.citationsTotal,
-    label: "Citations",
-    sub: `${SCHOLAR_METRICS.citationsSince2021} since 2021`,
-  },
-  {
-    value: SCHOLAR_METRICS.hIndex,
-    label: "h-index",
-    sub: `${SCHOLAR_METRICS.hIndexSince2021} since 2021`,
-  },
-  {
-    value: SCHOLAR_METRICS.i10Index,
-    label: "i10-index",
-    sub: `${SCHOLAR_METRICS.i10IndexSince2021} since 2021`,
-  },
-];
+function renderInline(text: string): ReactNode[] {
+  const parts: ReactNode[] = [];
+  let cursor = 0;
+  const re = /\*\*(.+?)\*\*|\*(.+?)\*/g;
+  let m: RegExpExecArray | null;
+  let key = 0;
+  while ((m = re.exec(text)) !== null) {
+    if (m.index > cursor) parts.push(text.slice(cursor, m.index));
+    if (m[1] !== undefined) {
+      parts.push(
+        <strong key={key++} className="text-zinc-900 dark:text-zinc-100">
+          {m[1]}
+        </strong>,
+      );
+    } else if (m[2] !== undefined) {
+      parts.push(<em key={key++}>{m[2]}</em>);
+    }
+    cursor = re.lastIndex;
+  }
+  if (cursor < text.length) parts.push(text.slice(cursor));
+  return parts;
+}
 
-const CLINICAL_SERVICES: {
-  title: string;
-  body: string;
-  icon: string;
-  bullets: string[];
-}[] = [
-  {
-    title: "Cancer surgery",
-    body: "Specialized focus on cancers of the breast, gastrointestinal tract, and thyroid — from staging to definitive resection and combined procedures in complex cases.",
-    icon: "scalpel",
-    bullets: [
-      "Breast cancer",
-      "Stomach cancer",
-      "Colon cancer",
-      "Thyroid cancer",
-    ],
-  },
-  {
-    title: "Oncoplastic & reconstructive surgery",
-    body: "Combining cancer resection with aesthetic and reconstructive technique — particularly for breast oncoplasty and abdominal procedures — so that oncologic outcomes and quality of life advance together.",
-    icon: "ribbon",
-    bullets: ["Breast oncoplasty", "Abdominal aesthetic surgery"],
-  },
-  {
-    title: "Advanced surgical techniques",
-    body: "Minimally invasive (laparoscopic) approaches and vascular procedures applied to both general surgery and complex oncologic cases.",
-    icon: "laparoscope",
-    bullets: ["Laparoscopic / minimally invasive", "Vascular procedures"],
-  },
-];
-
-const RESEARCH_INTERESTS: { title: string; body: string; icon: string }[] = [
-  {
-    title: "Cancer biology & non-coding RNAs",
-    body: "siRNA, microRNA, piRNA, lncRNA, and ceRNA networks in colorectal, gastric, breast, and renal cancers — both as therapeutic levers and as candidate diagnostic biomarkers.",
-    icon: "dna",
-  },
-  {
-    title: "Surgical oncology",
-    body: "Clinical and translational work across gastrointestinal, head and neck, breast, and renal cancers, including microvascular reconstruction and management during disrupted care (e.g. COVID-19).",
-    icon: "scalpel",
-  },
-  {
-    title: "Cancer immunotherapy",
-    body: "Reviews and translational studies on the evolving immunotherapy landscape — including chimeric protein design and tumor lysis syndrome in electrochemotherapy.",
-    icon: "shield",
-  },
-  {
-    title: "Digital health for cancer survivors",
-    body: "Smartphone- and IoT-enabled remote monitoring for colorectal cancer survivors, bringing patient-reported outcomes and continuous data into clinical follow-up.",
-    icon: "device",
-  },
-];
-
-const FOOTER_LINKS = [
-  { label: "About", href: "#about" },
-  { label: "Services", href: "#services" },
-  { label: "Research", href: "#research" },
-  { label: "Publications", href: "#publications" },
-  { label: "Teaching", href: "#teaching" },
-  { label: "Contact", href: "#contact" },
-];
+/**
+ * Render the affiliation-line bio text, replacing the {{tums}} and
+ * {{cancerInstitute}} tokens with proper external links and the {{years}}
+ * token with the locale-formatted experience.
+ */
+function renderAffiliationLine(
+  template: string,
+  links: { tums: ReactNode; cancerInstitute: ReactNode; years: ReactNode },
+): ReactNode[] {
+  const out: ReactNode[] = [];
+  const tokenRe = /\{\{(tums|cancerInstitute|years)\}\}/g;
+  let cursor = 0;
+  let key = 0;
+  let m: RegExpExecArray | null;
+  while ((m = tokenRe.exec(template)) !== null) {
+    if (m.index > cursor) {
+      const slice = template.slice(cursor, m.index);
+      out.push(<span key={key++}>{renderInline(slice)}</span>);
+    }
+    out.push(
+      <span key={key++}>{links[m[1] as "tums" | "cancerInstitute" | "years"]}</span>,
+    );
+    cursor = tokenRe.lastIndex;
+  }
+  if (cursor < template.length) {
+    out.push(<span key={key++}>{renderInline(template.slice(cursor))}</span>);
+  }
+  return out;
+}
 
 /* ------------------------------------------------------------------ */
 /*  Icons                                                              */
@@ -101,93 +80,33 @@ const FOOTER_LINKS = [
 function ResearchIcon({ kind }: { kind: string }) {
   const map: Record<string, ReactNode> = {
     dna: (
-      <svg
-        className="h-7 w-7"
-        fill="none"
-        viewBox="0 0 24 24"
-        stroke="currentColor"
-        strokeWidth={1.5}
-      >
-        <path
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          d="M4.5 3v3M4.5 9c0 4.5 15 6 15 12M4.5 12c0 4.5 15 4.5 15 9M4.5 6c0 4.5 15 4.5 15 9M19.5 3v3M19.5 18v3M4.5 18v3"
-        />
+      <svg className="h-7 w-7" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
+        <path strokeLinecap="round" strokeLinejoin="round" d="M4.5 3v3M4.5 9c0 4.5 15 6 15 12M4.5 12c0 4.5 15 4.5 15 9M4.5 6c0 4.5 15 4.5 15 9M19.5 3v3M19.5 18v3M4.5 18v3" />
       </svg>
     ),
     scalpel: (
-      <svg
-        className="h-7 w-7"
-        fill="none"
-        viewBox="0 0 24 24"
-        stroke="currentColor"
-        strokeWidth={1.5}
-      >
-        <path
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          d="M9.75 3.104v5.714a2.25 2.25 0 0 1-.659 1.591L5 14.5M9.75 3.104c-.251.023-.501.05-.75.082m.75-.082a24.301 24.301 0 0 1 4.5 0m0 0v5.714a2.25 2.25 0 0 0 .659 1.591L19 14.5M14.25 3.104c.251.023.501.05.75.082M19 14.5l-2.47 2.47a2.25 2.25 0 0 1-1.591.659H9.061a2.25 2.25 0 0 1-1.591-.659L5 14.5m14 0V17a2.25 2.25 0 0 1-2.25 2.25H7.25A2.25 2.25 0 0 1 5 17v-2.5"
-        />
+      <svg className="h-7 w-7" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
+        <path strokeLinecap="round" strokeLinejoin="round" d="M9.75 3.104v5.714a2.25 2.25 0 0 1-.659 1.591L5 14.5M9.75 3.104c-.251.023-.501.05-.75.082m.75-.082a24.301 24.301 0 0 1 4.5 0m0 0v5.714a2.25 2.25 0 0 0 .659 1.591L19 14.5M14.25 3.104c.251.023.501.05.75.082M19 14.5l-2.47 2.47a2.25 2.25 0 0 1-1.591.659H9.061a2.25 2.25 0 0 1-1.591-.659L5 14.5m14 0V17a2.25 2.25 0 0 1-2.25 2.25H7.25A2.25 2.25 0 0 1 5 17v-2.5" />
       </svg>
     ),
     shield: (
-      <svg
-        className="h-7 w-7"
-        fill="none"
-        viewBox="0 0 24 24"
-        stroke="currentColor"
-        strokeWidth={1.5}
-      >
-        <path
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          d="M9 12.75 11.25 15 15 9.75m-3-7.036A11.959 11.959 0 0 1 3.598 6 11.99 11.99 0 0 0 3 9.749c0 5.592 3.824 10.29 9 11.623 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751A11.959 11.959 0 0 0 12 2.714Z"
-        />
+      <svg className="h-7 w-7" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
+        <path strokeLinecap="round" strokeLinejoin="round" d="M9 12.75 11.25 15 15 9.75m-3-7.036A11.959 11.959 0 0 1 3.598 6 11.99 11.99 0 0 0 3 9.749c0 5.592 3.824 10.29 9 11.623 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751A11.959 11.959 0 0 0 12 2.714Z" />
       </svg>
     ),
     device: (
-      <svg
-        className="h-7 w-7"
-        fill="none"
-        viewBox="0 0 24 24"
-        stroke="currentColor"
-        strokeWidth={1.5}
-      >
-        <path
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          d="M10.5 1.5H8.25A2.25 2.25 0 0 0 6 3.75v16.5a2.25 2.25 0 0 0 2.25 2.25h7.5A2.25 2.25 0 0 0 18 20.25V3.75a2.25 2.25 0 0 0-2.25-2.25H13.5m-3 0V3h3V1.5m-3 0h3m-3 18.75h3"
-        />
+      <svg className="h-7 w-7" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
+        <path strokeLinecap="round" strokeLinejoin="round" d="M10.5 1.5H8.25A2.25 2.25 0 0 0 6 3.75v16.5a2.25 2.25 0 0 0 2.25 2.25h7.5A2.25 2.25 0 0 0 18 20.25V3.75a2.25 2.25 0 0 0-2.25-2.25H13.5m-3 0V3h3V1.5m-3 0h3m-3 18.75h3" />
       </svg>
     ),
     ribbon: (
-      <svg
-        className="h-7 w-7"
-        fill="none"
-        viewBox="0 0 24 24"
-        stroke="currentColor"
-        strokeWidth={1.5}
-      >
-        <path
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          d="M9 3.75c0 4.5 3 6 3 6s3-1.5 3-6c0-1.243-1.343-2.25-3-2.25S9 2.507 9 3.75Zm3 6L7.5 21M12 9.75 16.5 21M12 9.75v6"
-        />
+      <svg className="h-7 w-7" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
+        <path strokeLinecap="round" strokeLinejoin="round" d="M9 3.75c0 4.5 3 6 3 6s3-1.5 3-6c0-1.243-1.343-2.25-3-2.25S9 2.507 9 3.75Zm3 6L7.5 21M12 9.75 16.5 21M12 9.75v6" />
       </svg>
     ),
     laparoscope: (
-      <svg
-        className="h-7 w-7"
-        fill="none"
-        viewBox="0 0 24 24"
-        stroke="currentColor"
-        strokeWidth={1.5}
-      >
-        <path
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          d="M3 12h6m6 0h6M9 12a3 3 0 1 0 6 0 3 3 0 0 0-6 0Zm0 0V6a3 3 0 1 1 6 0v6m-6 0v6a3 3 0 0 0 6 0v-6"
-        />
+      <svg className="h-7 w-7" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
+        <path strokeLinecap="round" strokeLinejoin="round" d="M3 12h6m6 0h6M9 12a3 3 0 1 0 6 0 3 3 0 0 0-6 0Zm0 0V6a3 3 0 1 1 6 0v6m-6 0v6a3 3 0 0 0 6 0v-6" />
       </svg>
     ),
   };
@@ -198,11 +117,20 @@ function ResearchIcon({ kind }: { kind: string }) {
   );
 }
 
+const RESEARCH_ICONS = ["dna", "scalpel", "shield", "device"] as const;
+const SERVICE_ICONS = ["scalpel", "ribbon", "laparoscope"] as const;
+
 /* ------------------------------------------------------------------ */
 /*  Component                                                          */
 /* ------------------------------------------------------------------ */
 
-export function HomePageContent() {
+export function HomePageContent({
+  t,
+  locale,
+}: {
+  t: Dictionary;
+  locale: Locale;
+}) {
   const year = new Date().getFullYear();
   const profileLinks = [
     SITE.scholar
@@ -231,12 +159,12 @@ export function HomePageContent() {
         <div className="relative z-10 mx-auto min-w-0 max-w-4xl px-4 text-center sm:px-6">
           <Reveal>
             <p className="mb-6 text-xs font-medium uppercase tracking-[0.2em] text-zinc-500 dark:text-zinc-400">
-              {SITE.role}
+              {t.hero.role}
             </p>
           </Reveal>
           <Reveal delay={100}>
             <h1 className="text-4xl font-semibold tracking-tight text-zinc-900 dark:text-zinc-50 sm:text-6xl sm:leading-[1.05]">
-              {SITE.fullName}
+              {t.hero.title}
             </h1>
           </Reveal>
           <Reveal delay={180}>
@@ -247,7 +175,7 @@ export function HomePageContent() {
                 rel="noopener noreferrer"
                 className="gradient-text font-medium hover:underline"
               >
-                {SITE.affiliation}
+                {t.hero.affiliation}
               </a>
               <span className="block text-sm text-zinc-500 dark:text-zinc-500 sm:text-base">
                 <a
@@ -256,28 +184,20 @@ export function HomePageContent() {
                   rel="noopener noreferrer"
                   className="transition-colors hover:text-emerald-700 dark:hover:text-emerald-400"
                 >
-                  {SITE.affiliationParent}
+                  {t.hero.affiliationParent}
                 </a>{" "}
-                · Tehran, Iran
+                · {t.hero.locationSuffix}
               </span>
             </p>
           </Reveal>
           <Reveal delay={240}>
             <p className="mx-auto mt-8 max-w-2xl text-base leading-relaxed text-zinc-600 dark:text-zinc-400">
-              Associate Professor of Surgery with{" "}
-              <strong className="text-zinc-800 dark:text-zinc-200">
-                {SITE.experienceYears}+ years
-              </strong>{" "}
-              of professional surgical experience. Translational research at the
-              intersection of cancer biology, non-coding RNAs, surgical oncology,
-              immunotherapy, and digital health for cancer survivors.
+              {renderInline(t.hero.description(SITE.experienceYears))}
             </p>
             <p className="mx-auto mt-4 flex max-w-2xl flex-wrap items-center justify-center gap-x-3 gap-y-1 text-xs text-zinc-500 dark:text-zinc-500">
-              <span>
-                Medical license № {SITE.licenseNumber}
-              </span>
+              <span>{t.hero.licenseLine(SITE.licenseNumber, t.hero.specialtiesText)}</span>
               <span aria-hidden>·</span>
-              <span>{SITE.specialties.join(" · ")}</span>
+              <span>{t.hero.specialtiesText}</span>
             </p>
           </Reveal>
           <Reveal delay={320}>
@@ -286,34 +206,39 @@ export function HomePageContent() {
                 href="#publications"
                 className="rounded-full bg-zinc-900 px-7 py-3.5 text-sm font-medium text-white transition hover:bg-zinc-800 dark:bg-zinc-100 dark:text-zinc-900 dark:hover:bg-white"
               >
-                Browse publications
+                {t.hero.ctas.browsePublications}
               </a>
               <a
                 href="#contact"
                 className="rounded-full border border-zinc-300 bg-white/60 px-7 py-3.5 text-sm font-medium text-zinc-800 backdrop-blur transition hover:border-zinc-400 hover:bg-white dark:border-zinc-700 dark:bg-zinc-900/50 dark:text-zinc-100 dark:hover:border-zinc-500"
               >
-                Get in touch
+                {t.hero.ctas.getInTouch}
               </a>
             </div>
           </Reveal>
           <Reveal delay={400}>
             <div className="mx-auto mt-16 grid max-w-3xl grid-cols-1 gap-x-4 gap-y-8 border-t border-zinc-200/80 pt-12 dark:border-zinc-800/60 sm:mt-20 sm:grid-cols-3 sm:gap-6 sm:pt-16">
-              {HERO_METRICS.map((m) => (
-                <div key={m.label} className="text-center">
-                  <p className="text-3xl font-semibold tabular-nums text-zinc-900 dark:text-zinc-50 sm:text-4xl">
-                    <AnimatedCounter end={m.value} />
-                  </p>
-                  <p className="mt-2 text-xs font-medium uppercase tracking-wider text-zinc-600 dark:text-zinc-400">
-                    {m.label}
-                  </p>
-                  <p className="mt-1 text-[11px] text-zinc-500 dark:text-zinc-500">
-                    {m.sub}
-                  </p>
-                </div>
-              ))}
+              <HeroMetric
+                value={SCHOLAR_METRICS.citationsTotal}
+                label={t.hero.metrics.citations}
+                sub={t.hero.metrics.sinceLabel(SCHOLAR_METRICS.citationsSince2021)}
+                locale={locale}
+              />
+              <HeroMetric
+                value={SCHOLAR_METRICS.hIndex}
+                label={t.hero.metrics.hIndex}
+                sub={t.hero.metrics.sinceLabel(SCHOLAR_METRICS.hIndexSince2021)}
+                locale={locale}
+              />
+              <HeroMetric
+                value={SCHOLAR_METRICS.i10Index}
+                label={t.hero.metrics.i10Index}
+                sub={t.hero.metrics.sinceLabel(SCHOLAR_METRICS.i10IndexSince2021)}
+                locale={locale}
+              />
             </div>
             <p className="mt-6 text-[11px] text-zinc-500 dark:text-zinc-500">
-              Source: {SCHOLAR_METRICS.source}.{" "}
+              {t.hero.metrics.sourcePrefix} {SCHOLAR_METRICS.source}.{" "}
               {SITE.scholar ? (
                 <a
                   href={SITE.scholar}
@@ -321,7 +246,7 @@ export function HomePageContent() {
                   rel="noopener noreferrer"
                   className="text-emerald-700 underline decoration-emerald-700/30 hover:decoration-emerald-700 dark:text-emerald-400"
                 >
-                  View profile
+                  {t.hero.metrics.viewProfile}
                 </a>
               ) : null}
             </p>
@@ -337,18 +262,16 @@ export function HomePageContent() {
         <div className="mx-auto max-w-4xl">
           <Reveal>
             <p className="text-xs font-medium uppercase tracking-[0.2em] text-zinc-500 dark:text-zinc-400">
-              About
+              {t.about.eyebrow}
             </p>
             <h2 className="mt-4 text-4xl font-semibold tracking-tight text-zinc-900 dark:text-zinc-50 sm:text-5xl">
-              About Dr. Memari
+              {t.about.heading}
             </h2>
           </Reveal>
 
           <div className="mt-12 grid gap-12 md:grid-cols-5 md:items-start">
             <Reveal delay={80} className="md:col-span-2">
               <div className="relative mx-auto w-fit md:mx-0">
-                {/* Subtle DNA-helix watermark behind the portrait — signals
-                    cancer biology / oncology research without being literal. */}
                 <svg
                   className="pointer-events-none absolute -inset-6 -z-10 h-[calc(100%+3rem)] w-[calc(100%+3rem)] text-emerald-500/15 dark:text-emerald-400/10"
                   viewBox="0 0 100 100"
@@ -369,33 +292,29 @@ export function HomePageContent() {
                   <rect width="100%" height="100%" fill="url(#helix)" />
                 </svg>
 
-                {/* Soft emerald → teal glow halo behind the portrait */}
                 <div
                   className="pointer-events-none absolute -inset-3 -z-10 rounded-3xl bg-gradient-to-br from-emerald-500/25 via-teal-500/15 to-transparent blur-2xl"
                   aria-hidden
                 />
 
-                {/* Portrait card — 4:5 aspect, larger than the old circle,
-                    less aggressive crop so the shoulders/scrubs are visible. */}
                 <div className="relative h-80 w-64 overflow-hidden rounded-2xl shadow-xl shadow-emerald-900/10 ring-1 ring-zinc-200 dark:shadow-emerald-950/40 dark:ring-zinc-700 sm:h-96 sm:w-72">
                   <Image
                     src="/fereidoon-memari.jpg"
-                    alt="Dr. Fereidoon Memari — surgical oncologist and cancer researcher"
+                    alt={`${t.hero.title} — ${t.hero.role}`}
                     fill
                     className="object-cover object-top"
                     sizes="(max-width: 640px) 256px, 288px"
                     priority
                   />
-                  {/* Inner top→bottom soft gradient — strengthens the photo's
-                      bottom edge against the credential badge */}
                   <div
                     className="pointer-events-none absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-zinc-950/40 to-transparent"
                     aria-hidden
                   />
                 </div>
 
-                {/* Floating credential badge — caduceus-style icon + tenure */}
-                <div className="absolute -bottom-3 -right-3 flex items-center gap-1.5 rounded-full border border-emerald-200 bg-white px-3 py-1.5 text-xs font-semibold text-emerald-700 shadow-lg dark:border-emerald-900/50 dark:bg-zinc-900 dark:text-emerald-400">
+                {/* Floating credential badge — uses logical positioning so it
+                    sits at the reading-end side of the photo in both LTR/RTL */}
+                <div className="absolute -bottom-3 -end-3 flex items-center gap-1.5 rounded-full border border-emerald-200 bg-white px-3 py-1.5 text-xs font-semibold text-emerald-700 shadow-lg dark:border-emerald-900/50 dark:bg-zinc-900 dark:text-emerald-400">
                   <svg
                     className="h-4 w-4"
                     viewBox="0 0 24 24"
@@ -406,17 +325,15 @@ export function HomePageContent() {
                     strokeLinejoin="round"
                     aria-hidden
                   >
-                    {/* Simple medical caduceus / staff-of-Asclepius mark */}
                     <path d="M12 3v18" />
                     <path d="M9 5c0 2 1.5 3 3 3s3-1 3-3" />
                     <path d="M9 10c0 2 1.5 3 3 3s3-1 3-3" />
                     <path d="M9 15c0 2 1.5 3 3 3s3-1 3-3" />
                   </svg>
-                  <span>{SITE.experienceYears}+ years</span>
+                  <span>{t.about.badge(SITE.experienceYears)}</span>
                 </div>
               </div>
 
-              {/* Institutional reference strip under the photo */}
               <div className="mt-8 space-y-2">
                 <a
                   href={SITE.affiliationUrl}
@@ -431,13 +348,13 @@ export function HomePageContent() {
                   </span>
                   <span className="min-w-0">
                     <span className="block text-[11px] font-medium uppercase tracking-wider text-zinc-500 dark:text-zinc-500">
-                      Clinical practice
+                      {t.about.refClinical}
                     </span>
                     <span className="block text-sm font-semibold text-zinc-900 group-hover:text-emerald-700 dark:text-zinc-100 dark:group-hover:text-emerald-400">
-                      {SITE.affiliation}
+                      {t.hero.affiliation}
                     </span>
                     <span className="mt-0.5 block text-[11px] text-zinc-500 dark:text-zinc-500">
-                      {SITE.affiliationDetail}
+                      {t.hero.affiliationDetail}
                     </span>
                   </span>
                 </a>
@@ -454,13 +371,13 @@ export function HomePageContent() {
                   </span>
                   <span className="min-w-0">
                     <span className="block text-[11px] font-medium uppercase tracking-wider text-zinc-500 dark:text-zinc-500">
-                      Academic appointment
+                      {t.about.refAcademic}
                     </span>
                     <span className="block text-sm font-semibold text-zinc-900 group-hover:text-emerald-700 dark:text-zinc-100 dark:group-hover:text-emerald-400">
-                      {SITE.affiliationParent}
+                      {t.hero.affiliationParent}
                     </span>
                     <span className="mt-0.5 block text-[11px] text-zinc-500 dark:text-zinc-500">
-                      {SITE.academicRank}
+                      {t.about.academicRankValue}
                     </span>
                   </span>
                 </a>
@@ -470,108 +387,52 @@ export function HomePageContent() {
             <Reveal delay={140} className="md:col-span-3">
               <div className="space-y-4 text-sm leading-relaxed text-zinc-600 dark:text-zinc-400 sm:text-base">
                 <p>
-                  Dr. Fereidoon Memari is an{" "}
-                  <strong className="text-zinc-900 dark:text-zinc-100">
-                    Associate Professor of Surgery
-                  </strong>{" "}
-                  at{" "}
-                  <a
-                    href={SITE.affiliationParentUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-emerald-700 underline decoration-emerald-700/30 hover:decoration-emerald-700 dark:text-emerald-400"
-                  >
-                    {SITE.affiliationParent}
-                  </a>{" "}
-                  and a surgical oncologist at the{" "}
-                  <a
-                    href={SITE.affiliationUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="font-semibold text-zinc-900 underline decoration-zinc-300 hover:decoration-emerald-600 dark:text-zinc-100 dark:decoration-zinc-600 dark:hover:decoration-emerald-400"
-                  >
-                    {SITE.affiliation}, {SITE.affiliationDetail}
-                  </a>
-                  . With more than{" "}
-                  <strong className="text-zinc-900 dark:text-zinc-100">
-                    {SITE.experienceYears} years of professional surgical
-                    experience
-                  </strong>
-                  , his clinical practice spans complex cancer cases and
-                  combined procedures across gastrointestinal, head and neck,
-                  breast, and renal cancers.
-                </p>
-                <p>
-                  His translational research focuses on the role of non-coding
-                  RNAs — siRNA, microRNA, piRNA, lncRNA, and ceRNA networks —
-                  as therapeutic levers and candidate biomarkers in cancer.
-                  Recent work also explores cancer immunotherapy, chimeric
-                  protein design, and the use of smartphone- and IoT-enabled
-                  systems for the remote monitoring of cancer survivors.
-                </p>
-                <p>
-                  His publications span peer-reviewed venues including the{" "}
-                  <em>International Journal of Nanomedicine</em>,{" "}
-                  <em>Journal of Cellular Biochemistry</em>,{" "}
-                  <em>Computers in Biology and Medicine</em>,{" "}
-                  <em>JMIR Cancer</em>, and the{" "}
-                  <em>Journal of Oral and Maxillofacial Surgery</em>.
-                </p>
-                <dl className="grid grid-cols-2 gap-3 pt-2 text-xs sm:grid-cols-3">
-                  <div className="rounded-lg border border-zinc-200/80 bg-zinc-50/80 px-3 py-2 dark:border-zinc-800/60 dark:bg-zinc-900/40">
-                    <dt className="font-medium uppercase tracking-wider text-zinc-500 dark:text-zinc-500">
-                      Academic rank
-                    </dt>
-                    <dd className="mt-0.5 font-semibold text-zinc-900 dark:text-zinc-100">
-                      {SITE.academicRank}
-                    </dd>
-                  </div>
-                  <div className="rounded-lg border border-zinc-200/80 bg-zinc-50/80 px-3 py-2 dark:border-zinc-800/60 dark:bg-zinc-900/40">
-                    <dt className="font-medium uppercase tracking-wider text-zinc-500 dark:text-zinc-500">
-                      Experience
-                    </dt>
-                    <dd className="mt-0.5 font-semibold text-zinc-900 dark:text-zinc-100">
-                      {SITE.experienceYears}+ years
-                    </dd>
-                  </div>
-                  <div className="rounded-lg border border-zinc-200/80 bg-zinc-50/80 px-3 py-2 dark:border-zinc-800/60 dark:bg-zinc-900/40">
-                    <dt className="font-medium uppercase tracking-wider text-zinc-500 dark:text-zinc-500">
-                      Medical license
-                    </dt>
-                    <dd className="mt-0.5 font-mono font-semibold text-zinc-900 tabular-nums dark:text-zinc-100">
-                      № {SITE.licenseNumber}
-                    </dd>
-                  </div>
-                </dl>
-                {profileLinks.length > 0 ? (
-                  <div className="flex flex-wrap gap-2 pt-2">
-                    {profileLinks.map((l) => (
+                  {renderAffiliationLine(t.about.bio.affiliationLine, {
+                    tums: (
                       <a
-                        key={l.label}
-                        href={l.href}
+                        href={SITE.affiliationParentUrl}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="inline-flex items-center gap-1.5 rounded-full border border-zinc-300 bg-white px-3 py-1.5 text-xs font-medium text-zinc-800 transition hover:border-emerald-500 hover:text-emerald-700 dark:border-zinc-700 dark:bg-zinc-900/60 dark:text-zinc-200 dark:hover:border-emerald-500"
+                        className="text-emerald-700 underline decoration-emerald-700/30 hover:decoration-emerald-700 dark:text-emerald-400"
                       >
-                        {l.label}
-                        <svg
-                          className="h-3 w-3"
-                          fill="none"
-                          viewBox="0 0 24 24"
-                          stroke="currentColor"
-                          strokeWidth={2}
-                          aria-hidden
-                        >
-                          <path
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            d="M13.5 6H5.25A2.25 2.25 0 0 0 3 8.25v10.5A2.25 2.25 0 0 0 5.25 21h10.5A2.25 2.25 0 0 0 18 18.75V10.5M16.5 3h6m0 0v6m0-6L10 14"
-                          />
-                        </svg>
+                        {t.hero.affiliationParent}
                       </a>
-                    ))}
-                  </div>
-                ) : null}
+                    ),
+                    cancerInstitute: (
+                      <a
+                        href={SITE.affiliationUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="font-semibold text-zinc-900 underline decoration-zinc-300 hover:decoration-emerald-600 dark:text-zinc-100 dark:decoration-zinc-600 dark:hover:decoration-emerald-400"
+                      >
+                        {t.hero.affiliation}, {t.hero.affiliationDetail}
+                      </a>
+                    ),
+                    years: (
+                      <strong className="text-zinc-900 dark:text-zinc-100">
+                        {formatNumber(SITE.experienceYears, locale)}
+                      </strong>
+                    ),
+                  })}
+                </p>
+                <p>{renderInline(t.about.bio.researchLine)}</p>
+                <p>{renderInline(t.about.bio.publicationsLine)}</p>
+
+                <dl className="grid grid-cols-2 gap-3 pt-2 text-xs sm:grid-cols-3">
+                  <CredentialCard
+                    label={t.about.credentialLabels.academicRank}
+                    value={t.about.academicRankValue}
+                  />
+                  <CredentialCard
+                    label={t.about.credentialLabels.experience}
+                    value={t.about.credentialLabels.experienceValue(SITE.experienceYears)}
+                  />
+                  <CredentialCard
+                    label={t.about.credentialLabels.license}
+                    value={t.about.credentialLabels.licenseValue(SITE.licenseNumber)}
+                    mono
+                  />
+                </dl>
               </div>
             </Reveal>
           </div>
@@ -586,33 +447,31 @@ export function HomePageContent() {
         <div className="mx-auto max-w-6xl">
           <Reveal>
             <p className="text-center text-xs font-medium uppercase tracking-[0.2em] text-zinc-500 dark:text-zinc-400">
-              Clinical practice
+              {t.services.eyebrow}
             </p>
             <h2 className="mt-4 text-center text-4xl font-semibold tracking-tight text-zinc-900 dark:text-zinc-50 sm:text-5xl">
-              Clinical expertise &amp; services
+              {t.services.heading}
             </h2>
             <p className="mx-auto mt-6 max-w-2xl text-center text-lg text-zinc-600 dark:text-zinc-400">
-              Three areas of focus across cancer surgery, oncoplastic
-              reconstruction, and minimally invasive technique — practiced at
-              the{" "}
+              {t.services.subtitleBefore}
               <a
                 href={SITE.affiliationUrl}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-emerald-700 underline decoration-emerald-700/30 hover:decoration-emerald-700 dark:text-emerald-400"
               >
-                Cancer Institute, Imam Khomeini Hospital Complex
+                {t.hero.affiliation}, {t.hero.affiliationDetail}
               </a>
-              .
+              {t.services.subtitleAfter}
             </p>
           </Reveal>
 
           <div className="mt-16 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-            {CLINICAL_SERVICES.map((card, i) => (
+            {t.services.cards.map((card, i) => (
               <Reveal key={card.title} delay={i * 60}>
                 <div className="card flex h-full flex-col p-6">
                   <div className="mb-4 flex h-11 w-11 shrink-0 items-center justify-center rounded-lg bg-zinc-100 text-zinc-700 dark:bg-zinc-800 dark:text-zinc-300">
-                    <ResearchIcon kind={card.icon} />
+                    <ResearchIcon kind={SERVICE_ICONS[i] ?? "scalpel"} />
                   </div>
                   <h3 className="text-lg font-semibold text-zinc-900 dark:text-zinc-100">
                     {card.title}
@@ -638,10 +497,10 @@ export function HomePageContent() {
           <Reveal delay={200}>
             <div className="mt-12 rounded-2xl border border-emerald-200/80 bg-emerald-50/60 px-5 py-6 dark:border-emerald-900/40 dark:bg-emerald-950/20 sm:px-8">
               <p className="text-xs font-semibold uppercase tracking-wider text-emerald-700 dark:text-emerald-400">
-                Patient experience
+                {t.services.feedback.eyebrow}
               </p>
               <p className="mt-3 text-sm leading-relaxed text-zinc-700 dark:text-zinc-300 sm:text-base">
-                Patients on{" "}
+                {t.services.feedback.bodyPrefix}
                 <a
                   href={SITE.paziresh24 || "https://paziresh24.com/"}
                   target="_blank"
@@ -650,7 +509,7 @@ export function HomePageContent() {
                 >
                   Paziresh24
                 </a>{" "}
-                and{" "}
+                &amp;{" "}
                 <a
                   href={SITE.nobatIr || "https://www.nobat.ir/"}
                   target="_blank"
@@ -658,15 +517,11 @@ export function HomePageContent() {
                   className="text-emerald-700 underline decoration-emerald-700/30 hover:decoration-emerald-700 dark:text-emerald-400"
                 >
                   Nobat.ir
-                </a>{" "}
-                describe Dr. Memari as a highly skilled and conscientious
-                surgeon, highlighting his clear communication throughout the
-                treatment process and his successful outcomes — particularly in
-                breast and gastric cancer cases.
+                </a>
+                {t.services.feedback.bodySuffix}
               </p>
               <p className="mt-3 text-[11px] text-zinc-500 dark:text-zinc-500">
-                Summarized from third-party patient platforms; this site does
-                not host or moderate individual reviews.
+                {t.services.feedback.footnote}
               </p>
             </div>
           </Reveal>
@@ -681,22 +536,21 @@ export function HomePageContent() {
         <div className="mx-auto max-w-6xl">
           <Reveal>
             <p className="text-center text-xs font-medium uppercase tracking-[0.2em] text-zinc-500 dark:text-zinc-400">
-              Research interests
+              {t.research.eyebrow}
             </p>
             <h2 className="mt-4 text-center text-4xl font-semibold tracking-tight text-zinc-900 dark:text-zinc-50 sm:text-5xl">
-              Where my work lives
+              {t.research.heading}
             </h2>
             <p className="mx-auto mt-6 max-w-2xl text-center text-lg text-zinc-600 dark:text-zinc-400">
-              Four interlocking research themes — basic biology of cancer,
-              surgical practice, immunotherapy, and digital follow-up.
+              {t.research.subtitle}
             </p>
           </Reveal>
           <div className="mt-16 grid gap-5 sm:grid-cols-2">
-            {RESEARCH_INTERESTS.map((card, i) => (
+            {t.research.cards.map((card, i) => (
               <Reveal key={card.title} delay={i * 60}>
                 <div className="card flex h-full flex-col p-6">
                   <div className="mb-4 flex h-11 w-11 shrink-0 items-center justify-center rounded-lg bg-zinc-100 text-zinc-700 dark:bg-zinc-800 dark:text-zinc-300">
-                    <ResearchIcon kind={card.icon} />
+                    <ResearchIcon kind={RESEARCH_ICONS[i] ?? "dna"} />
                   </div>
                   <h3 className="text-lg font-semibold text-zinc-900 dark:text-zinc-100">
                     {card.title}
@@ -719,25 +573,24 @@ export function HomePageContent() {
         <div className="mx-auto max-w-5xl">
           <Reveal>
             <p className="text-xs font-medium uppercase tracking-[0.2em] text-zinc-500 dark:text-zinc-400">
-              Publications
+              {t.publications.eyebrow}
             </p>
             <h2 className="mt-4 text-4xl font-semibold tracking-tight text-zinc-900 dark:text-zinc-50 sm:text-5xl">
-              Selected peer-reviewed work
+              {t.publications.heading}
             </h2>
             <p className="mt-4 max-w-2xl text-zinc-600 dark:text-zinc-400">
-              Sortable and filterable by topic. For requests of a full text or
-              reprint, please use the{" "}
+              {t.publications.subtitleBefore}
               <a
                 href="#contact"
                 className="text-emerald-700 underline decoration-emerald-700/30 hover:decoration-emerald-700 dark:text-emerald-400"
               >
-                contact form
+                {t.publications.subtitleLink}
               </a>
-              .
+              {t.publications.subtitleAfter}
             </p>
           </Reveal>
           <Reveal delay={80}>
-            <Publications />
+            <Publications t={t.publications} locale={locale} />
           </Reveal>
 
           {SITE.scholar ? (
@@ -749,7 +602,7 @@ export function HomePageContent() {
                   rel="noopener noreferrer"
                   className="inline-flex items-center gap-2 rounded-full border border-zinc-300 bg-white px-6 py-3 text-sm font-medium text-zinc-800 transition hover:border-emerald-500 hover:text-emerald-700 dark:border-zinc-700 dark:bg-zinc-900/60 dark:text-zinc-200 dark:hover:border-emerald-500"
                 >
-                  Full list on Google Scholar
+                  {t.publications.fullList}
                   <svg
                     className="h-4 w-4"
                     fill="none"
@@ -771,7 +624,7 @@ export function HomePageContent() {
         </div>
       </section>
 
-      {/* ============== TEACHING / CLINICAL (placeholder) ============== */}
+      {/* ============== TEACHING / CLINICAL ============== */}
       <section
         id="teaching"
         className="scroll-mt-20 border-t border-zinc-200/80 bg-zinc-50 px-4 py-32 dark:border-zinc-800/40 dark:bg-zinc-900/30 sm:px-6"
@@ -779,56 +632,48 @@ export function HomePageContent() {
         <div className="mx-auto max-w-4xl">
           <Reveal>
             <p className="text-xs font-medium uppercase tracking-[0.2em] text-zinc-500 dark:text-zinc-400">
-              Teaching &amp; clinical work
+              {t.teaching.eyebrow}
             </p>
             <h2 className="mt-4 text-4xl font-semibold tracking-tight text-zinc-900 dark:text-zinc-50 sm:text-5xl">
-              Mentorship &amp; clinical practice
+              {t.teaching.heading}
             </h2>
           </Reveal>
 
           <Reveal delay={80}>
             <div className="card mt-10 p-8">
               <p className="text-sm leading-relaxed text-zinc-600 dark:text-zinc-400 sm:text-base">
-                As an Associate Professor at{" "}
+                {t.teaching.body1Before}
                 <a
                   href={SITE.affiliationParentUrl}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="font-semibold text-zinc-900 underline decoration-zinc-300 hover:decoration-emerald-600 dark:text-zinc-100 dark:decoration-zinc-600 dark:hover:decoration-emerald-400"
                 >
-                  {SITE.affiliationParent}
+                  {t.hero.affiliationParent}
                 </a>
-                , Dr. Memari teaches and mentors graduate students, surgical
-                residents, and fellows. Clinical practice and trainee
-                supervision take place at the{" "}
+                {t.teaching.body1Middle}
                 <a
                   href={SITE.affiliationUrl}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="font-semibold text-zinc-900 underline decoration-zinc-300 hover:decoration-emerald-600 dark:text-zinc-100 dark:decoration-zinc-600 dark:hover:decoration-emerald-400"
                 >
-                  {SITE.affiliation}, {SITE.affiliationDetail}
+                  {t.hero.affiliation}, {t.hero.affiliationDetail}
                 </a>
-                .
+                {t.teaching.body1After}
               </p>
               <p className="mt-4 text-sm leading-relaxed text-zinc-600 dark:text-zinc-400 sm:text-base">
-                Beyond clinical and academic work, Dr. Memari participates in
-                public-health awareness initiatives — for example, Sasan
-                Hospital&apos;s programs for{" "}
-                <em>Men&apos;s National Health Week</em> in Iran.
+                {renderInline(t.teaching.body2)}
               </p>
               <p className="mt-4 text-sm leading-relaxed text-zinc-600 dark:text-zinc-400 sm:text-base">
-                A detailed list of current courses, clinical appointments, and
-                grants is being prepared. In the meantime, prospective
-                collaborators, trainees, and visiting researchers are welcome
-                to{" "}
+                {t.teaching.body3Before}
                 <Link
                   href="#contact"
                   className="text-emerald-700 underline decoration-emerald-700/30 hover:decoration-emerald-700 dark:text-emerald-400"
                 >
-                  reach out
+                  {t.teaching.body3Link}
                 </Link>
-                .
+                {t.teaching.body3After}
               </p>
             </div>
           </Reveal>
@@ -843,21 +688,19 @@ export function HomePageContent() {
         <div className="mx-auto max-w-4xl">
           <Reveal>
             <p className="text-xs font-medium uppercase tracking-[0.2em] text-zinc-500 dark:text-zinc-400">
-              Contact
+              {t.contact.eyebrow}
             </p>
             <h2 className="mt-4 text-4xl font-semibold tracking-tight text-zinc-900 dark:text-zinc-50 sm:text-5xl">
-              Get in touch
+              {t.contact.heading}
             </h2>
             <p className="mt-4 max-w-lg text-zinc-600 dark:text-zinc-400">
-              For research collaborations, publication questions, student or
-              fellowship inquiries, and invited talks. Please do not use this
-              form for individual medical advice.
+              {t.contact.subtitle}
             </p>
           </Reveal>
 
           <Reveal delay={60}>
             <div className="mt-8">
-              <ContactForm />
+              <ContactForm t={t.contact.form} />
             </div>
           </Reveal>
 
@@ -868,13 +711,16 @@ export function HomePageContent() {
                 className="card group flex flex-col gap-1 p-6"
               >
                 <p className="text-xs font-medium uppercase tracking-wider text-emerald-700 dark:text-emerald-400">
-                  Email
+                  {t.contact.cards.emailLabel}
                 </p>
-                <p className="text-base font-semibold text-zinc-900 transition-colors group-hover:text-emerald-700 dark:text-zinc-100 dark:group-hover:text-emerald-400">
+                <p
+                  className="text-base font-semibold text-zinc-900 transition-colors group-hover:text-emerald-700 dark:text-zinc-100 dark:group-hover:text-emerald-400"
+                  dir="ltr"
+                >
                   {SITE.emailDisplay}
                 </p>
                 <p className="mt-1 text-xs text-zinc-500 dark:text-zinc-500">
-                  Replied to as Dr. Memari&apos;s schedule allows.
+                  {t.contact.cards.emailNote}
                 </p>
               </a>
             </Reveal>
@@ -886,17 +732,17 @@ export function HomePageContent() {
                 className="card group flex flex-col gap-1 p-6"
               >
                 <p className="text-xs font-medium uppercase tracking-wider text-emerald-700 dark:text-emerald-400">
-                  Affiliation
+                  {t.contact.cards.affiliationLabel}
                 </p>
                 <p className="text-base font-semibold text-zinc-900 transition-colors group-hover:text-emerald-700 dark:text-zinc-100 dark:group-hover:text-emerald-400">
-                  {SITE.affiliation}
+                  {t.hero.affiliation}
                 </p>
                 <p className="mt-1 text-xs text-zinc-500 dark:text-zinc-500">
-                  {SITE.affiliationDetail}
+                  {t.hero.affiliationDetail}
                   <br />
-                  {SITE.affiliationParent}
+                  {t.hero.affiliationParent}
                   <br />
-                  Tehran, Iran
+                  {t.contact.cards.locationLine}
                 </p>
               </a>
             </Reveal>
@@ -905,12 +751,12 @@ export function HomePageContent() {
           <div id="faq" className="mt-24 scroll-mt-24">
             <Reveal>
               <h3 className="text-2xl font-semibold tracking-tight text-zinc-900 dark:text-zinc-50">
-                Frequently asked questions
+                {t.faq.heading}
               </h3>
             </Reveal>
             <Reveal delay={40}>
               <div className="mt-8">
-                <FaqAccordion />
+                <FaqAccordion items={t.faq.items} />
               </div>
             </Reveal>
           </div>
@@ -930,12 +776,11 @@ export function HomePageContent() {
                   FM
                 </span>
                 <span className="text-sm font-semibold text-zinc-900 dark:text-zinc-100">
-                  {SITE.fullName}
+                  {t.hero.title}
                 </span>
               </div>
               <p className="text-xs leading-relaxed text-zinc-600 dark:text-zinc-500">
-                Surgical oncologist and cancer researcher · Tehran University
-                of Medical Sciences.
+                {t.footer.tagline}
               </p>
             </div>
 
@@ -943,7 +788,7 @@ export function HomePageContent() {
               aria-label="Footer"
               className="flex flex-wrap gap-x-8 gap-y-2 text-sm text-zinc-600 dark:text-zinc-400"
             >
-              {FOOTER_LINKS.map((l) => (
+              {t.nav.items.map((l) => (
                 <a
                   key={l.href}
                   href={l.href}
@@ -952,18 +797,12 @@ export function HomePageContent() {
                   {l.label}
                 </a>
               ))}
-              <a
-                href="#faq"
-                className="transition hover:text-zinc-900 dark:hover:text-zinc-100"
-              >
-                FAQ
-              </a>
             </nav>
 
             {profileLinks.length > 0 ? (
               <div className="w-full max-w-xs lg:w-auto">
                 <p className="text-xs font-medium uppercase tracking-wider text-zinc-500 dark:text-zinc-500">
-                  Profiles
+                  {t.footer.profilesLabel}
                 </p>
                 <div className="mt-3 flex flex-col gap-2">
                   {profileLinks.map((l) => (
@@ -982,13 +821,12 @@ export function HomePageContent() {
             ) : null}
           </div>
 
-          <div className="mt-14 flex flex-col items-center gap-4 border-t border-zinc-200/80 pt-8 text-center dark:border-zinc-800/40 sm:flex-row sm:justify-between sm:text-left">
+          <div className="mt-14 flex flex-col items-center gap-4 border-t border-zinc-200/80 pt-8 text-center dark:border-zinc-800/40 sm:flex-row sm:justify-between sm:text-start">
             <p className="text-xs text-zinc-600 dark:text-zinc-500">
-              © {year} {SITE.fullName} · Tehran, Iran
+              {t.footer.copyright(year)}
             </p>
             <p className="text-[11px] text-zinc-500 dark:text-zinc-500">
-              This site is for academic and informational purposes only and
-              does not provide medical advice.
+              {t.footer.disclaimer}
             </p>
           </div>
         </div>
@@ -996,5 +834,58 @@ export function HomePageContent() {
 
       <ScrollToTop />
     </>
+  );
+}
+
+/* ------------------------------------------------------------------ */
+/*  Small inline helpers                                               */
+/* ------------------------------------------------------------------ */
+
+function HeroMetric({
+  value,
+  label,
+  sub,
+  locale,
+}: {
+  value: number;
+  label: string;
+  sub: string;
+  locale: Locale;
+}) {
+  return (
+    <div className="text-center">
+      <p className="text-3xl font-semibold tabular-nums text-zinc-900 dark:text-zinc-50 sm:text-4xl">
+        <AnimatedCounter end={value} locale={locale} />
+      </p>
+      <p className="mt-2 text-xs font-medium uppercase tracking-wider text-zinc-600 dark:text-zinc-400">
+        {label}
+      </p>
+      <p className="mt-1 text-[11px] text-zinc-500 dark:text-zinc-500">{sub}</p>
+    </div>
+  );
+}
+
+function CredentialCard({
+  label,
+  value,
+  mono = false,
+}: {
+  label: string;
+  value: string;
+  mono?: boolean;
+}) {
+  return (
+    <div className="rounded-lg border border-zinc-200/80 bg-zinc-50/80 px-3 py-2 dark:border-zinc-800/60 dark:bg-zinc-900/40">
+      <dt className="font-medium uppercase tracking-wider text-zinc-500 dark:text-zinc-500">
+        {label}
+      </dt>
+      <dd
+        className={`mt-0.5 font-semibold tabular-nums text-zinc-900 dark:text-zinc-100 ${
+          mono ? "font-mono" : ""
+        }`}
+      >
+        {value}
+      </dd>
+    </div>
   );
 }

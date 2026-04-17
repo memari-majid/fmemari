@@ -18,6 +18,23 @@
   h3 {
     text-wrap: balance;
   }
+
+  /* In Persian/RTL the prose looks better with slightly relaxed line-height
+     and explicit word-spacing so multi-line paragraphs read naturally. */
+  html[dir="rtl"] body {
+    line-height: 1.75;
+    word-spacing: 0.04em;
+  }
+
+  /* Latin fragments embedded in Persian prose (paper titles, journal names,
+     emails, URLs) should always render LTR — bdi handles bidirectional
+     isolation. We also tighten letter-spacing slightly because Vazirmatn's
+     Latin glyphs are a touch wider. */
+  html[dir="rtl"] em,
+  html[dir="rtl"] code,
+  html[dir="rtl"] [dir="ltr"] {
+    letter-spacing: -0.005em;
+  }
 }
 
 @keyframes fadeUp {

@@ -2,17 +2,10 @@
 
 import { useEffect, useState } from "react";
 import { ThemeToggle } from "@/app/components/ThemeToggle";
+import { LanguageToggle } from "@/app/components/LanguageToggle";
+import type { Dictionary } from "@/lib/i18n";
 
-const NAV_ITEMS = [
-  { label: "About", href: "#about" },
-  { label: "Services", href: "#services" },
-  { label: "Research", href: "#research" },
-  { label: "Publications", href: "#publications" },
-  { label: "Teaching", href: "#teaching" },
-  { label: "Contact", href: "#contact" },
-];
-
-export function NavBar() {
+export function NavBar({ t }: { t: Dictionary["nav"] }) {
   const [menuOpen, setMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
 
@@ -42,12 +35,16 @@ export function NavBar() {
             FM
           </span>
           <span className="min-w-0 text-lg font-semibold tracking-tight text-zinc-900 dark:text-zinc-100">
-            Dr.<span className="text-emerald-600 dark:text-emerald-400"> Memari</span>
+            {t.monogramLine1}
+            <span className="text-emerald-600 dark:text-emerald-400">
+              {" "}
+              {t.monogramLine2}
+            </span>
           </span>
         </a>
 
         <div className="hidden items-center gap-3 xl:flex 2xl:gap-6">
-          {NAV_ITEMS.map((item) => (
+          {t.items.map((item) => (
             <a
               key={item.href}
               href={item.href}
@@ -56,16 +53,26 @@ export function NavBar() {
               {item.label}
             </a>
           ))}
+          <LanguageToggle
+            label={t.toggleLabel}
+            href={t.togglePath}
+            ariaLabel={t.toggleAria}
+          />
           <ThemeToggle />
           <a
             href="#contact"
             className="whitespace-nowrap rounded-lg bg-emerald-600 px-4 py-2.5 text-sm font-medium text-white transition hover:bg-emerald-500"
           >
-            Get in Touch
+            {t.cta}
           </a>
         </div>
 
         <div className="flex items-center gap-2 xl:hidden">
+          <LanguageToggle
+            label={t.toggleLabel}
+            href={t.togglePath}
+            ariaLabel={t.toggleAria}
+          />
           <ThemeToggle />
           <button
             type="button"
@@ -101,7 +108,7 @@ export function NavBar() {
 
       {menuOpen && (
         <div className="max-h-[min(70vh,calc(100dvh-env(safe-area-inset-top)-5rem))] space-y-3 overflow-y-auto border-t border-zinc-200/80 bg-white/95 px-4 pb-[max(1rem,env(safe-area-inset-bottom))] pt-2 backdrop-blur-md dark:border-zinc-800/60 dark:bg-zinc-950/95 xl:hidden">
-          {NAV_ITEMS.map((item) => (
+          {t.items.map((item) => (
             <a
               key={item.href}
               href={item.href}
@@ -116,7 +123,7 @@ export function NavBar() {
             onClick={() => setMenuOpen(false)}
             className="block rounded-lg bg-emerald-600 px-4 py-3 text-center text-sm font-medium text-white transition hover:bg-emerald-500"
           >
-            Get in Touch
+            {t.cta}
           </a>
         </div>
       )}
