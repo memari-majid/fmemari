@@ -248,6 +248,19 @@ export type Dictionary = {
     closeLabel: string;
     disclaimer: string;
   };
+
+  // ---- Explore cards (home-page navigation tiles)
+  explore: {
+    eyebrow: string;
+    heading: string;
+    subtitle: string;
+    cards: {
+      key: "breastCancer" | "research" | "advances" | "teaching" | "contact";
+      title: string;
+      body: string;
+      cta: string;
+    }[];
+  };
 };
 
 // ─────────────────────────────────────────────────────────────────────────────
@@ -639,6 +652,44 @@ export const en: Dictionary = {
     closeLabel: "Close chat",
     disclaimer:
       "This assistant does not provide individual medical advice. For clinical questions, please consult a physician.",
+  },
+
+  explore: {
+    eyebrow: "Explore",
+    heading: "Where would you like to go?",
+    subtitle: "Each section has its own page — pick the one closest to what you came for.",
+    cards: [
+      {
+        key: "breastCancer",
+        title: "Breast cancer & surgery",
+        body: "Global stats, surgical options — lumpectomy, mastectomy, oncoplastic reconstruction, sentinel node biopsy — and warning signs.",
+        cta: "Read the deep-dive",
+      },
+      {
+        key: "research",
+        title: "Research & publications",
+        body: "Four research themes and the selected peer-reviewed publications list, filterable by topic.",
+        cta: "Browse research",
+      },
+      {
+        key: "advances",
+        title: "Recent advances",
+        body: "Curated 2025 breakthroughs — mRNA vaccines, KRAS inhibitors, CAR-T in solid tumors, AI liquid biopsy.",
+        cta: "See advances",
+      },
+      {
+        key: "teaching",
+        title: "Teaching & mentorship",
+        body: "Faculty role at TUMS, mentorship of students and fellows, FAQ, and public-health involvement.",
+        cta: "Read more",
+      },
+      {
+        key: "contact",
+        title: "Contact & clinic",
+        body: "Contact form, email, and the private clinic at Tavanir Physicians Building with address and consultation hours.",
+        cta: "Get in touch",
+      },
+    ],
   },
 };
 
@@ -1052,6 +1103,44 @@ export const fa: Dictionary = {
     closeLabel: "بستن گفت‌وگو",
     disclaimer:
       "این دستیار توصیه‌ی پزشکی شخصی ارائه نمی‌دهد. برای پرسش‌های بالینی لطفاً با پزشک خود مشورت کنید.",
+  },
+
+  explore: {
+    eyebrow: "کاوش",
+    heading: "به کجا می‌خواهید بروید؟",
+    subtitle: "هر بخش صفحه‌ی جداگانه دارد — نزدیک‌ترین را به هدف خود انتخاب کنید.",
+    cards: [
+      {
+        key: "breastCancer",
+        title: "سرطان پستان و جراحی",
+        body: "آمار جهانی، گزینه‌های جراحی — لامپکتومی، ماستکتومی، بازسازی انکوپلاستی، بیوپسی گره‌ی سنتینل — و علائم هشدار.",
+        cta: "مشاهده‌ی جزئیات",
+      },
+      {
+        key: "research",
+        title: "پژوهش و مقالات",
+        body: "چهار محور پژوهشی و فهرست مقالات داور-پسند منتخب، قابل فیلتر بر اساس موضوع.",
+        cta: "مرور پژوهش‌ها",
+      },
+      {
+        key: "advances",
+        title: "پیشرفت‌های اخیر",
+        body: "گزیده‌ی دستاوردهای ۲۰۲۵ — واکسن‌های mRNA، مهارکننده‌های KRAS، CAR-T در تومورهای جامد، بیوپسی مایع با هوش مصنوعی.",
+        cta: "مشاهده‌ی پیشرفت‌ها",
+      },
+      {
+        key: "teaching",
+        title: "تدریس و راهنمایی",
+        body: "نقش هیئت علمی در TUMS، راهنمایی دانشجویان و فلوها، پرسش‌های متداول و مشارکت در سلامت عمومی.",
+        cta: "اطلاعات بیشتر",
+      },
+      {
+        key: "contact",
+        title: "تماس و مطب",
+        body: "فرم تماس، ایمیل و مطب خصوصی در ساختمان پزشکان توانیر به‌همراه آدرس و ساعات ویزیت.",
+        cta: "ارتباط با ما",
+      },
+    ],
   },
 };
 

@@ -155,6 +155,7 @@ export type SectionId =
   | "hero"
   | "about"
   | "services"
+  | "explore"
   | "breastCancer"
   | "research"
   | "news"
@@ -184,6 +185,7 @@ export const ALL_SECTIONS: readonly SectionId[] = [
   "hero",
   "about",
   "services",
+  "explore",
   "breastCancer",
   "research",
   "news",
@@ -224,7 +226,7 @@ export function HomePageContent({
       {show("hero") && (
       <section
         id="top"
-        className="relative flex min-h-[80vh] items-center justify-center overflow-hidden px-4 pb-16 pt-[calc(5.5rem+env(safe-area-inset-top))] sm:min-h-[92vh] sm:px-6 sm:pb-20 sm:pt-[calc(6rem+env(safe-area-inset-top))]"
+        className="relative flex min-h-[70vh] items-center justify-center overflow-hidden px-4 pb-12 pt-[calc(5rem+env(safe-area-inset-top))] sm:min-h-[88vh] sm:px-6 sm:pb-16 sm:pt-[calc(6rem+env(safe-area-inset-top))] lg:min-h-[92vh]"
       >
         <div className="pointer-events-none absolute inset-0">
           <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,rgba(16,185,129,0.16),transparent_55%),radial-gradient(ellipse_at_bottom_right,rgba(20,184,166,0.18),transparent_55%)]" />
@@ -266,7 +268,7 @@ export function HomePageContent({
             </p>
           </Reveal>
           <Reveal delay={100}>
-            <h1 className="text-4xl font-semibold tracking-tight text-zinc-900 dark:text-zinc-50 sm:text-6xl sm:leading-[1.05]">
+            <h1 className="text-3xl font-semibold tracking-tight text-zinc-900 dark:text-zinc-50 sm:text-5xl lg:text-6xl sm:leading-[1.05]">
               {t.hero.title}
             </h1>
           </Reveal>
@@ -324,7 +326,7 @@ export function HomePageContent({
               details most visitors come here for, so they surface directly
               on the hero rather than being tucked into the Contact page. */}
           <Reveal delay={400}>
-            <div className="mx-auto mt-14 max-w-3xl rounded-2xl border border-emerald-200/70 bg-white/80 p-5 text-start shadow-sm backdrop-blur dark:border-emerald-900/40 dark:bg-zinc-900/60 sm:p-6">
+            <div className="mx-auto mt-10 max-w-3xl rounded-2xl border border-emerald-200/70 bg-white/80 p-5 text-start shadow-sm backdrop-blur dark:border-emerald-900/40 dark:bg-zinc-900/60 sm:mt-14 sm:p-6">
               <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
                 <div className="min-w-0">
                   <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-emerald-700 dark:text-emerald-400">
@@ -344,7 +346,7 @@ export function HomePageContent({
                   <a
                     href={`tel:${CLINIC.phone}`}
                     dir="ltr"
-                    className="inline-flex items-center gap-2 rounded-full bg-emerald-600 px-5 py-2.5 text-sm font-semibold text-white shadow-sm transition hover:bg-emerald-500"
+                    className="inline-flex w-full items-center justify-center gap-2 rounded-full bg-emerald-600 px-5 py-3 text-sm font-semibold text-white shadow-sm transition hover:bg-emerald-500 sm:w-auto sm:py-2.5"
                   >
                     <svg
                       className="h-4 w-4"
@@ -388,14 +390,14 @@ export function HomePageContent({
       {show("about") && (
       <section
         id="about"
-        className="scroll-mt-20 border-t border-zinc-200/80 bg-white px-4 py-32 dark:border-zinc-800/40 dark:bg-zinc-950 sm:px-6"
+        className="scroll-mt-20 border-t border-zinc-200/80 bg-white px-4 py-16 sm:py-24 lg:py-32 dark:border-zinc-800/40 dark:bg-zinc-950 sm:px-6"
       >
         <div className="mx-auto max-w-4xl">
           <Reveal>
             <p className="text-xs font-medium uppercase tracking-[0.2em] text-zinc-500 dark:text-zinc-400">
               {t.about.eyebrow}
             </p>
-            <h2 className="mt-4 text-4xl font-semibold tracking-tight text-zinc-900 dark:text-zinc-50 sm:text-5xl">
+            <h2 className="mt-4 text-3xl font-semibold tracking-tight text-zinc-900 dark:text-zinc-50 sm:text-4xl lg:text-5xl">
               {t.about.heading}
             </h2>
           </Reveal>
@@ -560,17 +562,17 @@ export function HomePageContent({
       {show("services") && (
       <section
         id="services"
-        className="scroll-mt-20 border-t border-zinc-200/80 px-4 py-32 dark:border-zinc-800/40 sm:px-6"
+        className="scroll-mt-20 border-t border-zinc-200/80 px-4 py-16 sm:py-24 lg:py-32 dark:border-zinc-800/40 sm:px-6"
       >
         <div className="mx-auto max-w-6xl">
           <Reveal>
             <p className="text-center text-xs font-medium uppercase tracking-[0.2em] text-zinc-500 dark:text-zinc-400">
               {t.services.eyebrow}
             </p>
-            <h2 className="mt-4 text-center text-4xl font-semibold tracking-tight text-zinc-900 dark:text-zinc-50 sm:text-5xl">
+            <h2 className="mt-4 text-center text-3xl font-semibold tracking-tight text-zinc-900 dark:text-zinc-50 sm:text-4xl lg:text-5xl">
               {t.services.heading}
             </h2>
-            <p className="mx-auto mt-6 max-w-2xl text-center text-lg text-zinc-600 dark:text-zinc-400">
+            <p className="mx-auto mt-4 max-w-2xl text-center text-base sm:text-lg text-zinc-600 dark:text-zinc-400">
               {t.services.subtitleBefore}
               <a
                 href={SITE.affiliationUrl}
@@ -658,11 +660,69 @@ export function HomePageContent({
       </section>
       )}
 
+      {/* ============== EXPLORE (landing-page navigation tiles) ============== */}
+      {show("explore") && (
+      <section
+        id="explore"
+        className="scroll-mt-20 border-t border-zinc-200/80 bg-white px-4 py-16 sm:py-24 lg:py-32 dark:border-zinc-800/40 dark:bg-zinc-950 sm:px-6"
+      >
+        <div className="mx-auto max-w-6xl">
+          <Reveal>
+            <p className="text-xs font-medium uppercase tracking-[0.2em] text-zinc-500 dark:text-zinc-400">
+              {t.explore.eyebrow}
+            </p>
+            <h2 className="mt-3 text-3xl font-semibold tracking-tight text-zinc-900 dark:text-zinc-50 sm:text-4xl lg:text-5xl">
+              {t.explore.heading}
+            </h2>
+            <p className="mt-3 max-w-2xl text-base text-zinc-600 dark:text-zinc-400 sm:text-lg">
+              {t.explore.subtitle}
+            </p>
+          </Reveal>
+          <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+            {t.explore.cards.map((card, i) => {
+              const href =
+                card.key === "breastCancer"
+                  ? routes.breastCancer
+                  : card.key === "research"
+                  ? routes.research
+                  : card.key === "advances"
+                  ? routes.advances
+                  : card.key === "teaching"
+                  ? routes.teaching
+                  : routes.contact;
+              return (
+                <Reveal key={card.key} delay={i * 50}>
+                  <Link
+                    href={href}
+                    className="card group relative flex h-full flex-col overflow-hidden p-6 transition-transform hover:-translate-y-0.5"
+                  >
+                    <span
+                      aria-hidden
+                      className="absolute inset-x-0 top-0 h-0.5 bg-gradient-to-r from-emerald-400 via-teal-400 to-sky-400 opacity-70"
+                    />
+                    <h3 className="text-lg font-semibold text-zinc-900 dark:text-zinc-100">
+                      {card.title}
+                    </h3>
+                    <p className="mt-2 flex-1 text-sm leading-relaxed text-zinc-600 dark:text-zinc-400">
+                      {card.body}
+                    </p>
+                    <p className="mt-4 text-sm font-medium text-emerald-700 group-hover:text-emerald-800 dark:text-emerald-400 dark:group-hover:text-emerald-300">
+                      {card.cta} <span aria-hidden>→</span>
+                    </p>
+                  </Link>
+                </Reveal>
+              );
+            })}
+          </div>
+        </div>
+      </section>
+      )}
+
       {/* ============== BREAST CANCER DEEP-DIVE ============== */}
       {show("breastCancer") && (
       <section
         id="breast-cancer"
-        className="relative scroll-mt-20 overflow-hidden border-t border-zinc-200/80 bg-gradient-to-b from-pink-50/40 via-white to-white px-4 py-32 dark:border-zinc-800/40 dark:from-pink-950/10 dark:via-zinc-950 dark:to-zinc-950 sm:px-6"
+        className="relative scroll-mt-20 overflow-hidden border-t border-zinc-200/80 bg-gradient-to-b from-pink-50/40 via-white to-white px-4 py-16 sm:py-24 lg:py-32 dark:border-zinc-800/40 dark:from-pink-950/10 dark:via-zinc-950 dark:to-zinc-950 sm:px-6"
       >
         {/* Pink-tinted awareness accents in the corners — signals breast
             cancer without overwhelming the copy. */}
@@ -689,10 +749,10 @@ export function HomePageContent({
                 {t.breastCancer.eyebrow}
               </p>
             </div>
-            <h2 className="mt-4 text-center text-4xl font-semibold tracking-tight text-zinc-900 dark:text-zinc-50 sm:text-5xl">
+            <h2 className="mt-4 text-center text-3xl font-semibold tracking-tight text-zinc-900 dark:text-zinc-50 sm:text-4xl lg:text-5xl">
               {t.breastCancer.heading}
             </h2>
-            <p className="mx-auto mt-6 max-w-3xl text-center text-lg text-zinc-600 dark:text-zinc-400">
+            <p className="mx-auto mt-4 max-w-3xl text-center text-base sm:text-lg text-zinc-600 dark:text-zinc-400">
               {t.breastCancer.subtitle}
             </p>
           </Reveal>
@@ -809,7 +869,7 @@ export function HomePageContent({
       {show("research") && (
       <section
         id="research"
-        className="relative scroll-mt-20 overflow-hidden border-t border-zinc-200/80 bg-white px-4 py-32 dark:border-zinc-800/40 dark:bg-zinc-950 sm:px-6"
+        className="relative scroll-mt-20 overflow-hidden border-t border-zinc-200/80 bg-white px-4 py-16 sm:py-24 lg:py-32 dark:border-zinc-800/40 dark:bg-zinc-950 sm:px-6"
       >
         {/* Microscopic cell-cluster watermark — calls out the cancer-biology
             focus of the research themes below */}
@@ -819,10 +879,10 @@ export function HomePageContent({
             <p className="text-center text-xs font-medium uppercase tracking-[0.2em] text-zinc-500 dark:text-zinc-400">
               {t.research.eyebrow}
             </p>
-            <h2 className="mt-4 text-center text-4xl font-semibold tracking-tight text-zinc-900 dark:text-zinc-50 sm:text-5xl">
+            <h2 className="mt-4 text-center text-3xl font-semibold tracking-tight text-zinc-900 dark:text-zinc-50 sm:text-4xl lg:text-5xl">
               {t.research.heading}
             </h2>
-            <p className="mx-auto mt-6 max-w-2xl text-center text-lg text-zinc-600 dark:text-zinc-400">
+            <p className="mx-auto mt-4 max-w-2xl text-center text-base sm:text-lg text-zinc-600 dark:text-zinc-400">
               {t.research.subtitle}
             </p>
           </Reveal>
@@ -851,7 +911,7 @@ export function HomePageContent({
       {show("news") && (
       <section
         id="news"
-        className="relative scroll-mt-20 overflow-hidden border-t border-zinc-200/80 bg-zinc-50/70 px-4 py-32 dark:border-zinc-800/40 dark:bg-zinc-900/40 sm:px-6"
+        className="relative scroll-mt-20 overflow-hidden border-t border-zinc-200/80 bg-zinc-50/70 px-4 py-16 sm:py-24 lg:py-32 dark:border-zinc-800/40 dark:bg-zinc-900/40 sm:px-6"
       >
         {/* Subtle helix motif — ties the news strip visually to the research
             themes (ncRNA, CAR-T, gene editing) while keeping the card area
@@ -868,10 +928,10 @@ export function HomePageContent({
                 {t.news.eyebrow}
               </p>
             </div>
-            <h2 className="mt-4 text-center text-4xl font-semibold tracking-tight text-zinc-900 dark:text-zinc-50 sm:text-5xl">
+            <h2 className="mt-4 text-center text-3xl font-semibold tracking-tight text-zinc-900 dark:text-zinc-50 sm:text-4xl lg:text-5xl">
               {t.news.heading}
             </h2>
-            <p className="mx-auto mt-6 max-w-2xl text-center text-lg text-zinc-600 dark:text-zinc-400">
+            <p className="mx-auto mt-4 max-w-2xl text-center text-base sm:text-lg text-zinc-600 dark:text-zinc-400">
               {t.news.subtitle}
             </p>
           </Reveal>
@@ -917,14 +977,14 @@ export function HomePageContent({
       {show("publications") && (
       <section
         id="publications"
-        className="scroll-mt-20 border-t border-zinc-200/80 px-4 py-32 dark:border-zinc-800/40 sm:px-6"
+        className="scroll-mt-20 border-t border-zinc-200/80 px-4 py-16 sm:py-24 lg:py-32 dark:border-zinc-800/40 sm:px-6"
       >
         <div className="mx-auto max-w-5xl">
           <Reveal>
             <p className="text-xs font-medium uppercase tracking-[0.2em] text-zinc-500 dark:text-zinc-400">
               {t.publications.eyebrow}
             </p>
-            <h2 className="mt-4 text-4xl font-semibold tracking-tight text-zinc-900 dark:text-zinc-50 sm:text-5xl">
+            <h2 className="mt-4 text-3xl font-semibold tracking-tight text-zinc-900 dark:text-zinc-50 sm:text-4xl lg:text-5xl">
               {t.publications.heading}
             </h2>
             <p className="mt-4 max-w-2xl text-zinc-600 dark:text-zinc-400">
@@ -978,14 +1038,14 @@ export function HomePageContent({
       {show("teaching") && (
       <section
         id="teaching"
-        className="scroll-mt-20 border-t border-zinc-200/80 bg-zinc-50 px-4 py-32 dark:border-zinc-800/40 dark:bg-zinc-900/30 sm:px-6"
+        className="scroll-mt-20 border-t border-zinc-200/80 bg-zinc-50 px-4 py-10 sm:py-14 sm:py-24 lg:py-32 dark:border-zinc-800/40 dark:bg-zinc-900/30 sm:px-6"
       >
         <div className="mx-auto max-w-4xl">
           <Reveal>
             <p className="text-xs font-medium uppercase tracking-[0.2em] text-zinc-500 dark:text-zinc-400">
               {t.teaching.eyebrow}
             </p>
-            <h2 className="mt-4 text-4xl font-semibold tracking-tight text-zinc-900 dark:text-zinc-50 sm:text-5xl">
+            <h2 className="mt-4 text-3xl font-semibold tracking-tight text-zinc-900 dark:text-zinc-50 sm:text-4xl lg:text-5xl">
               {t.teaching.heading}
             </h2>
           </Reveal>
@@ -1036,14 +1096,14 @@ export function HomePageContent({
       {show("contact") && (
       <section
         id="contact"
-        className="scroll-mt-20 border-t border-zinc-200/80 bg-white px-4 py-32 dark:border-zinc-800/40 dark:bg-zinc-950 sm:px-6"
+        className="scroll-mt-20 border-t border-zinc-200/80 bg-white px-4 py-16 sm:py-24 lg:py-32 dark:border-zinc-800/40 dark:bg-zinc-950 sm:px-6"
       >
         <div className="mx-auto max-w-4xl">
           <Reveal>
             <p className="text-xs font-medium uppercase tracking-[0.2em] text-zinc-500 dark:text-zinc-400">
               {t.contact.eyebrow}
             </p>
-            <h2 className="mt-4 text-4xl font-semibold tracking-tight text-zinc-900 dark:text-zinc-50 sm:text-5xl">
+            <h2 className="mt-4 text-3xl font-semibold tracking-tight text-zinc-900 dark:text-zinc-50 sm:text-4xl lg:text-5xl">
               {t.contact.heading}
             </h2>
             <p className="mt-4 max-w-lg text-zinc-600 dark:text-zinc-400">
@@ -1171,7 +1231,7 @@ export function HomePageContent({
 
       {/* ============== FOOTER ============== */}
       {show("footer") && (
-      <footer className="border-t border-zinc-200/80 bg-zinc-50 px-4 py-16 dark:border-zinc-800/40 dark:bg-zinc-900/30 sm:px-6">
+      <footer className="border-t border-zinc-200/80 bg-zinc-50 px-4 py-10 sm:py-14 dark:border-zinc-800/40 dark:bg-zinc-900/30 sm:px-6">
         <div className="mx-auto max-w-6xl">
           <div className="flex flex-col gap-10 lg:flex-row lg:items-start lg:justify-between">
             <div className="max-w-sm space-y-3">

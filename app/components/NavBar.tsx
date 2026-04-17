@@ -49,7 +49,7 @@ export function NavBar({ t }: { t: Dictionary["nav"] }) {
           </span>
         </Link>
 
-        <div className="hidden items-center gap-3 xl:flex 2xl:gap-6">
+        <div className="hidden items-center gap-3 lg:flex lg:gap-3 xl:gap-6">
           {t.items.map((item) => (
             <Link
               key={item.href}
@@ -69,7 +69,7 @@ export function NavBar({ t }: { t: Dictionary["nav"] }) {
           </Link>
         </div>
 
-        <div className="flex items-center gap-2 xl:hidden">
+        <div className="flex items-center gap-2 lg:hidden">
           <LanguageToggle label={t.toggleLabel} ariaLabel={t.toggleAria} />
           <ThemeToggle />
           <button
@@ -105,7 +105,7 @@ export function NavBar({ t }: { t: Dictionary["nav"] }) {
       </div>
 
       {menuOpen && (
-        <div className="max-h-[min(70vh,calc(100dvh-env(safe-area-inset-top)-5rem))] space-y-3 overflow-y-auto border-t border-zinc-200/80 bg-white/95 px-4 pb-[max(1rem,env(safe-area-inset-bottom))] pt-2 backdrop-blur-md dark:border-zinc-800/60 dark:bg-zinc-950/95 xl:hidden">
+        <div className="max-h-[min(70vh,calc(100dvh-env(safe-area-inset-top)-5rem))] space-y-3 overflow-y-auto border-t border-zinc-200/80 bg-white/95 px-4 pb-[max(1rem,env(safe-area-inset-bottom))] pt-2 backdrop-blur-md dark:border-zinc-800/60 dark:bg-zinc-950/95 lg:hidden">
           {t.items.map((item) => (
             <Link
               key={item.href}

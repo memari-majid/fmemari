@@ -12,7 +12,7 @@ export default function HomePageFa() {
       <HomePageContent
         t={t}
         locale="fa"
-        sections={["hero", "about", "services", "footer"]}
+        sections={["hero", "about", "services", "explore", "footer"]}
       />
     </div>
   );
