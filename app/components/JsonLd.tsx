@@ -26,10 +26,11 @@ export function JsonLd() {
     worksFor: {
       "@type": "MedicalOrganization",
       name: `${SITE.affiliation}, ${SITE.affiliationDetail}`,
+      url: SITE.affiliationUrl,
       parentOrganization: {
         "@type": "CollegeOrUniversity",
         name: SITE.affiliationParent,
-        url: "https://en.tums.ac.ir/",
+        url: SITE.affiliationParentUrl,
       },
       address: {
         "@type": "PostalAddress",

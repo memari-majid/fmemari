@@ -17,6 +17,10 @@ export const SITE = {
   affiliation: "Cancer Institute of Iran",
   affiliationDetail: "Imam Khomeini Hospital Complex",
   affiliationParent: "Tehran University of Medical Sciences",
+  /** Official Cancer Institute page on the TUMS English site. */
+  affiliationUrl: "https://en.tums.ac.ir/en/page/56/cancer-institute",
+  /** TUMS English homepage. */
+  affiliationParentUrl: "https://en.tums.ac.ir/en",
   addressLocality: "Tehran",
   addressCountry: "IR",
   /** Iranian Medical Council license number. */
@@ -24,7 +28,7 @@ export const SITE = {
   experienceYears: 33,
   specialties: ["Surgical Oncology", "General Surgery"] as const,
   scholar:
-    "https://scholar.google.com/citations?user=BBKnRjgAAAAJ",
+    "https://scholar.google.com/citations?user=IirhdFIAAAAJ&hl=en",
   scholarLabel: "Google Scholar",
   // Open items — fill in once confirmed
   orcid: "" as string,

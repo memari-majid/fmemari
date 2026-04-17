@@ -241,11 +241,24 @@ export function HomePageContent() {
           </Reveal>
           <Reveal delay={180}>
             <p className="mt-4 text-base text-zinc-600 dark:text-zinc-400 sm:text-lg">
-              <span className="gradient-text font-medium">
+              <a
+                href={SITE.affiliationUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="gradient-text font-medium hover:underline"
+              >
                 {SITE.affiliation}
-              </span>
+              </a>
               <span className="block text-sm text-zinc-500 dark:text-zinc-500 sm:text-base">
-                {SITE.affiliationParent} · Tehran, Iran
+                <a
+                  href={SITE.affiliationParentUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="transition-colors hover:text-emerald-700 dark:hover:text-emerald-400"
+                >
+                  {SITE.affiliationParent}
+                </a>{" "}
+                · Tehran, Iran
               </span>
             </p>
           </Reveal>
@@ -331,25 +344,130 @@ export function HomePageContent() {
             </h2>
           </Reveal>
 
-          <div className="mt-12 grid gap-12 md:grid-cols-3 md:items-start">
-            <Reveal delay={80} className="md:col-span-1">
-              <div className="relative mx-auto h-40 w-40 md:mx-0">
-                <Image
-                  src="/fereidoon-memari.jpg"
-                  alt="Dr. Fereidoon Memari — surgical oncologist and cancer researcher"
-                  fill
-                  className="rounded-full object-cover object-top shadow-lg ring-1 ring-zinc-200 dark:ring-zinc-700"
-                  sizes="160px"
-                  priority
-                />
+          <div className="mt-12 grid gap-12 md:grid-cols-5 md:items-start">
+            <Reveal delay={80} className="md:col-span-2">
+              <div className="relative mx-auto w-fit md:mx-0">
+                {/* Subtle DNA-helix watermark behind the portrait — signals
+                    cancer biology / oncology research without being literal. */}
+                <svg
+                  className="pointer-events-none absolute -inset-6 -z-10 h-[calc(100%+3rem)] w-[calc(100%+3rem)] text-emerald-500/15 dark:text-emerald-400/10"
+                  viewBox="0 0 100 100"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth={0.6}
+                  aria-hidden
+                >
+                  <defs>
+                    <pattern id="helix" x="0" y="0" width="20" height="40" patternUnits="userSpaceOnUse">
+                      <path d="M0 0 Q 10 20 20 40 M20 0 Q 10 20 0 40" />
+                      <line x1="2" y1="6" x2="18" y2="6" />
+                      <line x1="4" y1="14" x2="16" y2="14" />
+                      <line x1="6" y1="22" x2="14" y2="22" />
+                      <line x1="4" y1="30" x2="16" y2="30" />
+                    </pattern>
+                  </defs>
+                  <rect width="100%" height="100%" fill="url(#helix)" />
+                </svg>
+
+                {/* Soft emerald → teal glow halo behind the portrait */}
                 <div
-                  className="pointer-events-none absolute -inset-2 animate-[pulse-glow_6s_ease-in-out_infinite] rounded-full border border-emerald-300/30 dark:border-emerald-600/30"
+                  className="pointer-events-none absolute -inset-3 -z-10 rounded-3xl bg-gradient-to-br from-emerald-500/25 via-teal-500/15 to-transparent blur-2xl"
                   aria-hidden
                 />
+
+                {/* Portrait card — 4:5 aspect, larger than the old circle,
+                    less aggressive crop so the shoulders/scrubs are visible. */}
+                <div className="relative h-80 w-64 overflow-hidden rounded-2xl shadow-xl shadow-emerald-900/10 ring-1 ring-zinc-200 dark:shadow-emerald-950/40 dark:ring-zinc-700 sm:h-96 sm:w-72">
+                  <Image
+                    src="/fereidoon-memari.jpg"
+                    alt="Dr. Fereidoon Memari — surgical oncologist and cancer researcher"
+                    fill
+                    className="object-cover object-top"
+                    sizes="(max-width: 640px) 256px, 288px"
+                    priority
+                  />
+                  {/* Inner top→bottom soft gradient — strengthens the photo's
+                      bottom edge against the credential badge */}
+                  <div
+                    className="pointer-events-none absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-zinc-950/40 to-transparent"
+                    aria-hidden
+                  />
+                </div>
+
+                {/* Floating credential badge — caduceus-style icon + tenure */}
+                <div className="absolute -bottom-3 -right-3 flex items-center gap-1.5 rounded-full border border-emerald-200 bg-white px-3 py-1.5 text-xs font-semibold text-emerald-700 shadow-lg dark:border-emerald-900/50 dark:bg-zinc-900 dark:text-emerald-400">
+                  <svg
+                    className="h-4 w-4"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth={1.75}
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    aria-hidden
+                  >
+                    {/* Simple medical caduceus / staff-of-Asclepius mark */}
+                    <path d="M12 3v18" />
+                    <path d="M9 5c0 2 1.5 3 3 3s3-1 3-3" />
+                    <path d="M9 10c0 2 1.5 3 3 3s3-1 3-3" />
+                    <path d="M9 15c0 2 1.5 3 3 3s3-1 3-3" />
+                  </svg>
+                  <span>{SITE.experienceYears}+ years</span>
+                </div>
+              </div>
+
+              {/* Institutional reference strip under the photo */}
+              <div className="mt-8 space-y-2">
+                <a
+                  href={SITE.affiliationUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="group flex items-start gap-3 rounded-xl border border-zinc-200/80 bg-white p-3 transition hover:border-emerald-400 dark:border-zinc-800/60 dark:bg-zinc-900/40 dark:hover:border-emerald-600"
+                >
+                  <span className="mt-0.5 flex h-8 w-8 shrink-0 items-center justify-center rounded-md bg-emerald-100 text-emerald-700 dark:bg-emerald-950/50 dark:text-emerald-400">
+                    <svg className="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.75} aria-hidden>
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 21h16.5M4.5 3h15M5.25 3v18m13.5-18v18M9 6.75h1.5m-1.5 3h1.5m-1.5 3h1.5m4.5-6H16.5m-1.5 3H16.5m-1.5 3H16.5M9 21v-3.375c0-.621.504-1.125 1.125-1.125h3.75c.621 0 1.125.504 1.125 1.125V21" />
+                    </svg>
+                  </span>
+                  <span className="min-w-0">
+                    <span className="block text-[11px] font-medium uppercase tracking-wider text-zinc-500 dark:text-zinc-500">
+                      Clinical practice
+                    </span>
+                    <span className="block text-sm font-semibold text-zinc-900 group-hover:text-emerald-700 dark:text-zinc-100 dark:group-hover:text-emerald-400">
+                      {SITE.affiliation}
+                    </span>
+                    <span className="mt-0.5 block text-[11px] text-zinc-500 dark:text-zinc-500">
+                      {SITE.affiliationDetail}
+                    </span>
+                  </span>
+                </a>
+                <a
+                  href={SITE.affiliationParentUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="group flex items-start gap-3 rounded-xl border border-zinc-200/80 bg-white p-3 transition hover:border-emerald-400 dark:border-zinc-800/60 dark:bg-zinc-900/40 dark:hover:border-emerald-600"
+                >
+                  <span className="mt-0.5 flex h-8 w-8 shrink-0 items-center justify-center rounded-md bg-emerald-100 text-emerald-700 dark:bg-emerald-950/50 dark:text-emerald-400">
+                    <svg className="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.75} aria-hidden>
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M4.26 10.147a60.438 60.438 0 0 0-.491 6.347A48.62 48.62 0 0 1 12 20.904a48.62 48.62 0 0 1 8.232-4.41 60.46 60.46 0 0 0-.491-6.347m-15.482 0a50.636 50.636 0 0 0-2.658-.813A59.906 59.906 0 0 1 12 3.493a59.903 59.903 0 0 1 10.399 5.84c-.896.248-1.783.52-2.658.814m-15.482 0A50.717 50.717 0 0 1 12 13.489a50.702 50.702 0 0 1 7.74-3.342" />
+                    </svg>
+                  </span>
+                  <span className="min-w-0">
+                    <span className="block text-[11px] font-medium uppercase tracking-wider text-zinc-500 dark:text-zinc-500">
+                      Academic appointment
+                    </span>
+                    <span className="block text-sm font-semibold text-zinc-900 group-hover:text-emerald-700 dark:text-zinc-100 dark:group-hover:text-emerald-400">
+                      {SITE.affiliationParent}
+                    </span>
+                    <span className="mt-0.5 block text-[11px] text-zinc-500 dark:text-zinc-500">
+                      {SITE.academicRank}
+                    </span>
+                  </span>
+                </a>
               </div>
             </Reveal>
 
-            <Reveal delay={140} className="md:col-span-2">
+            <Reveal delay={140} className="md:col-span-3">
               <div className="space-y-4 text-sm leading-relaxed text-zinc-600 dark:text-zinc-400 sm:text-base">
                 <p>
                   Dr. Fereidoon Memari is an{" "}
@@ -358,7 +476,7 @@ export function HomePageContent() {
                   </strong>{" "}
                   at{" "}
                   <a
-                    href="https://en.tums.ac.ir/"
+                    href={SITE.affiliationParentUrl}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="text-emerald-700 underline decoration-emerald-700/30 hover:decoration-emerald-700 dark:text-emerald-400"
@@ -366,9 +484,14 @@ export function HomePageContent() {
                     {SITE.affiliationParent}
                   </a>{" "}
                   and a surgical oncologist at the{" "}
-                  <strong className="text-zinc-900 dark:text-zinc-100">
+                  <a
+                    href={SITE.affiliationUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="font-semibold text-zinc-900 underline decoration-zinc-300 hover:decoration-emerald-600 dark:text-zinc-100 dark:decoration-zinc-600 dark:hover:decoration-emerald-400"
+                  >
                     {SITE.affiliation}, {SITE.affiliationDetail}
-                  </strong>
+                  </a>
                   . With more than{" "}
                   <strong className="text-zinc-900 dark:text-zinc-100">
                     {SITE.experienceYears} years of professional surgical
@@ -471,7 +594,16 @@ export function HomePageContent() {
             <p className="mx-auto mt-6 max-w-2xl text-center text-lg text-zinc-600 dark:text-zinc-400">
               Three areas of focus across cancer surgery, oncoplastic
               reconstruction, and minimally invasive technique — practiced at
-              the Cancer Institute, Imam Khomeini Hospital Complex.
+              the{" "}
+              <a
+                href={SITE.affiliationUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-emerald-700 underline decoration-emerald-700/30 hover:decoration-emerald-700 dark:text-emerald-400"
+              >
+                Cancer Institute, Imam Khomeini Hospital Complex
+              </a>
+              .
             </p>
           </Reveal>
 
@@ -657,16 +789,26 @@ export function HomePageContent() {
           <Reveal delay={80}>
             <div className="card mt-10 p-8">
               <p className="text-sm leading-relaxed text-zinc-600 dark:text-zinc-400 sm:text-base">
-                As an{" "}
-                <strong className="text-zinc-900 dark:text-zinc-100">
-                  Associate Professor at {SITE.affiliationParent}
-                </strong>
+                As an Associate Professor at{" "}
+                <a
+                  href={SITE.affiliationParentUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="font-semibold text-zinc-900 underline decoration-zinc-300 hover:decoration-emerald-600 dark:text-zinc-100 dark:decoration-zinc-600 dark:hover:decoration-emerald-400"
+                >
+                  {SITE.affiliationParent}
+                </a>
                 , Dr. Memari teaches and mentors graduate students, surgical
                 residents, and fellows. Clinical practice and trainee
                 supervision take place at the{" "}
-                <strong className="text-zinc-900 dark:text-zinc-100">
+                <a
+                  href={SITE.affiliationUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="font-semibold text-zinc-900 underline decoration-zinc-300 hover:decoration-emerald-600 dark:text-zinc-100 dark:decoration-zinc-600 dark:hover:decoration-emerald-400"
+                >
                   {SITE.affiliation}, {SITE.affiliationDetail}
-                </strong>
+                </a>
                 .
               </p>
               <p className="mt-4 text-sm leading-relaxed text-zinc-600 dark:text-zinc-400 sm:text-base">
@@ -737,19 +879,26 @@ export function HomePageContent() {
               </a>
             </Reveal>
             <Reveal delay={120}>
-              <div className="card flex flex-col gap-1 p-6">
+              <a
+                href={SITE.affiliationUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="card group flex flex-col gap-1 p-6"
+              >
                 <p className="text-xs font-medium uppercase tracking-wider text-emerald-700 dark:text-emerald-400">
                   Affiliation
                 </p>
-                <p className="text-base font-semibold text-zinc-900 dark:text-zinc-100">
+                <p className="text-base font-semibold text-zinc-900 transition-colors group-hover:text-emerald-700 dark:text-zinc-100 dark:group-hover:text-emerald-400">
                   {SITE.affiliation}
                 </p>
                 <p className="mt-1 text-xs text-zinc-500 dark:text-zinc-500">
+                  {SITE.affiliationDetail}
+                  <br />
                   {SITE.affiliationParent}
                   <br />
                   Tehran, Iran
                 </p>
-              </div>
+              </a>
             </Reveal>
           </div>
 
