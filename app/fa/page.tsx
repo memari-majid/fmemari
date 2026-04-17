@@ -9,7 +9,11 @@ export default function HomePageFa() {
     <div className="min-h-screen min-w-0 overflow-x-hidden bg-zinc-50 text-zinc-900 dark:bg-zinc-950 dark:text-zinc-100">
       <JsonLd locale="fa" />
       <NavBar t={t.nav} />
-      <HomePageContent t={t} locale="fa" />
+      <HomePageContent
+        t={t}
+        locale="fa"
+        sections={["hero", "about", "services", "footer"]}
+      />
     </div>
   );
 }

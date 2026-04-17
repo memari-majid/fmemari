@@ -1,11 +1,17 @@
 "use client";
 
+import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import { ThemeToggle } from "@/app/components/ThemeToggle";
 import { LanguageToggle } from "@/app/components/LanguageToggle";
 import type { Dictionary } from "@/lib/i18n";
 
 export function NavBar({ t }: { t: Dictionary["nav"] }) {
+  const pathname = usePathname() ?? "/";
+  const isFa = pathname === "/fa" || pathname.startsWith("/fa/");
+  const homeHref = isFa ? "/fa" : "/";
+  const contactHref = isFa ? "/fa/contact" : "/contact";
   const [menuOpen, setMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
 
@@ -24,8 +30,8 @@ export function NavBar({ t }: { t: Dictionary["nav"] }) {
       }`}
     >
       <div className="mx-auto flex min-w-0 max-w-6xl items-center justify-between gap-2 px-4 py-3 sm:px-6 lg:py-4">
-        <a
-          href="#top"
+        <Link
+          href={homeHref}
           className="group flex min-h-[44px] min-w-0 shrink-0 items-center gap-2.5"
         >
           <span
@@ -41,38 +47,30 @@ export function NavBar({ t }: { t: Dictionary["nav"] }) {
               {t.monogramLine2}
             </span>
           </span>
-        </a>
+        </Link>
 
         <div className="hidden items-center gap-3 xl:flex 2xl:gap-6">
           {t.items.map((item) => (
-            <a
+            <Link
               key={item.href}
               href={item.href}
               className="shrink-0 whitespace-nowrap text-sm text-zinc-600 transition-colors hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-zinc-100"
             >
               {item.label}
-            </a>
+            </Link>
           ))}
-          <LanguageToggle
-            label={t.toggleLabel}
-            href={t.togglePath}
-            ariaLabel={t.toggleAria}
-          />
+          <LanguageToggle label={t.toggleLabel} ariaLabel={t.toggleAria} />
           <ThemeToggle />
-          <a
-            href="#contact"
+          <Link
+            href={contactHref}
             className="whitespace-nowrap rounded-lg bg-emerald-600 px-4 py-2.5 text-sm font-medium text-white transition hover:bg-emerald-500"
           >
             {t.cta}
-          </a>
+          </Link>
         </div>
 
         <div className="flex items-center gap-2 xl:hidden">
-          <LanguageToggle
-            label={t.toggleLabel}
-            href={t.togglePath}
-            ariaLabel={t.toggleAria}
-          />
+          <LanguageToggle label={t.toggleLabel} ariaLabel={t.toggleAria} />
           <ThemeToggle />
           <button
             type="button"
@@ -109,22 +107,22 @@ export function NavBar({ t }: { t: Dictionary["nav"] }) {
       {menuOpen && (
         <div className="max-h-[min(70vh,calc(100dvh-env(safe-area-inset-top)-5rem))] space-y-3 overflow-y-auto border-t border-zinc-200/80 bg-white/95 px-4 pb-[max(1rem,env(safe-area-inset-bottom))] pt-2 backdrop-blur-md dark:border-zinc-800/60 dark:bg-zinc-950/95 xl:hidden">
           {t.items.map((item) => (
-            <a
+            <Link
               key={item.href}
               href={item.href}
               onClick={() => setMenuOpen(false)}
               className="block py-2 text-sm text-zinc-600 transition-colors hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-zinc-100"
             >
               {item.label}
-            </a>
+            </Link>
           ))}
-          <a
-            href="#contact"
+          <Link
+            href={contactHref}
             onClick={() => setMenuOpen(false)}
             className="block rounded-lg bg-emerald-600 px-4 py-3 text-center text-sm font-medium text-white transition hover:bg-emerald-500"
           >
             {t.cta}
-          </a>
+          </Link>
         </div>
       )}
     </nav>

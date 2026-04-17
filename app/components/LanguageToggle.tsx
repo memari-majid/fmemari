@@ -1,31 +1,46 @@
+"use client";
+
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 
 /**
  * Tiny EN ↔ FA language toggle.
  *
- * - On the English route, shows "فارسی" linking to /fa.
- * - On the Persian route, shows "English" linking to /.
- * - Renders as a normal anchor (no JS) so it works on the very first paint
- *   and also acts as a useful crawler signal for hreflang discovery.
+ * On every page the button points at the same page in the other locale:
+ *   /                     ↔ /fa
+ *   /breast-cancer        ↔ /fa/breast-cancer
+ *   /research#publications ↔ /fa/research#publications
  *
- * The label and target href come from the dictionary so the component itself
- * remains locale-agnostic.
+ * Uses `usePathname()` so a reader who has navigated to an internal page
+ * lands on the matching internal page in the other language, not back on
+ * the home page.
  */
 export function LanguageToggle({
   label,
-  href,
   ariaLabel,
   className = "",
 }: {
   label: string;
-  href: string;
   ariaLabel: string;
   className?: string;
 }) {
+  const pathname = usePathname() ?? "/";
+  const isFa = pathname === "/fa" || pathname.startsWith("/fa/");
+
+  // Compute the equivalent path in the other locale.
+  let target: string;
+  if (isFa) {
+    // /fa → / ; /fa/breast-cancer → /breast-cancer
+    target = pathname === "/fa" ? "/" : pathname.replace(/^\/fa/, "");
+  } else {
+    // / → /fa ; /breast-cancer → /fa/breast-cancer
+    target = pathname === "/" ? "/fa" : `/fa${pathname}`;
+  }
+
   return (
     <Link
-      href={href}
-      hrefLang={href === "/fa" ? "fa" : "en"}
+      href={target}
+      hrefLang={isFa ? "en" : "fa"}
       aria-label={ariaLabel}
       className={`inline-flex h-11 min-h-[44px] items-center gap-1.5 rounded-lg border border-zinc-300 bg-white px-3 text-xs font-semibold text-zinc-700 transition hover:border-emerald-500 hover:text-emerald-700 dark:border-zinc-700 dark:bg-zinc-900/80 dark:text-zinc-200 dark:hover:border-emerald-500 dark:hover:text-emerald-400 ${className}`}
     >
