@@ -277,6 +277,15 @@ export type Dictionary = {
   callButton: {
     label: string;
   };
+
+  // ---- Clinic map (on /contact)
+  clinicMap: {
+    heading: string;
+    subtitle: string;
+    iframeTitle: string;
+    openNeshan: string;
+    openGoogle: string;
+  };
 };
 
 // ─────────────────────────────────────────────────────────────────────────────
@@ -722,6 +731,15 @@ export const en: Dictionary = {
 
   callButton: {
     label: "Call",
+  },
+
+  clinicMap: {
+    heading: "Clinic location",
+    subtitle:
+      "Tavanir Physicians Building, 4th floor, Unit 19 — Tavanir St, near Hemmat Expressway, Tehran.",
+    iframeTitle: "Map showing Dr. Memari's clinic at Tavanir Physicians Building, Tehran",
+    openNeshan: "Open in Neshan",
+    openGoogle: "Open in Google Maps",
   },
 };
 
@@ -1189,6 +1207,15 @@ export const fa: Dictionary = {
 
   callButton: {
     label: "تماس",
+  },
+
+  clinicMap: {
+    heading: "موقعیت مطب",
+    subtitle:
+      "ساختمان پزشکان توانیر، طبقه ۴، واحد ۱۹ — خیابان توانیر، نرسیده به بزرگراه همت، تهران.",
+    iframeTitle: "نقشه‌ی مطب دکتر معماری در ساختمان پزشکان توانیر، تهران",
+    openNeshan: "مشاهده در نشان",
+    openGoogle: "مشاهده در گوگل مپ",
   },
 };
 
