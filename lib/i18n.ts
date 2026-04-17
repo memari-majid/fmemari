@@ -9,10 +9,10 @@
  *   bibliographic record.
  * - Topic labels, section headings, navigation, and prose are translated.
  *
- * Persian translations: produced from the English source with care for
- * medical terminology, but should be reviewed by Dr. Memari (or any native
- * Persian speaker familiar with surgical-oncology vocabulary) before being
- * treated as final.
+ * Persian (`fa`): primary prose for the /fa locale is supplied directly in
+ * Farsi (not English-to-Persian translation). Publication titles and journal
+ * names stay in English in the publications list, which is standard for
+ * bilingual academic sites.
  */
 
 import type { ResearchTopic } from "@/lib/publications";
@@ -102,6 +102,8 @@ export type Dictionary = {
       body: string;
       bullets: string[];
     }[];
+    /** Cancer-awareness ribbon labels for the first card's bullets, in order. */
+    awarenessLabels: string[];
     feedback: {
       eyebrow: string;
       bodyPrefix: string;
@@ -298,6 +300,12 @@ export const en: Dictionary = {
         bullets: ["Laparoscopic / minimally invasive", "Vascular procedures"],
       },
     ],
+    awarenessLabels: [
+      "Pink ribbon — breast cancer awareness",
+      "Periwinkle-blue ribbon — stomach cancer awareness",
+      "Dark-blue ribbon — colorectal cancer awareness",
+      "Teal ribbon — thyroid cancer awareness",
+    ],
     feedback: {
       eyebrow: "Patient experience",
       bodyPrefix: "Patients on ",
@@ -454,21 +462,8 @@ export const en: Dictionary = {
 };
 
 // ─────────────────────────────────────────────────────────────────────────────
-// Persian (Farsi) dictionary
+// Persian (Farsi) dictionary — direct Farsi copy (see file header)
 // ─────────────────────────────────────────────────────────────────────────────
-//
-// Translation notes:
-//   • "دانشیار" = Associate Professor (academic rank)
-//   • "متخصص جراحی انکولوژی" = Surgical Oncology specialist; "جراحی سرطان" =
-//     cancer surgery (more accessible phrasing)
-//   • "انستیتو کانسر" is the official transliteration used by TUMS for the
-//     Cancer Institute (مرکز تخصصی سرطان); we use it for consistency with the
-//     institution's English name
-//   • Numerals are rendered with Persian digits (۰۱۲۳۴۵۶۷۸۹) where they appear
-//     in prose; bibliographic citation counts in the publications list use
-//     Western digits to stay consistent with the underlying Scholar data
-//   • The translation should be reviewed by a native Persian speaker familiar
-//     with surgical-oncology vocabulary before being treated as final.
 
 const FA_DIGITS = "۰۱۲۳۴۵۶۷۸۹";
 const toFaDigits = (n: number | string): string =>
@@ -497,14 +492,14 @@ export const fa: Dictionary = {
   },
 
   hero: {
-    role: "دانشیار · متخصص جراحی انکولوژی · پژوهشگر سرطان",
+    role: "دانشیار · جراحی عمومی و فلوشیپ جراحی سرطان · پژوهشگر سرطان",
     title: "دکتر فریدون مماری",
     affiliation: "انستیتو کانسر ایران",
     affiliationDetail: "مجتمع بیمارستانی امام خمینی",
     affiliationParent: "دانشگاه علوم پزشکی تهران",
     locationSuffix: "تهران، ایران",
-    description: (years) =>
-      `دانشیار جراحی با بیش از **${toFaDigits(years)} سال** سابقه‌ی حرفه‌ای جراحی. پژوهش ترجمانی در تلاقی زیست‌شناسی سرطان، RNAهای غیرکدکننده، جراحی انکولوژی، ایمنی‌درمانی و سلامت دیجیتال برای بازماندگان سرطان.`,
+    description: (_years) =>
+      "دکتر فریدون مماری یکی از چهره‌های علمی و جراحی برجسته در ایران است که تخصص اصلی ایشان در زمینه جراحی عمومی و فوق‌تخصص (فلوشیپ) جراحی سرطان (Surgical Oncology) می‌باشد.",
     licenseLine: (license, _specialties) =>
       `شماره‌ی نظام پزشکی ${toFaDigits(license)}`,
     specialtiesText: "جراحی انکولوژی · جراحی عمومی",
@@ -524,18 +519,19 @@ export const fa: Dictionary = {
 
   about: {
     eyebrow: "درباره",
-    heading: "درباره‌ی دکتر مماری",
+    heading: "زندگی‌نامه و پیشینه حرفه‌ای",
     badge: (years) => `${toFaDigits(years)}+ سال`,
     refClinical: "فعالیت بالینی",
     refAcademic: "سمت دانشگاهی",
     bio: {
       affiliationLine:
-        "دکتر فریدون مماری **دانشیار جراحی** در {{tums}} و متخصص جراحی انکولوژی در {{cancerInstitute}} است. با بیش از **{{years}} سال سابقه‌ی حرفه‌ای جراحی**، فعالیت بالینی ایشان شامل موارد پیچیده‌ی سرطان و اعمال جراحی ترکیبی در سرطان‌های دستگاه گوارش، سر و گردن، پستان و کلیه است.",
-      experienceLine: "",
+        "ایشان به عنوان **دانشیار** و عضو هیئت علمی رسمی {{tums}} فعالیت می‌کنند. بخش مهمی از فعالیت‌های ایشان شامل آموزش دانشجویان پزشکی و رزیدنت‌های جراحی در {{cancerInstitute}} است. ایشان همچنین مقالات پژوهشی متعددی در ژورنال‌های معتبر بین‌المللی در زمینه‌هایی مانند سرطان سینه، روش‌های نوین جراحی گوارش و ایمونوتراپی به چاپ رسانده‌اند.",
+      experienceLine:
+        "دکتر فریدون مماری (شماره نظام پزشکی: ۲۶۷۴۳) با بیش از ۳۳ سال تجربه در حوزه پزشکی، از فارغ‌التحصیلان ممتاز دانشگاه‌های برتر ایران است. ایشان پس از گذراندن دوره پزشکی عمومی و تخصص جراحی عمومی، با ادامه تحصیل در مقطع فلوشیپ جراحی سرطان، بر درمان تومورهای بدخیم و جراحی‌های پیچیده انکولوژی متمرکز شدند.",
       researchLine:
-        "پژوهش ترجمانی ایشان بر نقش RNAهای غیرکدکننده — siRNA، microRNA، piRNA، lncRNA و شبکه‌های ceRNA — به‌عنوان اهداف درمانی و نشانگرهای زیستی نامزد در سرطان متمرکز است. کار اخیر همچنین به ایمنی‌درمانی سرطان، طراحی پروتئین‌های چیمریک، و استفاده از سامانه‌های مبتنی بر تلفن همراه و IoT برای پایش از راه دور بازماندگان سرطان می‌پردازد.",
+        "در حوزه پژوهش، کارهای ترجمانی ایشان از جمله نقش RNAهای غیرکدکننده (از جمله siRNA، microRNA، piRNA، lncRNA و شبکه‌های ceRNA) در سرطان، ایمنی‌درمانی، و پایش از راه دور بازماندگان سرطان روده بزرگ با تلفن همراه و IoT را در بر می‌گیرد؛ از جمله مقاله‌ای در *JMIR Cancer* درباره همین موضوع پایش از راه دور.",
       publicationsLine:
-        "مقالات ایشان در نشریات داور-پسند منتشر شده است، از جمله *International Journal of Nanomedicine*، *Journal of Cellular Biochemistry*، *Computers in Biology and Medicine*، *JMIR Cancer*، و *Journal of Oral and Maxillofacial Surgery*.",
+        "نمونه‌ای از نشریات: *International Journal of Nanomedicine*، *Journal of Cellular Biochemistry*، *Computers in Biology and Medicine*، *JMIR Cancer*، و *Journal of Oral and Maxillofacial Surgery*.",
     },
     credentialLabels: {
       academicRank: "سمت دانشگاهی",
@@ -548,33 +544,39 @@ export const fa: Dictionary = {
   },
 
   services: {
-    eyebrow: "فعالیت بالینی",
+    eyebrow: "حوزه‌های تخصصی و درمانی",
     heading: "تخصص‌ها و خدمات بالینی",
     subtitleBefore:
-      "سه حوزه‌ی تمرکز در جراحی سرطان، بازسازی انکوپلاستیک، و جراحی کم‌تهاجمی — در ",
+      "سه محور اصلی در جراحی انکولوژی، جراحی ترمیمی و زیبایی، و روش‌های کم‌تهاجمی و عروقی — با محوریت فعالیت در ",
     subtitleAfter: ".",
     cards: [
       {
-        title: "جراحی سرطان",
-        body: "تمرکز تخصصی بر سرطان‌های پستان، دستگاه گوارش و تیروئید — از مرحله‌بندی تا برداشتن قطعی و اعمال جراحی ترکیبی در موارد پیچیده.",
-        bullets: ["سرطان پستان", "سرطان معده", "سرطان روده‌ی بزرگ", "سرطان تیروئید"],
+        title: "جراحی‌های انکولوژی",
+        body: "جراحی تخصصی سرطان‌های سینه (پستان)، معده، روده بزرگ (کولورکتال)، تیروئید و غدد.",
+        bullets: ["سرطان پستان", "سرطان معده", "سرطان روده بزرگ", "سرطان تیروئید"],
       },
       {
-        title: "جراحی انکوپلاستیک و بازسازی",
-        body: "تلفیق برداشت تومور با تکنیک‌های زیبایی و بازسازی — به‌ویژه در انکوپلاستی پستان و اعمال شکمی — تا نتایج انکولوژیک و کیفیت زندگی همزمان ارتقا یابند.",
-        bullets: ["انکوپلاستی پستان", "جراحی زیبایی شکم"],
+        title: "جراحی‌های ترمیمی و زیبایی",
+        body: "انجام جراحی‌های همزمان درمان سرطان و بازسازی (Oncoplastic)، ماموپلاستی، ابدومینوپلاستی و جراحی‌های زیبایی شکم.",
+        bullets: ["ماموپلاستی", "ابدومینوپلاستی"],
       },
       {
-        title: "تکنیک‌های پیشرفته‌ی جراحی",
-        body: "رویکردهای کم‌تهاجمی (لاپاراسکوپی) و اعمال جراحی عروقی، در جراحی عمومی و موارد پیچیده‌ی انکولوژیک.",
-        bullets: ["لاپاراسکوپی / کم‌تهاجمی", "اعمال جراحی عروقی"],
+        title: "روش‌های کم‌تهاجمی و جراحی عروق",
+        body: "تسلط بر جراحی‌های لاپاراسکوپی که باعث کاهش دوره نقاهت و درد پس از عمل می‌شود؛ همچنین تجربه گسترده در مدیریت جراحی‌های اضطراری و عروقی.",
+        bullets: ["لاپاراسکوپی", "جراحی‌های اضطراری و عروقی"],
       },
     ],
+    awarenessLabels: [
+      "روبان صورتی — آگاهی از سرطان پستان",
+      "روبان آبی روشن — آگاهی از سرطان معده",
+      "روبان آبی تیره — آگاهی از سرطان روده‌ی بزرگ",
+      "روبان فیروزه‌ای — آگاهی از سرطان تیروئید",
+    ],
     feedback: {
-      eyebrow: "بازخورد بیماران",
-      bodyPrefix: "بیماران در سامانه‌های ",
+      eyebrow: "ویژگی‌های اخلاقی و حرفه‌ای",
+      bodyPrefix: "در نظرسنجی‌های مراجعین در سامانه‌های ",
       bodySuffix:
-        " دکتر مماری را جراحی ماهر و وظیفه‌شناس توصیف می‌کنند و بر شفافیت ارتباط ایشان در طول روند درمان و موفقیت نتایج جراحی — به‌ویژه در سرطان پستان و معده — تأکید می‌کنند.",
+        " و بیماران، دکتر مماری به عنوان پزشکی صبور، دقیق و با اخلاق شناخته می‌شوند. بیماران ایشان همواره از توانایی بالای وی در توضیح مراحل درمان و آرامش‌بخشی به بیمار در شرایط سخت بیماری‌های سرطانی تقدیر کرده‌اند.",
       footnote:
         "خلاصه‌ای از سامانه‌های شخص ثالث؛ این وب‌سایت بازخوردهای فردی را میزبانی یا ویرایش نمی‌کند.",
     },
@@ -584,7 +586,7 @@ export const fa: Dictionary = {
     eyebrow: "حوزه‌های پژوهشی",
     heading: "محورهای پژوهش",
     subtitle:
-      "چهار محور پژوهشی به‌هم‌پیوسته — زیست‌شناسی پایه‌ی سرطان، عمل جراحی، ایمنی‌درمانی، و پیگیری دیجیتال.",
+      "چهار محور به‌هم‌پیوسته: زیست‌شناسی سرطان و RNAهای غیرکدکننده، جراحی انکولوژی، ایمنی‌درمانی، و سلامت دیجیتال برای پیگیری بازماندگان.",
     cards: [
       {
         title: "زیست‌شناسی سرطان و RNAهای غیرکدکننده",
@@ -600,7 +602,7 @@ export const fa: Dictionary = {
       },
       {
         title: "سلامت دیجیتال برای بازماندگان سرطان",
-        body: "پایش از راه دور مبتنی بر تلفن همراه و IoT برای بازماندگان سرطان روده‌ی بزرگ، با ورود نتایج گزارش‌شده توسط بیمار و داده‌های پیوسته به پیگیری بالینی.",
+        body: "در مقاله‌ای در *JMIR Cancer* (۲۰۲۳)، پایش از راه دور بازماندگان سرطان روده بزرگ با تلفن همراه و اینترنت اشیاء بررسی شده است؛ این همان خط پژوهشی است که در فهرست مقالات هم آمده است.",
       },
     ],
   },
@@ -635,13 +637,15 @@ export const fa: Dictionary = {
   },
 
   teaching: {
-    eyebrow: "تدریس و کار بالینی",
-    heading: "راهنمایی و فعالیت بالینی",
-    body1Before: "به‌عنوان دانشیار در ",
-    body1Middle: "، دکتر مماری دانشجویان تحصیلات تکمیلی، رزیدنت‌های جراحی و فلوها را تدریس و راهنمایی می‌کند. فعالیت بالینی و سرپرستی کارآموزان در ",
-    body1After: " انجام می‌شود.",
+    eyebrow: "تدریس، مراکز فعالیت و مشارکت عمومی",
+    heading: "آموزش، مراکز خدمت و سلامت عمومی",
+    body1Before: "به‌عنوان دانشیار و عضو هیئت علمی رسمی ",
+    body1Middle:
+      "، دکتر مماری به آموزش دانشجویان پزشکی و رزیدنت‌های جراحی می‌پردازد. بخش دولتی: فعالیت در ",
+    body1After:
+      " (مرکز اصلی ارجاع سرطان در ایران). بخش خصوصی: بیمارستان‌های لاله و ساسان. مطب شخصی در خیابان توانیر تهران، مرکز اصلی مشاوره و ویزیت بیماران غیربیمارستانی.",
     body2:
-      "علاوه بر کار بالینی و دانشگاهی، دکتر مماری در برنامه‌های آگاهی‌بخشی سلامت عمومی نیز مشارکت می‌کند — برای نمونه، برنامه‌های بیمارستان ساسان در *هفته‌ی ملی سلامت مردان* ایران.",
+      "علاوه بر موارد فوق، ایشان در برنامه‌های آگاهی‌بخشی سلامت عمومی نیز مشارکت می‌کنند — از جمله در بیمارستان ساسان در چارچوب *هفته ملی سلامت مردان* ایران.",
     body3Before:
       "فهرست تفصیلی دروس، انتصابات بالینی و طرح‌های پژوهشی در حال آماده‌سازی است. در این فاصله، همکاران، کارآموزان و پژوهشگران مهمان می‌توانند ",
     body3Link: "تماس بگیرند",

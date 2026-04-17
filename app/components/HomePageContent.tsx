@@ -4,6 +4,12 @@ import Link from "next/link";
 import { AnimatedCounter } from "@/app/components/AnimatedCounter";
 import { ContactForm } from "@/app/components/ContactForm";
 import { FaqAccordion } from "@/app/components/FaqAccordion";
+import {
+  AwarenessRibbon,
+  CellClusterBackground,
+  DnaHelixBackground,
+  MolecularBonds,
+} from "@/app/components/MedicalDecorations";
 import { Publications } from "@/app/components/Publications";
 import { Reveal } from "@/app/components/Reveal";
 import { ScrollToTop } from "@/app/components/ScrollToTop";
@@ -13,6 +19,21 @@ import {
   type Dictionary,
   type Locale,
 } from "@/lib/i18n";
+
+/**
+ * Cancer-awareness ribbon Tailwind text colors per international convention.
+ * Order matches the Cancer Surgery card bullets (en + fa share the same
+ * order): breast → stomach → colon → thyroid.
+ *
+ * Each color comes with a slightly brighter dark-mode variant so the ribbon
+ * stays legible on the dark emerald-tinted pill background.
+ */
+const CANCER_RIBBON_COLORS: readonly string[] = [
+  "text-pink-500 dark:text-pink-300", // breast cancer
+  "text-sky-500 dark:text-sky-300", // stomach cancer
+  "text-blue-700 dark:text-blue-400", // colorectal cancer
+  "text-teal-500 dark:text-teal-300", // thyroid cancer
+];
 
 /* ------------------------------------------------------------------ */
 /*  Tiny inline-markdown renderer                                      */
@@ -154,6 +175,12 @@ export function HomePageContent({
         <div className="pointer-events-none absolute inset-0">
           <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,rgba(16,185,129,0.16),transparent_55%),radial-gradient(ellipse_at_bottom_right,rgba(20,184,166,0.18),transparent_55%)]" />
           <div className="absolute inset-0 bg-gradient-to-b from-zinc-50/90 via-zinc-100/70 to-zinc-50 dark:from-zinc-950/40 dark:via-zinc-950/70 dark:to-zinc-950" />
+
+          {/* Subtle molecular-bond accents in the corners — soft scientific
+              motif that signals the cancer-research focus without competing
+              with the headline copy. */}
+          <MolecularBonds className="absolute start-6 top-24 hidden h-20 w-20 text-emerald-600/30 dark:text-emerald-400/25 sm:block sm:h-28 sm:w-28" />
+          <MolecularBonds className="absolute end-6 bottom-32 hidden h-24 w-24 -rotate-12 text-teal-600/25 dark:text-teal-400/20 sm:block sm:h-32 sm:w-32" />
         </div>
 
         <div className="relative z-10 mx-auto min-w-0 max-w-4xl px-4 text-center sm:px-6">
@@ -272,25 +299,7 @@ export function HomePageContent({
           <div className="mt-12 grid gap-12 md:grid-cols-5 md:items-start">
             <Reveal delay={80} className="md:col-span-2">
               <div className="relative mx-auto w-fit md:mx-0">
-                <svg
-                  className="pointer-events-none absolute -inset-6 -z-10 h-[calc(100%+3rem)] w-[calc(100%+3rem)] text-emerald-500/15 dark:text-emerald-400/10"
-                  viewBox="0 0 100 100"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth={0.6}
-                  aria-hidden
-                >
-                  <defs>
-                    <pattern id="helix" x="0" y="0" width="20" height="40" patternUnits="userSpaceOnUse">
-                      <path d="M0 0 Q 10 20 20 40 M20 0 Q 10 20 0 40" />
-                      <line x1="2" y1="6" x2="18" y2="6" />
-                      <line x1="4" y1="14" x2="16" y2="14" />
-                      <line x1="6" y1="22" x2="14" y2="22" />
-                      <line x1="4" y1="30" x2="16" y2="30" />
-                    </pattern>
-                  </defs>
-                  <rect width="100%" height="100%" fill="url(#helix)" />
-                </svg>
+                <DnaHelixBackground className="pointer-events-none absolute -inset-6 -z-10 h-[calc(100%+3rem)] w-[calc(100%+3rem)] text-emerald-500/15 dark:text-emerald-400/10" />
 
                 <div
                   className="pointer-events-none absolute -inset-3 -z-10 rounded-3xl bg-gradient-to-br from-emerald-500/25 via-teal-500/15 to-transparent blur-2xl"
@@ -386,6 +395,9 @@ export function HomePageContent({
 
             <Reveal delay={140} className="md:col-span-3">
               <div className="space-y-4 text-sm leading-relaxed text-zinc-600 dark:text-zinc-400 sm:text-base">
+                {t.about.bio.experienceLine ? (
+                  <p>{renderInline(t.about.bio.experienceLine)}</p>
+                ) : null}
                 <p>
                   {renderAffiliationLine(t.about.bio.affiliationLine, {
                     tums: (
@@ -467,31 +479,42 @@ export function HomePageContent({
           </Reveal>
 
           <div className="mt-16 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-            {t.services.cards.map((card, i) => (
-              <Reveal key={card.title} delay={i * 60}>
-                <div className="card flex h-full flex-col p-6">
-                  <div className="mb-4 flex h-11 w-11 shrink-0 items-center justify-center rounded-lg bg-zinc-100 text-zinc-700 dark:bg-zinc-800 dark:text-zinc-300">
-                    <ResearchIcon kind={SERVICE_ICONS[i] ?? "scalpel"} />
+            {t.services.cards.map((card, i) => {
+              const isCancerCard = i === 0;
+              return (
+                <Reveal key={card.title} delay={i * 60}>
+                  <div className="card flex h-full flex-col p-6">
+                    <div className="mb-4 flex h-11 w-11 shrink-0 items-center justify-center rounded-lg bg-zinc-100 text-zinc-700 dark:bg-zinc-800 dark:text-zinc-300">
+                      <ResearchIcon kind={SERVICE_ICONS[i] ?? "scalpel"} />
+                    </div>
+                    <h3 className="text-lg font-semibold text-zinc-900 dark:text-zinc-100">
+                      {card.title}
+                    </h3>
+                    <p className="mt-2 text-sm leading-relaxed text-zinc-600 dark:text-zinc-500">
+                      {card.body}
+                    </p>
+                    <ul className="mt-4 flex flex-wrap gap-1.5">
+                      {card.bullets.map((b, j) => (
+                        <li
+                          key={b}
+                          className="inline-flex items-center gap-1.5 rounded-full border border-emerald-200/80 bg-emerald-50/60 px-2.5 py-0.5 text-[11px] font-medium text-emerald-800 dark:border-emerald-900/50 dark:bg-emerald-950/40 dark:text-emerald-300"
+                        >
+                          {isCancerCard ? (
+                            <span className={CANCER_RIBBON_COLORS[j] ?? ""}>
+                              <AwarenessRibbon
+                                className="h-3 w-2"
+                                title={t.services.awarenessLabels[j]}
+                              />
+                            </span>
+                          ) : null}
+                          {b}
+                        </li>
+                      ))}
+                    </ul>
                   </div>
-                  <h3 className="text-lg font-semibold text-zinc-900 dark:text-zinc-100">
-                    {card.title}
-                  </h3>
-                  <p className="mt-2 text-sm leading-relaxed text-zinc-600 dark:text-zinc-500">
-                    {card.body}
-                  </p>
-                  <ul className="mt-4 flex flex-wrap gap-1.5">
-                    {card.bullets.map((b) => (
-                      <li
-                        key={b}
-                        className="rounded-full border border-emerald-200/80 bg-emerald-50/60 px-2.5 py-0.5 text-[11px] font-medium text-emerald-800 dark:border-emerald-900/50 dark:bg-emerald-950/40 dark:text-emerald-300"
-                      >
-                        {b}
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              </Reveal>
-            ))}
+                </Reveal>
+              );
+            })}
           </div>
 
           <Reveal delay={200}>
@@ -531,9 +554,12 @@ export function HomePageContent({
       {/* ============== RESEARCH ============== */}
       <section
         id="research"
-        className="scroll-mt-20 border-t border-zinc-200/80 bg-white px-4 py-32 dark:border-zinc-800/40 dark:bg-zinc-950 sm:px-6"
+        className="relative scroll-mt-20 overflow-hidden border-t border-zinc-200/80 bg-white px-4 py-32 dark:border-zinc-800/40 dark:bg-zinc-950 sm:px-6"
       >
-        <div className="mx-auto max-w-6xl">
+        {/* Microscopic cell-cluster watermark — calls out the cancer-biology
+            focus of the research themes below */}
+        <CellClusterBackground className="pointer-events-none absolute inset-0 -z-0 h-full w-full text-emerald-600/10 dark:text-emerald-400/[0.06]" />
+        <div className="relative mx-auto max-w-6xl">
           <Reveal>
             <p className="text-center text-xs font-medium uppercase tracking-[0.2em] text-zinc-500 dark:text-zinc-400">
               {t.research.eyebrow}
