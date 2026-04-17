@@ -13,8 +13,10 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@ai-sdk/gateway": "^3.0.104",
     "@ai-sdk/openai": "^3.0.48",
-    "ai": "^6.0.138",
+    "@ai-sdk/react": "^3.0.170",
+    "ai": "^6.0.168",
     "next": "^15.3.3",
     "next-themes": "^0.4.6",
     "react": "^19.1.0",

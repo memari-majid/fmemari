@@ -1,7 +1,9 @@
 import type { Metadata, Viewport } from "next";
 import { Vazirmatn } from "next/font/google";
 import "../globals.css";
+import { Chatbot } from "@/app/components/Chatbot";
 import { ThemeProvider } from "@/app/components/ThemeProvider";
+import { getDictionary } from "@/lib/i18n";
 import { SITE, SITE_URL } from "@/lib/site";
 
 // Vazirmatn — the de-facto Persian web font. Includes both Arabic-script and
@@ -92,12 +94,14 @@ export default function FaRootLayout({
 }: {
   children: React.ReactNode;
 }) {
+  const t = getDictionary("fa");
   return (
     <html lang="fa-IR" dir="rtl" suppressHydrationWarning>
       <body
         className={`${vazirmatn.className} min-w-0 overflow-x-hidden antialiased`}
       >
         <ThemeProvider>{children}</ThemeProvider>
+        <Chatbot locale="fa" t={t.chatbot} />
       </body>
     </html>
   );
