@@ -5,9 +5,9 @@ import { NavBar } from "@/app/components/NavBar";
 import { getDictionary } from "@/lib/i18n";
 
 export const metadata: Metadata = {
-  title: "تماس و مطب",
+  title: "تماس با ما",
   description:
-    "فرم تماس، ایمیل، وابستگی دانشگاهی، و آدرس، تلفن و ساعات ویزیت مطب خصوصی دکتر معماری در تهران.",
+    "فرم تماس، ایمیل، وابستگی دانشگاهی و مشخصات مطب دکتر معماری در تهران شامل آدرس، تلفن و ساعات ویزیت.",
   alternates: { canonical: "/fa/contact" },
 };
 

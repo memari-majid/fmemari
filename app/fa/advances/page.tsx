@@ -6,9 +6,9 @@ import { NavBar } from "@/app/components/NavBar";
 import { getDictionary } from "@/lib/i18n";
 
 export const metadata: Metadata = {
-  title: "پیشرفت‌های پژوهش سرطان",
+  title: "دستاوردهای تازه‌ی پژوهش سرطان",
   description:
-    "گزیده‌ای از دستاوردهای ۲۰۲۵ پژوهش سرطان نزدیک به خط کاری دکتر معماری — واکسن‌های mRNA، مهارکننده‌های KRAS-G12D، CAR-T در تومورهای جامد، بیوپسی مایع با هوش مصنوعی و TIL ویرایش‌شده با CRISPR؛ به‌همراه فید زنده‌ی تازه‌ترین مقالات از PubMed.",
+    "گزیده‌ای از پیشرفت‌های سال ۲۰۲۵ نزدیک به خط کاری دکتر معماری؛ از واکسن‌های mRNA و مهارکننده‌های KRAS-G12D تا CAR-T در تومورهای جامد، بیوپسی مایع با هوش مصنوعی و TIL ویرایش‌شده با CRISPR. همراه با فید زنده‌ی تازه‌ترین مقالات PubMed.",
   alternates: { canonical: "/fa/advances" },
 };
 
