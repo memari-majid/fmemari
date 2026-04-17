@@ -235,6 +235,19 @@ export type Dictionary = {
     disclaimer: string;
     locationSuffix: string;
   };
+
+  // ---- Chatbot
+  chatbot: {
+    launcherLabel: string;
+    title: string;
+    subtitle: string;
+    placeholder: string;
+    send: string;
+    sending: string;
+    greeting: string;
+    closeLabel: string;
+    disclaimer: string;
+  };
 };
 
 // ─────────────────────────────────────────────────────────────────────────────
@@ -612,6 +625,20 @@ export const en: Dictionary = {
     disclaimer:
       "This site is for academic and informational purposes only and does not provide medical advice.",
     locationSuffix: "Tehran, Iran",
+  },
+
+  chatbot: {
+    launcherLabel: "Ask Me",
+    title: "Ask Me",
+    subtitle: "Questions about Dr. Memari's work or this site.",
+    placeholder: "Type your question…",
+    send: "Send",
+    sending: "…",
+    greeting:
+      "Hello! I can help you navigate the site or share general information about Dr. Memari's work in surgical oncology. What would you like to know?",
+    closeLabel: "Close chat",
+    disclaimer:
+      "This assistant does not provide individual medical advice. For clinical questions, please consult a physician.",
   },
 };
 
@@ -1011,6 +1038,20 @@ export const fa: Dictionary = {
     disclaimer:
       "این وب‌سایت صرفاً با اهداف علمی و اطلاع‌رسانی است و توصیه‌ی پزشکی ارائه نمی‌دهد.",
     locationSuffix: "تهران، ایران",
+  },
+
+  chatbot: {
+    launcherLabel: "از من بپرسید",
+    title: "از من بپرسید",
+    subtitle: "پرسش درباره‌ی کار دکتر معماری یا راهنمایی در این سایت.",
+    placeholder: "پرسش خود را بنویسید…",
+    send: "ارسال",
+    sending: "…",
+    greeting:
+      "سلام! می‌توانم در جهت‌یابی این سایت یا ارائه‌ی اطلاعات عمومی درباره‌ی کار دکتر معماری در جراحی انکولوژی کمک کنم. چه چیزی می‌خواهید بدانید؟",
+    closeLabel: "بستن گفت‌وگو",
+    disclaimer:
+      "این دستیار توصیه‌ی پزشکی شخصی ارائه نمی‌دهد. برای پرسش‌های بالینی لطفاً با پزشک خود مشورت کنید.",
   },
 };
 

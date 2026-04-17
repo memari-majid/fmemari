@@ -1,6 +1,8 @@
 import type { Metadata, Viewport } from "next";
 import "../globals.css";
+import { Chatbot } from "@/app/components/Chatbot";
 import { ThemeProvider } from "@/app/components/ThemeProvider";
+import { getDictionary } from "@/lib/i18n";
 import { SITE, SITE_URL } from "@/lib/site";
 
 export const metadata: Metadata = {
@@ -90,10 +92,12 @@ export default function EnRootLayout({
 }: {
   children: React.ReactNode;
 }) {
+  const t = getDictionary("en");
   return (
     <html lang="en" dir="ltr" suppressHydrationWarning>
       <body className="min-w-0 overflow-x-hidden antialiased">
         <ThemeProvider>{children}</ThemeProvider>
+        <Chatbot locale="en" t={t.chatbot} />
       </body>
     </html>
   );
