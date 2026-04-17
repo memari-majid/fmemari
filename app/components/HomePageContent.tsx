@@ -31,6 +31,37 @@ const HERO_METRICS = [
   },
 ];
 
+const CLINICAL_SERVICES: {
+  title: string;
+  body: string;
+  icon: string;
+  bullets: string[];
+}[] = [
+  {
+    title: "Cancer surgery",
+    body: "Specialized focus on cancers of the breast, gastrointestinal tract, and thyroid — from staging to definitive resection and combined procedures in complex cases.",
+    icon: "scalpel",
+    bullets: [
+      "Breast cancer",
+      "Stomach cancer",
+      "Colon cancer",
+      "Thyroid cancer",
+    ],
+  },
+  {
+    title: "Oncoplastic & reconstructive surgery",
+    body: "Combining cancer resection with aesthetic and reconstructive technique — particularly for breast oncoplasty and abdominal procedures — so that oncologic outcomes and quality of life advance together.",
+    icon: "ribbon",
+    bullets: ["Breast oncoplasty", "Abdominal aesthetic surgery"],
+  },
+  {
+    title: "Advanced surgical techniques",
+    body: "Minimally invasive (laparoscopic) approaches and vascular procedures applied to both general surgery and complex oncologic cases.",
+    icon: "laparoscope",
+    bullets: ["Laparoscopic / minimally invasive", "Vascular procedures"],
+  },
+];
+
 const RESEARCH_INTERESTS: { title: string; body: string; icon: string }[] = [
   {
     title: "Cancer biology & non-coding RNAs",
@@ -56,6 +87,7 @@ const RESEARCH_INTERESTS: { title: string; body: string; icon: string }[] = [
 
 const FOOTER_LINKS = [
   { label: "About", href: "#about" },
+  { label: "Services", href: "#services" },
   { label: "Research", href: "#research" },
   { label: "Publications", href: "#publications" },
   { label: "Teaching", href: "#teaching" },
@@ -128,6 +160,36 @@ function ResearchIcon({ kind }: { kind: string }) {
         />
       </svg>
     ),
+    ribbon: (
+      <svg
+        className="h-7 w-7"
+        fill="none"
+        viewBox="0 0 24 24"
+        stroke="currentColor"
+        strokeWidth={1.5}
+      >
+        <path
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          d="M9 3.75c0 4.5 3 6 3 6s3-1.5 3-6c0-1.243-1.343-2.25-3-2.25S9 2.507 9 3.75Zm3 6L7.5 21M12 9.75 16.5 21M12 9.75v6"
+        />
+      </svg>
+    ),
+    laparoscope: (
+      <svg
+        className="h-7 w-7"
+        fill="none"
+        viewBox="0 0 24 24"
+        stroke="currentColor"
+        strokeWidth={1.5}
+      >
+        <path
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          d="M3 12h6m6 0h6M9 12a3 3 0 1 0 6 0 3 3 0 0 0-6 0Zm0 0V6a3 3 0 1 1 6 0v6m-6 0v6a3 3 0 0 0 6 0v-6"
+        />
+      </svg>
+    ),
   };
   return (
     <span className="text-emerald-600 dark:text-emerald-400">
@@ -189,9 +251,20 @@ export function HomePageContent() {
           </Reveal>
           <Reveal delay={240}>
             <p className="mx-auto mt-8 max-w-2xl text-base leading-relaxed text-zinc-600 dark:text-zinc-400">
-              Surgical oncologist and translational researcher working at the
-              intersection of cancer biology, non-coding RNAs, surgical
-              oncology, immunotherapy, and digital health for cancer survivors.
+              Associate Professor of Surgery with{" "}
+              <strong className="text-zinc-800 dark:text-zinc-200">
+                {SITE.experienceYears}+ years
+              </strong>{" "}
+              of professional surgical experience. Translational research at the
+              intersection of cancer biology, non-coding RNAs, surgical oncology,
+              immunotherapy, and digital health for cancer survivors.
+            </p>
+            <p className="mx-auto mt-4 flex max-w-2xl flex-wrap items-center justify-center gap-x-3 gap-y-1 text-xs text-zinc-500 dark:text-zinc-500">
+              <span>
+                Medical license № {SITE.licenseNumber}
+              </span>
+              <span aria-hidden>·</span>
+              <span>{SITE.specialties.join(" · ")}</span>
             </p>
           </Reveal>
           <Reveal delay={320}>
@@ -279,10 +352,9 @@ export function HomePageContent() {
             <Reveal delay={140} className="md:col-span-2">
               <div className="space-y-4 text-sm leading-relaxed text-zinc-600 dark:text-zinc-400 sm:text-base">
                 <p>
-                  Dr. Fereidoon Memari is a surgical oncologist and cancer
-                  researcher affiliated with the{" "}
+                  Dr. Fereidoon Memari is an{" "}
                   <strong className="text-zinc-900 dark:text-zinc-100">
-                    {SITE.affiliation}
+                    Associate Professor of Surgery
                   </strong>{" "}
                   at{" "}
                   <a
@@ -292,9 +364,19 @@ export function HomePageContent() {
                     className="text-emerald-700 underline decoration-emerald-700/30 hover:decoration-emerald-700 dark:text-emerald-400"
                   >
                     {SITE.affiliationParent}
-                  </a>
-                  . His clinical and research work spans gastrointestinal,
-                  head and neck, breast, and renal cancers.
+                  </a>{" "}
+                  and a surgical oncologist at the{" "}
+                  <strong className="text-zinc-900 dark:text-zinc-100">
+                    {SITE.affiliation}, {SITE.affiliationDetail}
+                  </strong>
+                  . With more than{" "}
+                  <strong className="text-zinc-900 dark:text-zinc-100">
+                    {SITE.experienceYears} years of professional surgical
+                    experience
+                  </strong>
+                  , his clinical practice spans complex cancer cases and
+                  combined procedures across gastrointestinal, head and neck,
+                  breast, and renal cancers.
                 </p>
                 <p>
                   His translational research focuses on the role of non-coding
@@ -312,6 +394,32 @@ export function HomePageContent() {
                   <em>JMIR Cancer</em>, and the{" "}
                   <em>Journal of Oral and Maxillofacial Surgery</em>.
                 </p>
+                <dl className="grid grid-cols-2 gap-3 pt-2 text-xs sm:grid-cols-3">
+                  <div className="rounded-lg border border-zinc-200/80 bg-zinc-50/80 px-3 py-2 dark:border-zinc-800/60 dark:bg-zinc-900/40">
+                    <dt className="font-medium uppercase tracking-wider text-zinc-500 dark:text-zinc-500">
+                      Academic rank
+                    </dt>
+                    <dd className="mt-0.5 font-semibold text-zinc-900 dark:text-zinc-100">
+                      {SITE.academicRank}
+                    </dd>
+                  </div>
+                  <div className="rounded-lg border border-zinc-200/80 bg-zinc-50/80 px-3 py-2 dark:border-zinc-800/60 dark:bg-zinc-900/40">
+                    <dt className="font-medium uppercase tracking-wider text-zinc-500 dark:text-zinc-500">
+                      Experience
+                    </dt>
+                    <dd className="mt-0.5 font-semibold text-zinc-900 dark:text-zinc-100">
+                      {SITE.experienceYears}+ years
+                    </dd>
+                  </div>
+                  <div className="rounded-lg border border-zinc-200/80 bg-zinc-50/80 px-3 py-2 dark:border-zinc-800/60 dark:bg-zinc-900/40">
+                    <dt className="font-medium uppercase tracking-wider text-zinc-500 dark:text-zinc-500">
+                      Medical license
+                    </dt>
+                    <dd className="mt-0.5 font-mono font-semibold text-zinc-900 tabular-nums dark:text-zinc-100">
+                      № {SITE.licenseNumber}
+                    </dd>
+                  </div>
+                </dl>
                 {profileLinks.length > 0 ? (
                   <div className="flex flex-wrap gap-2 pt-2">
                     {profileLinks.map((l) => (
@@ -347,10 +455,96 @@ export function HomePageContent() {
         </div>
       </section>
 
+      {/* ============== CLINICAL EXPERTISE & SERVICES ============== */}
+      <section
+        id="services"
+        className="scroll-mt-20 border-t border-zinc-200/80 px-4 py-32 dark:border-zinc-800/40 sm:px-6"
+      >
+        <div className="mx-auto max-w-6xl">
+          <Reveal>
+            <p className="text-center text-xs font-medium uppercase tracking-[0.2em] text-zinc-500 dark:text-zinc-400">
+              Clinical practice
+            </p>
+            <h2 className="mt-4 text-center text-4xl font-semibold tracking-tight text-zinc-900 dark:text-zinc-50 sm:text-5xl">
+              Clinical expertise &amp; services
+            </h2>
+            <p className="mx-auto mt-6 max-w-2xl text-center text-lg text-zinc-600 dark:text-zinc-400">
+              Three areas of focus across cancer surgery, oncoplastic
+              reconstruction, and minimally invasive technique — practiced at
+              the Cancer Institute, Imam Khomeini Hospital Complex.
+            </p>
+          </Reveal>
+
+          <div className="mt-16 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+            {CLINICAL_SERVICES.map((card, i) => (
+              <Reveal key={card.title} delay={i * 60}>
+                <div className="card flex h-full flex-col p-6">
+                  <div className="mb-4 flex h-11 w-11 shrink-0 items-center justify-center rounded-lg bg-zinc-100 text-zinc-700 dark:bg-zinc-800 dark:text-zinc-300">
+                    <ResearchIcon kind={card.icon} />
+                  </div>
+                  <h3 className="text-lg font-semibold text-zinc-900 dark:text-zinc-100">
+                    {card.title}
+                  </h3>
+                  <p className="mt-2 text-sm leading-relaxed text-zinc-600 dark:text-zinc-500">
+                    {card.body}
+                  </p>
+                  <ul className="mt-4 flex flex-wrap gap-1.5">
+                    {card.bullets.map((b) => (
+                      <li
+                        key={b}
+                        className="rounded-full border border-emerald-200/80 bg-emerald-50/60 px-2.5 py-0.5 text-[11px] font-medium text-emerald-800 dark:border-emerald-900/50 dark:bg-emerald-950/40 dark:text-emerald-300"
+                      >
+                        {b}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </Reveal>
+            ))}
+          </div>
+
+          <Reveal delay={200}>
+            <div className="mt-12 rounded-2xl border border-emerald-200/80 bg-emerald-50/60 px-5 py-6 dark:border-emerald-900/40 dark:bg-emerald-950/20 sm:px-8">
+              <p className="text-xs font-semibold uppercase tracking-wider text-emerald-700 dark:text-emerald-400">
+                Patient experience
+              </p>
+              <p className="mt-3 text-sm leading-relaxed text-zinc-700 dark:text-zinc-300 sm:text-base">
+                Patients on{" "}
+                <a
+                  href={SITE.paziresh24 || "https://paziresh24.com/"}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-emerald-700 underline decoration-emerald-700/30 hover:decoration-emerald-700 dark:text-emerald-400"
+                >
+                  Paziresh24
+                </a>{" "}
+                and{" "}
+                <a
+                  href={SITE.nobatIr || "https://www.nobat.ir/"}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-emerald-700 underline decoration-emerald-700/30 hover:decoration-emerald-700 dark:text-emerald-400"
+                >
+                  Nobat.ir
+                </a>{" "}
+                describe Dr. Memari as a highly skilled and conscientious
+                surgeon, highlighting his clear communication throughout the
+                treatment process and his successful outcomes — particularly in
+                breast and gastric cancer cases.
+              </p>
+              <p className="mt-3 text-[11px] text-zinc-500 dark:text-zinc-500">
+                Summarized from third-party patient platforms; this site does
+                not host or moderate individual reviews.
+              </p>
+            </div>
+          </Reveal>
+        </div>
+      </section>
+
       {/* ============== RESEARCH ============== */}
       <section
         id="research"
-        className="scroll-mt-20 border-t border-zinc-200/80 px-4 py-32 dark:border-zinc-800/40 sm:px-6"
+        className="scroll-mt-20 border-t border-zinc-200/80 bg-white px-4 py-32 dark:border-zinc-800/40 dark:bg-zinc-950 sm:px-6"
       >
         <div className="mx-auto max-w-6xl">
           <Reveal>
@@ -388,7 +582,7 @@ export function HomePageContent() {
       {/* ============== PUBLICATIONS ============== */}
       <section
         id="publications"
-        className="scroll-mt-20 border-t border-zinc-200/80 bg-white px-4 py-32 dark:border-zinc-800/40 dark:bg-zinc-950 sm:px-6"
+        className="scroll-mt-20 border-t border-zinc-200/80 px-4 py-32 dark:border-zinc-800/40 sm:px-6"
       >
         <div className="mx-auto max-w-5xl">
           <Reveal>
@@ -463,24 +657,36 @@ export function HomePageContent() {
           <Reveal delay={80}>
             <div className="card mt-10 p-8">
               <p className="text-sm leading-relaxed text-zinc-600 dark:text-zinc-400 sm:text-base">
-                Dr. Memari mentors graduate students, residents, and fellows on
-                cancer research and surgical oncology projects at the{" "}
+                As an{" "}
                 <strong className="text-zinc-900 dark:text-zinc-100">
-                  {SITE.affiliation}
+                  Associate Professor at {SITE.affiliationParent}
                 </strong>
-                . He welcomes inquiries from prospective collaborators,
-                trainees, and visiting researchers.
+                , Dr. Memari teaches and mentors graduate students, surgical
+                residents, and fellows. Clinical practice and trainee
+                supervision take place at the{" "}
+                <strong className="text-zinc-900 dark:text-zinc-100">
+                  {SITE.affiliation}, {SITE.affiliationDetail}
+                </strong>
+                .
+              </p>
+              <p className="mt-4 text-sm leading-relaxed text-zinc-600 dark:text-zinc-400 sm:text-base">
+                Beyond clinical and academic work, Dr. Memari participates in
+                public-health awareness initiatives — for example, Sasan
+                Hospital&apos;s programs for{" "}
+                <em>Men&apos;s National Health Week</em> in Iran.
               </p>
               <p className="mt-4 text-sm leading-relaxed text-zinc-600 dark:text-zinc-400 sm:text-base">
                 A detailed list of current courses, clinical appointments, and
-                grants is being prepared. In the meantime, please feel free to{" "}
+                grants is being prepared. In the meantime, prospective
+                collaborators, trainees, and visiting researchers are welcome
+                to{" "}
                 <Link
                   href="#contact"
                   className="text-emerald-700 underline decoration-emerald-700/30 hover:decoration-emerald-700 dark:text-emerald-400"
                 >
                   reach out
-                </Link>{" "}
-                with specific questions.
+                </Link>
+                .
               </p>
             </div>
           </Reveal>
