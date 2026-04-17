@@ -32,12 +32,21 @@ export const metadata: Metadata = {
     siteName: SITE.name,
     type: "profile",
     locale: "en_US",
+    images: [
+      {
+        url: "/fereidoon-memari.jpg",
+        width: 682,
+        height: 1024,
+        alt: SITE.fullName,
+      },
+    ],
   },
   twitter: {
     card: "summary",
     title: "Dr. Fereidoon Memari — Surgical Oncologist & Cancer Researcher",
     description:
       "Cancer biology, surgical oncology, immunotherapy, digital health for cancer survivors. Tehran University of Medical Sciences.",
+    images: ["/fereidoon-memari.jpg"],
   },
   robots: {
     index: true,

@@ -71,9 +71,12 @@ The following placeholders are wired up but currently empty in `lib/site.ts`. Fi
 - ORCID iD (`SITE.orcid`)
 - Scopus author ID (`SITE.scopus`)
 - ResearchGate profile (`SITE.researchgate`)
-- A profile photo (drop into `public/fereidoon-memari.jpg` and uncomment the photo block in `app/components/HomePageContent.tsx`)
 - Whether a Farsi-language version is needed (currently English-only)
 - Clinical appointments, teaching courses, and grants to highlight
+
+The profile photo lives at `public/fereidoon-memari.jpg`. To swap it, replace
+the file with an updated portrait (any aspect ratio works — the About section
+crops it to a circle, OG metadata declares 682×1024).
 
 ## Deploy (Vercel)
 

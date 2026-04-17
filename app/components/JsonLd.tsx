@@ -10,6 +10,7 @@ export function JsonLd() {
     name: SITE.fullName,
     alternateName: SITE.shortName,
     url: SITE_URL,
+    image: `${SITE_URL}/fereidoon-memari.jpg`,
     jobTitle: "Surgical Oncologist & Cancer Researcher",
     description: SITE.description,
     email: `mailto:${SITE.email}`,

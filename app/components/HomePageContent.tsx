@@ -1,4 +1,5 @@
 import type { ReactNode } from "react";
+import Image from "next/image";
 import Link from "next/link";
 import { AnimatedCounter } from "@/app/components/AnimatedCounter";
 import { ContactForm } from "@/app/components/ContactForm";
@@ -258,27 +259,16 @@ export function HomePageContent() {
           </Reveal>
 
           <div className="mt-12 grid gap-12 md:grid-cols-3 md:items-start">
-            {/*
-              Photo placeholder block — once a profile photo is supplied,
-              save it as `public/fereidoon-memari.jpg` and replace the
-              monogram below with:
-
-              <Image
-                src="/fereidoon-memari.jpg"
-                alt="Dr. Fereidoon Memari"
-                fill
-                className="rounded-full object-cover object-top ring-1 ring-zinc-200 dark:ring-zinc-700"
-                sizes="160px"
-              />
-            */}
             <Reveal delay={80} className="md:col-span-1">
               <div className="relative mx-auto h-40 w-40 md:mx-0">
-                <span
-                  aria-hidden
-                  className="flex h-full w-full items-center justify-center rounded-full bg-gradient-to-br from-emerald-500 to-teal-600 text-4xl font-bold text-white shadow-lg ring-1 ring-zinc-200 dark:ring-zinc-700"
-                >
-                  FM
-                </span>
+                <Image
+                  src="/fereidoon-memari.jpg"
+                  alt="Dr. Fereidoon Memari — surgical oncologist and cancer researcher"
+                  fill
+                  className="rounded-full object-cover object-top shadow-lg ring-1 ring-zinc-200 dark:ring-zinc-700"
+                  sizes="160px"
+                  priority
+                />
                 <div
                   className="pointer-events-none absolute -inset-2 animate-[pulse-glow_6s_ease-in-out_infinite] rounded-full border border-emerald-300/30 dark:border-emerald-600/30"
                   aria-hidden
