@@ -146,12 +146,63 @@ const SERVICE_ICONS = ["scalpel", "ribbon", "laparoscope"] as const;
 /*  Component                                                          */
 /* ------------------------------------------------------------------ */
 
+/**
+ * Identifiers for each top-level section rendered by HomePageContent.
+ * Used to filter which sections are displayed on a given route — the home
+ * page shows a lean subset while dedicated pages (/breast-cancer, /research,
+ * etc.) render only their own section.
+ */
+export type SectionId =
+  | "hero"
+  | "about"
+  | "services"
+  | "breastCancer"
+  | "research"
+  | "news"
+  | "publications"
+  | "teaching"
+  | "contact"
+  | "footer";
+
+/**
+ * Locale-aware route map. English pages live at root (`/contact`); Persian
+ * pages mirror them under `/fa/*` (`/fa/contact`). Use this helper for every
+ * internal link so adding or renaming a page touches exactly one place.
+ */
+export function localeRoutes(locale: Locale) {
+  const base = locale === "fa" ? "/fa" : "";
+  return {
+    home: base || "/",
+    breastCancer: `${base}/breast-cancer`,
+    research: `${base}/research`,
+    advances: `${base}/advances`,
+    teaching: `${base}/teaching`,
+    contact: `${base}/contact`,
+  } as const;
+}
+
+export const ALL_SECTIONS: readonly SectionId[] = [
+  "hero",
+  "about",
+  "services",
+  "breastCancer",
+  "research",
+  "news",
+  "publications",
+  "teaching",
+  "contact",
+  "footer",
+];
+
 export function HomePageContent({
   t,
   locale,
+  sections = ALL_SECTIONS,
 }: {
   t: Dictionary;
   locale: Locale;
+  /** Which top-level sections to render. Defaults to every section. */
+  sections?: readonly SectionId[];
 }) {
   const year = new Date().getFullYear();
   const profileLinks = [
@@ -165,10 +216,13 @@ export function HomePageContent({
     SITE.scopus ? { href: SITE.scopus, label: "Scopus" } : null,
     SITE.researchgate ? { href: SITE.researchgate, label: "ResearchGate" } : null,
   ].filter((l): l is { href: string; label: string } => l !== null);
+  const show = (id: SectionId) => sections.includes(id);
+  const routes = localeRoutes(locale);
 
   return (
     <>
       {/* ============== HERO ============== */}
+      {show("hero") && (
       <section
         id="top"
         className="relative flex min-h-[80vh] items-center justify-center overflow-hidden px-4 pb-16 pt-[calc(5.5rem+env(safe-area-inset-top))] sm:min-h-[92vh] sm:px-6 sm:pb-20 sm:pt-[calc(6rem+env(safe-area-inset-top))]"
@@ -253,13 +307,13 @@ export function HomePageContent({
           <Reveal delay={320}>
             <div className="mt-10 flex flex-wrap justify-center gap-3">
               <a
-                href="#publications"
+                href={routes.research}
                 className="rounded-full bg-zinc-900 px-7 py-3.5 text-sm font-medium text-white transition hover:bg-zinc-800 dark:bg-zinc-100 dark:text-zinc-900 dark:hover:bg-white"
               >
                 {t.hero.ctas.browsePublications}
               </a>
               <a
-                href="#contact"
+                href={routes.contact}
                 className="rounded-full border border-zinc-300 bg-white/60 px-7 py-3.5 text-sm font-medium text-zinc-800 backdrop-blur transition hover:border-zinc-400 hover:bg-white dark:border-zinc-700 dark:bg-zinc-900/50 dark:text-zinc-100 dark:hover:border-zinc-500"
               >
                 {t.hero.ctas.getInTouch}
@@ -303,8 +357,10 @@ export function HomePageContent({
           </Reveal>
         </div>
       </section>
+      )}
 
       {/* ============== ABOUT ============== */}
+      {show("about") && (
       <section
         id="about"
         className="scroll-mt-20 border-t border-zinc-200/80 bg-white px-4 py-32 dark:border-zinc-800/40 dark:bg-zinc-950 sm:px-6"
@@ -473,8 +529,10 @@ export function HomePageContent({
           </div>
         </div>
       </section>
+      )}
 
       {/* ============== CLINICAL EXPERTISE & SERVICES ============== */}
+      {show("services") && (
       <section
         id="services"
         className="scroll-mt-20 border-t border-zinc-200/80 px-4 py-32 dark:border-zinc-800/40 sm:px-6"
@@ -573,8 +631,10 @@ export function HomePageContent({
           </Reveal>
         </div>
       </section>
+      )}
 
       {/* ============== BREAST CANCER DEEP-DIVE ============== */}
+      {show("breastCancer") && (
       <section
         id="breast-cancer"
         className="relative scroll-mt-20 overflow-hidden border-t border-zinc-200/80 bg-gradient-to-b from-pink-50/40 via-white to-white px-4 py-32 dark:border-zinc-800/40 dark:from-pink-950/10 dark:via-zinc-950 dark:to-zinc-950 sm:px-6"
@@ -701,7 +761,7 @@ export function HomePageContent({
                   {t.breastCancer.approachBody}
                 </p>
                 <a
-                  href="#contact"
+                  href={routes.contact}
                   className="mt-6 inline-flex w-max items-center gap-1 rounded-full bg-pink-600 px-5 py-2.5 text-sm font-medium text-white transition hover:bg-pink-700"
                 >
                   {t.breastCancer.cta}
@@ -718,8 +778,10 @@ export function HomePageContent({
           </Reveal>
         </div>
       </section>
+      )}
 
       {/* ============== RESEARCH ============== */}
+      {show("research") && (
       <section
         id="research"
         className="relative scroll-mt-20 overflow-hidden border-t border-zinc-200/80 bg-white px-4 py-32 dark:border-zinc-800/40 dark:bg-zinc-950 sm:px-6"
@@ -758,8 +820,10 @@ export function HomePageContent({
           </div>
         </div>
       </section>
+      )}
 
       {/* ============== NEWS / ADVANCES ============== */}
+      {show("news") && (
       <section
         id="news"
         className="relative scroll-mt-20 overflow-hidden border-t border-zinc-200/80 bg-zinc-50/70 px-4 py-32 dark:border-zinc-800/40 dark:bg-zinc-900/40 sm:px-6"
@@ -822,8 +886,10 @@ export function HomePageContent({
           </Reveal>
         </div>
       </section>
+      )}
 
       {/* ============== PUBLICATIONS ============== */}
+      {show("publications") && (
       <section
         id="publications"
         className="scroll-mt-20 border-t border-zinc-200/80 px-4 py-32 dark:border-zinc-800/40 sm:px-6"
@@ -839,7 +905,7 @@ export function HomePageContent({
             <p className="mt-4 max-w-2xl text-zinc-600 dark:text-zinc-400">
               {t.publications.subtitleBefore}
               <a
-                href="#contact"
+                href={routes.contact}
                 className="text-emerald-700 underline decoration-emerald-700/30 hover:decoration-emerald-700 dark:text-emerald-400"
               >
                 {t.publications.subtitleLink}
@@ -881,8 +947,10 @@ export function HomePageContent({
           ) : null}
         </div>
       </section>
+      )}
 
       {/* ============== TEACHING / CLINICAL ============== */}
+      {show("teaching") && (
       <section
         id="teaching"
         className="scroll-mt-20 border-t border-zinc-200/80 bg-zinc-50 px-4 py-32 dark:border-zinc-800/40 dark:bg-zinc-900/30 sm:px-6"
@@ -926,7 +994,7 @@ export function HomePageContent({
               <p className="mt-4 text-sm leading-relaxed text-zinc-600 dark:text-zinc-400 sm:text-base">
                 {t.teaching.body3Before}
                 <Link
-                  href="#contact"
+                  href={routes.contact}
                   className="text-emerald-700 underline decoration-emerald-700/30 hover:decoration-emerald-700 dark:text-emerald-400"
                 >
                   {t.teaching.body3Link}
@@ -937,8 +1005,10 @@ export function HomePageContent({
           </Reveal>
         </div>
       </section>
+      )}
 
       {/* ============== CONTACT + FAQ ============== */}
+      {show("contact") && (
       <section
         id="contact"
         className="scroll-mt-20 border-t border-zinc-200/80 bg-white px-4 py-32 dark:border-zinc-800/40 dark:bg-zinc-950 sm:px-6"
@@ -1072,8 +1142,10 @@ export function HomePageContent({
           </div>
         </div>
       </section>
+      )}
 
       {/* ============== FOOTER ============== */}
+      {show("footer") && (
       <footer className="border-t border-zinc-200/80 bg-zinc-50 px-4 py-16 dark:border-zinc-800/40 dark:bg-zinc-900/30 sm:px-6">
         <div className="mx-auto max-w-6xl">
           <div className="flex flex-col gap-10 lg:flex-row lg:items-start lg:justify-between">
@@ -1141,6 +1213,7 @@ export function HomePageContent({
           </div>
         </div>
       </footer>
+      )}
 
       <ScrollToTop />
     </>
