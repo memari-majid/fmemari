@@ -1,7 +1,6 @@
 import type { ReactNode } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { AnimatedCounter } from "@/app/components/AnimatedCounter";
 import { ContactForm } from "@/app/components/ContactForm";
 import { FaqAccordion } from "@/app/components/FaqAccordion";
 import {
@@ -13,7 +12,7 @@ import {
 import { Publications } from "@/app/components/Publications";
 import { Reveal } from "@/app/components/Reveal";
 import { ScrollToTop } from "@/app/components/ScrollToTop";
-import { CLINIC, SCHOLAR_METRICS, SITE } from "@/lib/site";
+import { CLINIC, SITE } from "@/lib/site";
 import {
   formatNumber,
   localizeDigits,
@@ -320,40 +319,66 @@ export function HomePageContent({
               </a>
             </div>
           </Reveal>
+
+          {/* Clinic quick-info strip — address, phone, and hours are the
+              details most visitors come here for, so they surface directly
+              on the hero rather than being tucked into the Contact page. */}
           <Reveal delay={400}>
-            <div className="mx-auto mt-16 grid max-w-3xl grid-cols-1 gap-x-4 gap-y-8 border-t border-zinc-200/80 pt-12 dark:border-zinc-800/60 sm:mt-20 sm:grid-cols-3 sm:gap-6 sm:pt-16">
-              <HeroMetric
-                value={SCHOLAR_METRICS.citationsTotal}
-                label={t.hero.metrics.citations}
-                sub={t.hero.metrics.sinceLabel(SCHOLAR_METRICS.citationsSince2021)}
-                locale={locale}
-              />
-              <HeroMetric
-                value={SCHOLAR_METRICS.hIndex}
-                label={t.hero.metrics.hIndex}
-                sub={t.hero.metrics.sinceLabel(SCHOLAR_METRICS.hIndexSince2021)}
-                locale={locale}
-              />
-              <HeroMetric
-                value={SCHOLAR_METRICS.i10Index}
-                label={t.hero.metrics.i10Index}
-                sub={t.hero.metrics.sinceLabel(SCHOLAR_METRICS.i10IndexSince2021)}
-                locale={locale}
-              />
+            <div className="mx-auto mt-14 max-w-3xl rounded-2xl border border-emerald-200/70 bg-white/80 p-5 text-start shadow-sm backdrop-blur dark:border-emerald-900/40 dark:bg-zinc-900/60 sm:p-6">
+              <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
+                <div className="min-w-0">
+                  <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-emerald-700 dark:text-emerald-400">
+                    {t.contact.cards.clinicLabel}
+                  </p>
+                  <p className="mt-1 text-base font-semibold text-zinc-900 dark:text-zinc-100">
+                    {t.contact.cards.clinicName}
+                  </p>
+                  <p className="mt-1 text-sm leading-relaxed text-zinc-600 dark:text-zinc-400">
+                    {localizeDigits(
+                      locale === "fa" ? CLINIC.addressFa : CLINIC.addressEn,
+                      locale,
+                    )}
+                  </p>
+                </div>
+                <div className="flex shrink-0 flex-col gap-2 sm:items-end sm:text-end">
+                  <a
+                    href={`tel:${CLINIC.phone}`}
+                    dir="ltr"
+                    className="inline-flex items-center gap-2 rounded-full bg-emerald-600 px-5 py-2.5 text-sm font-semibold text-white shadow-sm transition hover:bg-emerald-500"
+                  >
+                    <svg
+                      className="h-4 w-4"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth={2}
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      aria-hidden
+                    >
+                      <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6A19.79 19.79 0 0 1 2.12 4.18 2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92Z" />
+                    </svg>
+                    {locale === "fa"
+                      ? localizeDigits(CLINIC.phoneDisplayFa, locale)
+                      : CLINIC.phoneDisplay}
+                  </a>
+                  <p className="text-xs text-zinc-500 dark:text-zinc-500">
+                    {localizeDigits(
+                      locale === "fa" ? CLINIC.hoursFa : CLINIC.hoursEn,
+                      locale,
+                    )}
+                  </p>
+                  <a
+                    href={CLINIC.mapsUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-xs font-medium text-emerald-700 hover:text-emerald-800 dark:text-emerald-400 dark:hover:text-emerald-300"
+                  >
+                    {t.contact.cards.clinicMapsLabel} →
+                  </a>
+                </div>
+              </div>
             </div>
-            <p className="mt-6 text-[11px] text-zinc-500 dark:text-zinc-500">
-              {t.hero.metrics.sourcePrefix} {SCHOLAR_METRICS.source}.{" "}
-              {SITE.scholar ? (
-                <a
-                  href={SITE.scholar}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-emerald-700 underline decoration-emerald-700/30 hover:decoration-emerald-700 dark:text-emerald-400"
-                >
-                  {t.hero.metrics.viewProfile}
-                </a>
-              ) : null}
-            </p>
           </Reveal>
         </div>
       </section>
@@ -1223,30 +1248,6 @@ export function HomePageContent({
 /* ------------------------------------------------------------------ */
 /*  Small inline helpers                                               */
 /* ------------------------------------------------------------------ */
-
-function HeroMetric({
-  value,
-  label,
-  sub,
-  locale,
-}: {
-  value: number;
-  label: string;
-  sub: string;
-  locale: Locale;
-}) {
-  return (
-    <div className="text-center">
-      <p className="text-3xl font-semibold tabular-nums text-zinc-900 dark:text-zinc-50 sm:text-4xl">
-        <AnimatedCounter end={value} locale={locale} />
-      </p>
-      <p className="mt-2 text-xs font-medium uppercase tracking-wider text-zinc-600 dark:text-zinc-400">
-        {label}
-      </p>
-      <p className="mt-1 text-[11px] text-zinc-500 dark:text-zinc-500">{sub}</p>
-    </div>
-  );
-}
 
 function CredentialCard({
   label,
