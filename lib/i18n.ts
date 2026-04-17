@@ -261,6 +261,22 @@ export type Dictionary = {
       cta: string;
     }[];
   };
+
+  // ---- Live PubMed feed (on /advances)
+  liveFeed: {
+    eyebrow: string;
+    heading: string;
+    subtitle: string;
+    sourceLabel: string;
+    empty: string;
+    openPaper: string;
+    openSearch: string;
+  };
+
+  // ---- Floating call button
+  callButton: {
+    label: string;
+  };
 };
 
 // ─────────────────────────────────────────────────────────────────────────────
@@ -690,6 +706,22 @@ export const en: Dictionary = {
         cta: "Get in touch",
       },
     ],
+  },
+
+  liveFeed: {
+    eyebrow: "Live from PubMed",
+    heading: "Latest cancer research papers",
+    subtitle:
+      "Recently indexed papers in oncology, immunotherapy, and clinical trials — fetched directly from PubMed and refreshed every couple of hours.",
+    sourceLabel: "Source: PubMed",
+    empty:
+      "The live feed is temporarily unavailable. Try the curated list above, or open PubMed directly.",
+    openPaper: "Read on PubMed",
+    openSearch: "Open full search in PubMed",
+  },
+
+  callButton: {
+    label: "Call",
   },
 };
 
@@ -1141,6 +1173,22 @@ export const fa: Dictionary = {
         cta: "ارتباط با ما",
       },
     ],
+  },
+
+  liveFeed: {
+    eyebrow: "به‌روزرسانی زنده از PubMed",
+    heading: "تازه‌ترین مقالات پژوهش سرطان",
+    subtitle:
+      "مقالات تازه‌نمایه‌شده در حوزه‌ی انکولوژی، ایمنی‌درمانی و کارآزمایی‌های بالینی — مستقیم از PubMed و با به‌روزرسانی هر چند ساعت یک‌بار.",
+    sourceLabel: "منبع: PubMed",
+    empty:
+      "فید زنده موقتاً در دسترس نیست. می‌توانید از فهرست گزیده‌ی بالا استفاده کنید یا مستقیم به PubMed مراجعه کنید.",
+    openPaper: "مشاهده در PubMed",
+    openSearch: "باز کردن جست‌وجوی کامل در PubMed",
+  },
+
+  callButton: {
+    label: "تماس",
   },
 };
 

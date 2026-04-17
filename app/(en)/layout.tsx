@@ -1,6 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import "../globals.css";
-import { Chatbot } from "@/app/components/Chatbot";
+import { CallUsButton } from "@/app/components/CallUsButton";
 import { ThemeProvider } from "@/app/components/ThemeProvider";
 import { getDictionary } from "@/lib/i18n";
 import { SITE, SITE_URL } from "@/lib/site";
@@ -97,7 +97,7 @@ export default function EnRootLayout({
     <html lang="en" dir="ltr" suppressHydrationWarning>
       <body className="min-w-0 overflow-x-hidden antialiased">
         <ThemeProvider>{children}</ThemeProvider>
-        <Chatbot locale="en" t={t.chatbot} />
+        <CallUsButton locale="en" label={t.callButton.label} />
       </body>
     </html>
   );
