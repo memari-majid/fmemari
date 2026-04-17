@@ -5,9 +5,9 @@ import { NavBar } from "@/app/components/NavBar";
 import { getDictionary } from "@/lib/i18n";
 
 export const metadata: Metadata = {
-  title: "پژوهش و مقالات",
+  title: "پژوهش‌ها و مقالات",
   description:
-    "چهار محور پژوهشی — زیست‌شناسی سرطان و RNAهای غیرکدکننده، جراحی انکولوژی، ایمنی‌درمانی و سلامت دیجیتال — در کنار فهرست مقالات داور-پسند منتخب.",
+    "چهار محور پژوهشی — زیست‌شناسی سرطان و RNAهای غیرکدکننده، جراحی انکولوژی، ایمنی‌درمانی و سلامت دیجیتال — همراه با فهرست مقالات داور-پسند منتخب.",
   alternates: { canonical: "/fa/research" },
 };
 
