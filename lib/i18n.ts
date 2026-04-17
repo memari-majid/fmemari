@@ -112,6 +112,24 @@ export type Dictionary = {
     };
   };
 
+  // ---- Breast cancer deep-dive
+  breastCancer: {
+    eyebrow: string;
+    heading: string;
+    subtitle: string;
+    intro: string;
+    stats: { value: string; label: string; source: string }[];
+    proceduresHeading: string;
+    procedures: { name: string; body: string; indication: string }[];
+    signsHeading: string;
+    signs: string[];
+    signsFootnote: string;
+    approachHeading: string;
+    approachBody: string;
+    cta: string;
+    sourcesLabel: string;
+  };
+
   // ---- Research interests
   research: {
     eyebrow: string;
@@ -232,6 +250,7 @@ export const en: Dictionary = {
     items: [
       { label: "About", href: "#about" },
       { label: "Services", href: "#services" },
+      { label: "Breast cancer", href: "#breast-cancer" },
       { label: "Research", href: "#research" },
       { label: "Advances", href: "#news" },
       { label: "Publications", href: "#publications" },
@@ -334,6 +353,76 @@ export const en: Dictionary = {
       footnote:
         "Summarized from third-party patient platforms; this site does not host or moderate individual reviews.",
     },
+  },
+
+  breastCancer: {
+    eyebrow: "Focus area",
+    heading: "Breast cancer & breast cancer surgery",
+    subtitle:
+      "Breast cancer is the most-diagnosed cancer in women worldwide. Dr. Memari's practice combines oncologic resection with oncoplastic and reconstructive technique — so that complete cancer treatment and a good long-term breast appearance are planned together.",
+    intro:
+      "Breast cancer is also one of the most curable cancers when detected early. The gap between outcomes in high- and low-income regions is driven mostly by access to screening, timely diagnosis, and multidisciplinary treatment — not by biology. A well-coordinated team and surgical plan matter as much as the drugs used afterward.",
+    stats: [
+      {
+        value: "2.3M",
+        label: "new cases worldwide each year",
+        source: "WHO / GLOBOCAN",
+      },
+      {
+        value: "~1 in 20",
+        label: "women diagnosed in their lifetime",
+        source: "WHO",
+      },
+      {
+        value: "670,000",
+        label: "deaths worldwide in 2022",
+        source: "WHO",
+      },
+      {
+        value: "> 90%",
+        label: "5-year survival for localized disease in high-HDI regions",
+        source: "GLOBOCAN",
+      },
+    ],
+    proceduresHeading: "Surgical procedures for breast cancer",
+    procedures: [
+      {
+        name: "Lumpectomy (breast-conserving surgery)",
+        body: "Removes the tumor with a margin of healthy tissue while preserving the rest of the breast. Usually combined with radiotherapy and, when oncologically appropriate, with oncoplastic reshaping of the remaining tissue.",
+        indication: "Early-stage invasive cancer and DCIS where tumor size and location allow clear margins with good cosmetic outcome.",
+      },
+      {
+        name: "Mastectomy (total or skin- / nipple-sparing)",
+        body: "Removes the entire breast when breast-conserving surgery is not appropriate. Skin- and nipple-sparing variants preserve the breast envelope for immediate reconstruction and better aesthetic outcome.",
+        indication: "Larger or multifocal tumors, extensive DCIS, inflammatory disease, high-risk genetic mutations (e.g. BRCA1 / BRCA2), or patient preference.",
+      },
+      {
+        name: "Oncoplastic reconstruction",
+        body: "Combines cancer resection with plastic-surgery technique — tissue rearrangement, volume replacement, symmetrization — in the same operation, so the treated breast keeps a natural shape. Immediate or delayed autologous / implant-based reconstruction is planned with the patient.",
+        indication: "Larger lumpectomy defects, unfavorable tumor-to-breast volume ratio, or patients prioritizing aesthetic outcome alongside oncologic clearance.",
+      },
+      {
+        name: "Sentinel lymph node biopsy & targeted axillary surgery",
+        body: "Identifies and removes only the first (sentinel) lymph node(s) draining the tumor to check for spread, avoiding the complications of a full axillary dissection when the sentinel nodes are clear.",
+        indication: "Clinically node-negative breast cancer; modern fluorescent / radioisotope mapping improves accuracy and lowers lymphedema risk.",
+      },
+    ],
+    signsHeading: "When to see a specialist",
+    signs: [
+      "A new lump, thickening, or hardness in the breast or underarm",
+      "A change in breast size, shape, or skin texture (dimpling, puckering, or orange-peel skin)",
+      "Nipple changes — inversion, flattening, scaling, or rash",
+      "Spontaneous, persistent nipple discharge, especially if bloody or from one duct",
+      "Localized persistent breast pain that does not follow the menstrual cycle",
+      "A suspicious finding on screening mammography, ultrasound, or MRI",
+    ],
+    signsFootnote:
+      "Most of these findings are not cancer, but they should always be evaluated. Early assessment widens the available treatment options and usually improves the long-term outcome.",
+    approachHeading: "Dr. Memari's approach",
+    approachBody:
+      "Each patient is discussed in a multidisciplinary context (surgery, oncology, radiology, pathology) before the operative plan is set. Whenever it is oncologically safe, breast-conserving and oncoplastic techniques are preferred over mastectomy. When mastectomy is the right choice, skin- and nipple-sparing approaches with immediate reconstruction are considered to preserve quality of life. Follow-up combines standard surveillance with the patient-reported-outcome monitoring tools that feature in Dr. Memari's digital-health research.",
+    cta: "Discuss a case",
+    sourcesLabel: "Figures: WHO breast-cancer fact sheet, GLOBOCAN 2022, and peer-reviewed reviews.",
   },
 
   research: {
@@ -553,6 +642,7 @@ export const fa: Dictionary = {
     items: [
       { label: "درباره", href: "#about" },
       { label: "تخصص‌ها", href: "#services" },
+      { label: "سرطان پستان", href: "#breast-cancer" },
       { label: "پژوهش", href: "#research" },
       { label: "پیشرفت‌ها", href: "#news" },
       { label: "مقالات", href: "#publications" },
@@ -656,6 +746,80 @@ export const fa: Dictionary = {
       footnote:
         "خلاصه‌ای از سامانه‌های شخص ثالث؛ این وب‌سایت بازخوردهای فردی را میزبانی یا ویرایش نمی‌کند.",
     },
+  },
+
+  breastCancer: {
+    eyebrow: "کانون تخصصی",
+    heading: "سرطان پستان و جراحی سرطان پستان",
+    subtitle:
+      "سرطان پستان شایع‌ترین سرطان زنان در جهان است. رویکرد دکتر معماری در درمان این بیماری، ترکیب جراحی انکولوژیک (برداشت کامل تومور) با تکنیک‌های انکوپلاستی و بازسازی است؛ به‌گونه‌ای که درمان قطعی سرطان و حفظ ظاهر طبیعی پستان در یک طرح واحد برنامه‌ریزی می‌شوند.",
+    intro:
+      "سرطان پستان در صورت تشخیص زودهنگام، یکی از قابل‌درمان‌ترین سرطان‌هاست. فاصله‌ی چشم‌گیر پیامد درمان میان کشورهای برخوردار و کم‌برخوردار، بیش از آن‌که ناشی از تفاوت زیست‌شناختی باشد، نتیجه‌ی تفاوت در دسترسی به غربالگری، تشخیص به‌موقع و درمان چند-تخصصی است. یک تیم منسجم و طرح جراحی درست، به‌اندازه‌ی خود داروها اهمیت دارد.",
+    stats: [
+      {
+        value: "۲٫۳ میلیون",
+        label: "مورد جدید در جهان در هر سال",
+        source: "WHO / GLOBOCAN",
+      },
+      {
+        value: "حدود ۱ از هر ۲۰",
+        label: "زنان در طول زندگی مبتلا می‌شوند",
+        source: "WHO",
+      },
+      {
+        value: "۶۷۰٬۰۰۰",
+        label: "مرگ در جهان در سال ۲۰۲۲",
+        source: "WHO",
+      },
+      {
+        value: "بیش از ۹۰٪",
+        label: "بقای ۵‌ساله در بیماری موضعی در کشورهای با HDI بالا",
+        source: "GLOBOCAN",
+      },
+    ],
+    proceduresHeading: "روش‌های جراحی در سرطان پستان",
+    procedures: [
+      {
+        name: "لامپکتومی (جراحی پستان‌حفظ‌کننده)",
+        body: "برداشت تومور به‌همراه حاشیه‌ی ایمن از بافت سالم، با حفظ باقی پستان. معمولاً همراه با پرتودرمانی انجام می‌شود و در صورت نیاز، با تکنیک‌های انکوپلاستی بافت باقی‌مانده بازآرایی می‌شود تا ظاهر طبیعی حفظ بماند.",
+        indication:
+          "سرطان مهاجم در مراحل اولیه و DCIS، هنگامی که اندازه و محل تومور امکان حاشیه‌ی پاک همراه با پیامد زیبایی مناسب را می‌دهد.",
+      },
+      {
+        name: "ماستکتومی (کامل، با حفظ پوست یا حفظ نیپل)",
+        body: "برداشت کامل پستان در مواردی که جراحی پستان‌حفظ‌کننده مناسب نیست. نسخه‌های «حفظ پوست» و «حفظ نیپل» پوشش خارجی پستان را نگه می‌دارند تا بازسازی فوری با نتیجه‌ی زیبایی بهتری امکان‌پذیر باشد.",
+        indication:
+          "تومورهای بزرگ یا چند-کانونی، DCIS وسیع، سرطان التهابی پستان، جهش‌های ژنتیکی پرخطر (مانند BRCA1/BRCA2) یا انتخاب آگاهانه‌ی بیمار.",
+      },
+      {
+        name: "بازسازی انکوپلاستی",
+        body: "ترکیب برداشت تومور با تکنیک‌های جراحی پلاستیک — بازآرایی بافت، جایگزینی حجم، متقارن‌سازی پستان سالم — در یک عمل واحد، تا پستان درمان‌شده شکلی طبیعی داشته باشد. بازسازی فوری یا تأخیری (با بافت خود بیمار یا ایمپلنت) در جلسه‌ی مشاوره با بیمار برنامه‌ریزی می‌شود.",
+        indication:
+          "نقص بزرگ ناشی از لامپکتومی، نسبت نامطلوب حجم تومور به حجم پستان، یا بیمارانی که علاوه بر درمان قطعی، اهمیت ویژه‌ای برای ظاهر نهایی قائل‌اند.",
+      },
+      {
+        name: "بیوپسی گره‌ی سنتینل و جراحی هدفمند زیربغل",
+        body: "شناسایی و برداشت نخستین گره (یا گره‌های) لنفاوی که مسیر تخلیه‌ی تومور هستند، برای بررسی درگیری غدد لنفاوی. در صورت پاک‌بودن این گره‌ها، از انجام دایسکسیون کامل زیربغل (و عوارض آن) پرهیز می‌شود.",
+        indication:
+          "سرطان پستان با گره‌های لنفاوی از نظر بالینی منفی؛ نقشه‌برداری با رنگ‌های فلورسنت و رادیوایزوتوپ، دقت تشخیص را بالا می‌برد و خطر لنف‌ادم را کاهش می‌دهد.",
+      },
+    ],
+    signsHeading: "چه زمانی باید به متخصص مراجعه کرد؟",
+    signs: [
+      "توده، سفتی یا ضخیم‌شدگی جدید در پستان یا زیربغل",
+      "تغییر در اندازه، شکل یا بافت پوست پستان (فرورفتگی، چروک‌شدگی یا پوست پرتقالی)",
+      "تغییر در نیپل — فرورفتگی، مسطح‌شدن، پوسته‌ریزی یا بثورات",
+      "ترشح خودبه‌خودی و پایدار از نیپل، به‌ویژه اگر خونی یا تنها از یک مجرا باشد",
+      "درد موضعی پایدار در پستان که با چرخه‌ی قاعدگی همراه نیست",
+      "یافته‌ی مشکوک در ماموگرافی غربالگری، سونوگرافی یا MRI",
+    ],
+    signsFootnote:
+      "بیشتر این یافته‌ها سرطان نیستند، اما همیشه باید ارزیابی شوند. ارزیابی زودهنگام طیف گزینه‌های درمانی را گسترش می‌دهد و معمولاً پیامد بلندمدت را بهتر می‌کند.",
+    approachHeading: "رویکرد دکتر معماری",
+    approachBody:
+      "هر بیمار پیش از تعیین طرح عمل، در یک تیم چند-تخصصی (جراحی، انکولوژی، رادیولوژی، پاتولوژی) بررسی می‌شود. هرجا که از نظر انکولوژیک امکان‌پذیر باشد، روش‌های پستان‌حفظ‌کننده و انکوپلاستی بر ماستکتومی ترجیح داده می‌شوند. در مواردی که ماستکتومی انتخاب درست است، رویکردهای «حفظ پوست» و «حفظ نیپل» همراه با بازسازی فوری، برای حفظ کیفیت زندگی در نظر گرفته می‌شود. پیگیری پس از عمل، مراقبت استاندارد را با ابزارهای پایش خودگزارش‌دهی بیمار — همان خط پژوهشی سلامت دیجیتال دکتر معماری — ترکیب می‌کند.",
+    cta: "مشاوره درباره‌ی پرونده",
+    sourcesLabel: "ارقام از گزارش WHO در زمینه‌ی سرطان پستان، GLOBOCAN 2022 و مرورهای داور-پسند.",
   },
 
   research: {
