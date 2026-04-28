@@ -23,7 +23,7 @@ type DecorationProps = { className?: string };
  * The universally-recognized cancer-awareness ribbon shape — looped at the
  * top, with two tails diverging downward. Color is supplied via `currentColor`
  * so callers can tint it with Tailwind text-color utilities (e.g.
- * `<span className="text-pink-500 dark:text-pink-300"><AwarenessRibbon ../></span>`).
+ * `<span className="text-green-500 dark:text-green-300"><AwarenessRibbon ../></span>`).
  *
  * Color conventions (per major awareness foundations):
  *   • Pink            — Breast cancer
@@ -69,7 +69,7 @@ export function AwarenessRibbon({
 
 /**
  * Repeating DNA double-helix pattern. Fills its parent — usually used as an
- * absolutely-positioned background element with `text-pink-500/15` or
+ * absolutely-positioned background element with `text-green-500/15` or
  * similar low-opacity color to make it a watermark.
  */
 export function DnaHelixBackground({ className = "" }: DecorationProps) {

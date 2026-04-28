@@ -28,7 +28,7 @@ export function CallUsButton({
     <a
       href={`tel:${CLINIC.phone}`}
       aria-label={label}
-      className={`fixed bottom-[max(1rem,env(safe-area-inset-bottom))] ${anchorClass} z-40 inline-flex min-h-[52px] items-center gap-2 rounded-full bg-pink-600 px-5 py-3 text-sm font-semibold text-white shadow-lg shadow-pink-600/30 transition hover:bg-pink-500`}
+      className={`fixed bottom-[max(1rem,env(safe-area-inset-bottom))] ${anchorClass} z-40 inline-flex min-h-[52px] items-center gap-2 rounded-full bg-green-600 px-5 py-3 text-sm font-semibold text-white shadow-lg shadow-green-600/30 transition hover:bg-green-500`}
     >
       <svg
         className="h-5 w-5"
