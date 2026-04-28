@@ -126,6 +126,11 @@ export type Dictionary = {
     signsFootnote: string;
     approachHeading: string;
     approachBody: string;
+    /** Patient-facing Q&A — common questions about breast cancer surgery,
+     *  rendered as an accordion below the approach paragraph. */
+    patientFaqHeading: string;
+    patientFaqIntro: string;
+    patientFaq: { q: string; a: string }[];
     cta: string;
     sourcesLabel: string;
   };
@@ -323,7 +328,7 @@ export const en: Dictionary = {
     affiliationParent: "Tehran University of Medical Sciences",
     locationSuffix: "Tehran, Iran",
     description:
-      "Associate Professor of Surgery, practicing surgery **since 1993**. Translational research at the intersection of cancer biology, non-coding RNAs, surgical oncology, immunotherapy, and digital health for cancer survivors.",
+      "Associate Professor of Surgery, practicing surgery **since 1992**. Translational research at the intersection of cancer biology, non-coding RNAs, surgical oncology, immunotherapy, and digital health for cancer survivors.",
     licenseLine: (license, _specialties) =>
       `Medical license № ${license}`,
     specialtiesText: "Surgical Oncology · General Surgery",
@@ -344,12 +349,12 @@ export const en: Dictionary = {
   about: {
     eyebrow: "About",
     heading: "About Dr. Memari",
-    badge: "Since 1993",
+    badge: "Since 1992",
     refClinical: "Clinical practice",
     refAcademic: "Academic appointment",
     bio: {
       affiliationLine:
-        "Dr. Fereidoon Memari is an **Associate Professor of Surgery** at {{tums}} and a surgical oncologist at the {{cancerInstitute}}. **Practicing surgery since {{since}}**, his clinical practice spans complex cancer cases and combined procedures across gastrointestinal, head and neck, breast, and renal cancers.",
+        "Dr. Fereidoon Memari is an **Associate Professor of Surgery** at {{tums}} and a surgical oncologist at the {{cancerInstitute}}. Practicing surgery since {{since}}, his clinical practice spans complex cancer cases and combined procedures across gastrointestinal, head and neck, breast, and renal cancers.",
       experienceLine: "",
       researchLine:
         "His translational research focuses on the role of non-coding RNAs — siRNA, microRNA, piRNA, lncRNA, and ceRNA networks — as therapeutic levers and candidate biomarkers in cancer. Recent work also explores cancer immunotherapy, chimeric protein design, and the use of smartphone- and IoT-enabled systems for the remote monitoring of cancer survivors.",
@@ -359,7 +364,7 @@ export const en: Dictionary = {
     credentialLabels: {
       academicRank: "Academic rank",
       experience: "Experience",
-      experienceValue: "Since 1993",
+      experienceValue: "Since 1992",
       license: "Medical license",
       licenseValue: (n) => `№ ${n}`,
     },
@@ -471,6 +476,35 @@ export const en: Dictionary = {
     approachHeading: "Dr. Memari's approach",
     approachBody:
       "Each patient is discussed in a multidisciplinary context (surgery, oncology, radiology, pathology) before the operative plan is set. Whenever it is oncologically safe, breast-conserving and oncoplastic techniques are preferred over mastectomy. When mastectomy is the right choice, skin- and nipple-sparing approaches with immediate reconstruction are considered to preserve quality of life. Follow-up combines standard surveillance with the patient-reported-outcome monitoring tools that feature in Dr. Memari's digital-health research. For asymptomatic women, the **National Breast Cancer Foundation's Early Detection Plan** and the **2024 USPSTF update** converge on a clear schedule: a monthly breast self-exam from age 20, a clinical breast exam every one to three years through age 39 (annually thereafter), and **biennial screening mammography from age 40 through 74**. Women at elevated lifetime risk — known BRCA1/BRCA2 carriers, strong family history, or prior chest radiation — should add **annual breast MRI alongside mammography starting at age 30** per the American Cancer Society.",
+    patientFaqHeading: "Frequently asked questions about breast cancer",
+    patientFaqIntro:
+      "A patient-focused walk-through of the questions Dr. Memari hears most often in clinic — written for the person reading this site, not for a specialist audience.",
+    patientFaq: [
+      {
+        q: "What is breast cancer and how does it develop?",
+        a: "Breast cancer occurs when cells in the breast tissue lose normal growth control and start dividing irregularly, often forming a lump or thickening. The most common form is invasive ductal carcinoma; pre-invasive disease (ductal carcinoma in situ, DCIS) has a very high cure rate when caught early. Risk factors include age, family history, prior chest radiation, and inherited mutations such as BRCA1 and BRCA2 — but most diagnoses occur in women without a known family history.",
+      },
+      {
+        q: "When should I see a specialist?",
+        a: "Any new lump, persistent thickening, change in breast size or shape, skin dimpling, change at the nipple, or spontaneous discharge — particularly bloody or from a single duct — should be evaluated without delay. The same applies to a suspicious finding on screening mammography, ultrasound, or MRI. Most of these findings turn out not to be cancer, but early evaluation widens the range of treatment options and almost always improves the long-term outcome.",
+      },
+      {
+        q: "What is the difference between a lumpectomy and a mastectomy?",
+        a: "A lumpectomy removes only the tumor with a clear margin of healthy tissue and preserves the rest of the breast — usually combined with radiotherapy and, when appropriate, oncoplastic reshaping. A mastectomy removes the whole breast, with skin- and nipple-sparing variants when oncologically safe. Cancer outcomes are equivalent between the two when both are appropriate; the main differences are how much tissue is removed and what reconstruction options remain. Dr. Memari prefers breast-conserving surgery whenever the tumor size, location, and pathology allow it.",
+      },
+      {
+        q: "How long is recovery after breast cancer surgery?",
+        a: "Most lumpectomy patients return to daily activities within one to two weeks, with restrictions on heavy lifting for about three weeks. Mastectomy with immediate reconstruction takes longer — typically four to six weeks for return to normal activity, with regular follow-up until the reconstructed breast settles. Pain is well controlled with non-opioid medication and light activity is encouraged from the first days; sleeves, drains, and bandages are usually removed within one to two weeks.",
+      },
+      {
+        q: "Should I have genetic testing for BRCA1 or BRCA2?",
+        a: "Genetic testing is recommended when the personal or family history suggests an inherited risk: breast cancer before age 50, triple-negative disease, male breast cancer, ovarian cancer, or two or more close relatives with breast or ovarian cancer. A positive BRCA result changes both surgical decision-making (e.g., bilateral mastectomy may be discussed) and screening (annual MRI alongside mammography from age 30 per ACS guidance). Testing is straightforward — usually a saliva or blood sample — and counselling before and after the result is the standard of care.",
+      },
+      {
+        q: "What does follow-up after surgery look like?",
+        a: "Standard surveillance is a clinical exam every 3–6 months for the first two years, every 6–12 months for years 3–5, and annually thereafter, plus annual mammography of the treated and contralateral breast. For BRCA carriers and other elevated-risk patients, an annual breast MRI is added. Dr. Memari's practice complements the standard exam schedule with patient-reported-outcome monitoring through smartphone- and IoT-enabled tools — a direct application of his digital-health research.",
+      },
+    ],
     cta: "Discuss a case",
     sourcesLabel: "Figures: WHO breast-cancer fact sheet and GLOBOCAN 2022. Screening guidance: National Breast Cancer Foundation (Early Detection Plan), U.S. Preventive Services Task Force (2024 update), and the American Cancer Society.",
   },
@@ -812,14 +846,14 @@ export const fa: Dictionary = {
   about: {
     eyebrow: "درباره",
     heading: "زندگی‌نامه و پیشینه حرفه‌ای",
-    badge: "از سال ۱۳۷۲",
+    badge: "از سال ۱۳۷۱",
     refClinical: "فعالیت بالینی",
     refAcademic: "سمت دانشگاهی",
     bio: {
       affiliationLine:
         "ایشان به عنوان **دانشیار** و عضو هیئت علمی رسمی {{tums}} فعالیت می‌کنند. بخش مهمی از فعالیت‌های ایشان شامل آموزش دانشجویان پزشکی و رزیدنت‌های جراحی در {{cancerInstitute}} است. ایشان همچنین مقالات پژوهشی متعددی در ژورنال‌های معتبر بین‌المللی در زمینه‌هایی مانند سرطان سینه، روش‌های نوین جراحی گوارش و ایمونوتراپی به چاپ رسانده‌اند.",
       experienceLine:
-        "دکتر فریدون معماری (شماره نظام پزشکی: ۲۶۷۴۳) با سابقه‌ی فعالیت پزشکی از سال ۱۳۷۲، از فارغ‌التحصیلان ممتاز دانشگاه‌های برتر ایران است. ایشان پس از گذراندن دوره پزشکی عمومی و تخصص جراحی عمومی، با ادامه تحصیل در مقطع فلوشیپ جراحی سرطان، بر درمان تومورهای بدخیم و جراحی‌های پیچیده‌ی سرطان متمرکز شدند.",
+        "دکتر فریدون معماری (شماره نظام پزشکی: ۲۶۷۴۳) با سابقه‌ی فعالیت پزشکی از سال ۱۳۷۱، از فارغ‌التحصیلان ممتاز دانشگاه‌های برتر ایران است. ایشان پس از گذراندن دوره پزشکی عمومی و تخصص جراحی عمومی، با ادامه تحصیل در مقطع فلوشیپ جراحی سرطان، بر درمان تومورهای بدخیم و جراحی‌های پیچیده‌ی سرطان متمرکز شدند.",
       researchLine:
         "در حوزه پژوهش، کارهای ترجمانی ایشان از جمله نقش RNAهای غیرکدکننده (از جمله siRNA، microRNA، piRNA، lncRNA و شبکه‌های ceRNA) در سرطان، ایمنی‌درمانی، و پایش از راه دور بازماندگان سرطان روده بزرگ با تلفن همراه و اینترنت اشیاء را در بر می‌گیرد؛ از جمله مقاله‌ای در *JMIR Cancer* درباره همین موضوع پایش از راه دور.",
       publicationsLine:
@@ -828,7 +862,7 @@ export const fa: Dictionary = {
     credentialLabels: {
       academicRank: "سمت دانشگاهی",
       experience: "سابقه",
-      experienceValue: "از سال ۱۳۷۲",
+      experienceValue: "از سال ۱۳۷۱",
       license: "نظام پزشکی",
       licenseValue: (n) => `شماره ${toFaDigits(n)}`,
     },
@@ -876,7 +910,7 @@ export const fa: Dictionary = {
 
   breastCancer: {
     eyebrow: "حوزه‌ی تخصصی",
-    heading: "سرطان پستان و جراحی آن",
+    heading: "سرطان پستان",
     subtitle:
       "سرطان پستان شایع‌ترین سرطان زنان در جهان است. رویکرد دکتر معماری، ترکیب جراحی سرطان (برداشت کامل تومور) با تکنیک‌های انکوپلاستی و بازسازی است؛ تا درمان قطعی سرطان و حفظ ظاهر طبیعی پستان در یک طرح واحد انجام شود.",
     intro:
@@ -944,6 +978,35 @@ export const fa: Dictionary = {
     approachHeading: "رویکرد دکتر معماری",
     approachBody:
       "هر بیمار پیش از تعیین طرح عمل، در یک تیم چندتخصصی (جراحی، سرطان‌شناسی، رادیولوژی، پاتولوژی) بررسی می‌شود. هرجا که از نظر درمان سرطان امکان‌پذیر باشد، روش‌های پستان‌حفظ‌کننده و انکوپلاستی بر ماستکتومی ترجیح داده می‌شوند. در مواردی که ماستکتومی انتخاب درست است، رویکردهای «حفظ پوست» و «حفظ نوک پستان» همراه با بازسازی فوری، برای حفظ کیفیت زندگی در نظر گرفته می‌شود. پیگیری پس از عمل، مراقبت استاندارد را با ابزارهای پایش خودگزارش‌دهی بیمار — همان خط پژوهشی سلامت دیجیتال دکتر معماری — ترکیب می‌کند. برای زنان بدون علامت، **برنامه‌ی تشخیص زودهنگام بنیاد ملی سرطان پستان (NBCF)** و **به‌روزرسانی ۲۰۲۴ کارگروه خدمات پیشگیرانه‌ی آمریکا (USPSTF)** بر یک برنامه‌ی روشن همگرا هستند: خودآزمایی پستان به‌صورت ماهانه از سن ۲۰ سالگی، معاینه‌ی بالینی پستان هر یک تا سه سال در سنین ۲۰ تا ۳۹ (سالانه از ۴۰ به بعد)، و **ماموگرافی غربالگری هر دو سال یک‌بار از سن ۴۰ تا ۷۴ سالگی**. زنان در معرض خطر بالاتر — ناقلان جهش BRCA1/BRCA2، کسانی با سابقه‌ی خانوادگی قوی یا سابقه‌ی پرتودرمانی قفسه‌ی سینه — باید بنا بر توصیه‌ی انجمن سرطان آمریکا (ACS)، **MRI سالانه‌ی پستان را از سن ۳۰ سالگی همراه با ماموگرافی** انجام دهند.",
+    patientFaqHeading: "پرسش‌های متداول درباره‌ی سرطان پستان",
+    patientFaqIntro:
+      "نگاهی بیمارمحور به پرسش‌هایی که دکتر معماری بیشتر در مطب می‌شنود — نوشته‌شده برای کسی که این سایت را می‌خواند، نه برای متخصصان.",
+    patientFaq: [
+      {
+        q: "سرطان پستان چیست و چگونه ایجاد می‌شود؟",
+        a: "سرطان پستان زمانی رخ می‌دهد که سلول‌های بافت پستان کنترل تقسیم طبیعی خود را از دست می‌دهند و رشدی نامنظم پیدا می‌کنند که اغلب به‌صورت توده یا سفتی قابل لمس است. شایع‌ترین نوع آن کارسینوم مهاجم مجرایی است؛ بیماری پیش‌مهاجم (DCIS) نیز در صورت تشخیص زودهنگام، احتمال درمان قطعی بسیار بالایی دارد. عوامل خطر شامل سن، سابقه‌ی خانوادگی، پرتودرمانی قبلی قفسه‌ی سینه و جهش‌های ارثی مانند BRCA1 و BRCA2 است؛ اما بیشتر بیماران بدون سابقه‌ی خانوادگی شناخته‌شده تشخیص داده می‌شوند.",
+      },
+      {
+        q: "چه زمانی باید به متخصص مراجعه کنم؟",
+        a: "هر توده‌ی جدید، سفتی پایدار، تغییر در اندازه یا شکل پستان، فرورفتگی پوست، تغییر در نوک پستان، یا ترشح خودبه‌خود — به‌ویژه ترشح خونی یا از یک مجرا — باید بدون تأخیر بررسی شود. همین موضوع برای یافته‌ی مشکوک در ماموگرافی غربالگری، سونوگرافی یا MRI نیز صدق می‌کند. بیشتر این یافته‌ها در نهایت سرطان نیستند، اما ارزیابی زودهنگام طیف گزینه‌های درمانی را گسترده‌تر می‌کند و تقریباً همیشه پیامد بلندمدت را بهتر می‌سازد.",
+      },
+      {
+        q: "تفاوت لامپکتومی و ماستکتومی چیست؟",
+        a: "لامپکتومی فقط تومور را همراه با حاشیه‌ی ایمن از بافت سالم برمی‌دارد و بقیه‌ی پستان را حفظ می‌کند — معمولاً همراه با پرتودرمانی و در صورت نیاز، بازسازی انکوپلاستی. ماستکتومی برداشت کامل پستان است؛ نسخه‌های «حفظ پوست» و «حفظ نوک پستان» در مواردی که از نظر سرطان‌شناسی ایمن باشد در دسترس‌اند. وقتی هر دو روش مناسب باشند، نتایج درمان سرطان مشابه است؛ تفاوت اصلی در حجم بافت برداشته‌شده و گزینه‌های بازسازی است. رویکرد دکتر معماری این است که هرجا اندازه، محل تومور و گزارش پاتولوژی اجازه دهند، جراحی پستان‌حفظ‌کننده ترجیح داده شود.",
+      },
+      {
+        q: "بهبودی پس از جراحی سرطان پستان چقدر طول می‌کشد؟",
+        a: "بیشتر بیماران لامپکتومی طی یک تا دو هفته به فعالیت‌های روزمره برمی‌گردند، با پرهیز از بلند کردن اجسام سنگین تا حدود سه هفته. ماستکتومی همراه با بازسازی فوری زمان بیشتری می‌برد — معمولاً چهار تا شش هفته تا بازگشت به فعالیت کامل، با پیگیری‌های منظم تا تثبیت بازسازی. درد با داروهای غیراپیوئیدی به‌خوبی کنترل می‌شود و فعالیت سبک از همان روزهای نخست تشویق می‌شود؛ آستین‌ها، درن‌ها و پانسمان‌ها معمولاً ظرف یک تا دو هفته برداشته می‌شوند.",
+      },
+      {
+        q: "آیا باید آزمایش ژنتیکی BRCA1 یا BRCA2 انجام دهم؟",
+        a: "آزمایش ژنتیکی زمانی توصیه می‌شود که سابقه‌ی فردی یا خانوادگی نشان از خطر ارثی داشته باشد: سرطان پستان پیش از ۵۰ سالگی، بیماری سه‌گانه‌منفی، سرطان پستان مردانه، سرطان تخمدان، یا دو یا بیشتر از بستگان نزدیک مبتلا به سرطان پستان یا تخمدان. نتیجه‌ی مثبت BRCA هم تصمیم‌گیری جراحی را تغییر می‌دهد (مثلاً ماستکتومی دوطرفه ممکن است مطرح شود) و هم برنامه‌ی غربالگری را (افزودن MRI سالانه از سن ۳۰ سالگی همراه با ماموگرافی، طبق توصیه‌ی ACS). آزمایش ساده است — معمولاً نمونه‌ی بزاق یا خون — و مشاوره‌ی پیش و پس از نتیجه، استاندارد مراقبت است.",
+      },
+      {
+        q: "پیگیری پس از عمل چگونه است؟",
+        a: "نظارت استاندارد شامل معاینه‌ی بالینی هر ۳ تا ۶ ماه در دو سال اول، هر ۶ تا ۱۲ ماه در سال‌های ۳ تا ۵، و سپس سالانه است؛ به‌علاوه‌ی ماموگرافی سالانه‌ی پستان درمان‌شده و پستان مقابل. برای ناقلان BRCA و سایر بیماران پرخطر، MRI سالانه‌ی پستان نیز افزوده می‌شود. در رویکرد دکتر معماری، علاوه بر برنامه‌ی استاندارد معاینه، پایش گزارش‌دهی بیمار با ابزارهای مبتنی بر تلفن همراه و اینترنت اشیاء — ادامه‌ی مستقیم پژوهش‌های ایشان در حوزه‌ی سلامت دیجیتال — انجام می‌شود.",
+      },
+    ],
     cta: "مشاوره درباره‌ی پرونده",
     sourcesLabel: "ارقام از گزارش WHO در زمینه‌ی سرطان پستان و GLOBOCAN 2022. راهنمای غربالگری: بنیاد ملی سرطان پستان (NBCF؛ برنامه‌ی تشخیص زودهنگام)، کارگروه خدمات پیشگیرانه‌ی آمریکا (USPSTF ۲۰۲۴) و انجمن سرطان آمریکا (ACS).",
   },

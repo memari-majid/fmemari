@@ -11,7 +11,13 @@ export const SITE = {
   role: "Associate Professor · Surgical Oncologist · Cancer Researcher",
   academicRank: "Associate Professor",
   description:
-    "Academic site of Dr. Fereidoon Memari — Associate Professor of Surgery at Tehran University of Medical Sciences and breast cancer surgeon at the Cancer Institute, Imam Khomeini Hospital Complex. Practicing surgery since 1993, with a focus on breast oncoplastic surgery alongside gastrointestinal and thyroid cancer cases, plus translational research in cancer biology, non-coding RNAs, immunotherapy, and digital health for cancer survivors.",
+    "Academic site of Dr. Fereidoon Memari — Associate Professor of Surgery at Tehran University of Medical Sciences and breast cancer surgeon at the Cancer Institute, Imam Khomeini Hospital Complex. Practicing surgery since 1992, with a focus on breast oncoplastic surgery alongside gastrointestinal and thyroid cancer cases, plus translational research in cancer biology, non-coding RNAs, immunotherapy, and digital health for cancer survivors.",
+  /** Persian description used in JSON-LD when locale is fa, so Google reads
+   *  the /fa pages as authoritative Persian content rather than translations. */
+  descriptionFa:
+    "وب‌سایت رسمی دکتر فریدون معماری — دانشیار جراحی دانشگاه علوم پزشکی تهران و فوق‌تخصص جراحی سرطان پستان در انستیتو کانسر، مجتمع بیمارستانی امام خمینی. با سابقه‌ی فعالیت جراحی از سال ۱۳۷۱، با تمرکز ویژه بر جراحی انکوپلاستی پستان در کنار جراحی سرطان‌های دستگاه گوارش و تیروئید، و پژوهش ترجمانی در زیست‌شناسی سرطان، RNAهای غیرکدکننده، ایمنی‌درمانی و سلامت دیجیتال برای بازماندگان سرطان.",
+  /** Persian job title — used as `jobTitle` on the /fa Person schema. */
+  jobTitleFa: "دانشیار جراحی، فوق‌تخصص جراحی سرطان پستان",
   email: "memarife@tums.ac.ir",
   emailDisplay: "memarife@tums.ac.ir",
   affiliation: "Cancer Institute of Iran",
@@ -25,10 +31,10 @@ export const SITE = {
   addressCountry: "IR",
   /** Iranian Medical Council license number. */
   licenseNumber: "26743",
-  /** Year Dr. Memari began clinical practice. Used to render "since 1993" / "از سال ۱۳۷۲" without needing yearly updates. */
-  practiceSince: 1993,
-  /** Same year on the Iranian (Hijri Shamsi) calendar — 1993 Gregorian ≈ 1372. */
-  practiceSinceFa: 1372,
+  /** Year Dr. Memari began clinical practice. Used to render "since 1992" / "از سال ۱۳۷۱" without needing yearly updates. */
+  practiceSince: 1992,
+  /** Same year on the Iranian (Hijri Shamsi) calendar — 1992 Gregorian ≈ 1371. */
+  practiceSinceFa: 1371,
   specialties: ["Surgical Oncology", "General Surgery"] as const,
   scholar:
     "https://scholar.google.com/citations?user=IirhdFIAAAAJ&hl=en",

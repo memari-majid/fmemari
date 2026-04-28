@@ -861,8 +861,43 @@ export function HomePageContent({
             </Reveal>
           </div>
 
-          <Reveal delay={200}>
-            <p className="mt-10 text-center text-[11px] leading-relaxed text-zinc-500 dark:text-zinc-500">
+          <Reveal delay={150}>
+            <div className="mt-16 mx-auto max-w-3xl">
+              {/* FAQPage JSON-LD so Google can render the patient Q&A as a
+                  rich-result accordion in the SERP — strong SEO win for
+                  patient-facing breast-cancer queries in both languages. */}
+              <script
+                type="application/ld+json"
+                dangerouslySetInnerHTML={{
+                  __html: JSON.stringify({
+                    "@context": "https://schema.org",
+                    "@type": "FAQPage",
+                    inLanguage: locale === "fa" ? "fa-IR" : "en",
+                    mainEntity: t.breastCancer.patientFaq.map((qa) => ({
+                      "@type": "Question",
+                      name: qa.q,
+                      acceptedAnswer: {
+                        "@type": "Answer",
+                        text: qa.a,
+                      },
+                    })),
+                  }),
+                }}
+              />
+              <h3 className="text-center text-2xl font-semibold tracking-tight text-zinc-900 dark:text-zinc-50 sm:text-3xl">
+                {t.breastCancer.patientFaqHeading}
+              </h3>
+              <p className="mx-auto mt-3 max-w-2xl text-center text-sm leading-relaxed text-zinc-600 dark:text-zinc-400">
+                {t.breastCancer.patientFaqIntro}
+              </p>
+              <div className="mt-8">
+                <FaqAccordion items={t.breastCancer.patientFaq} />
+              </div>
+            </div>
+          </Reveal>
+
+          <Reveal delay={220}>
+            <p className="mt-12 text-center text-[11px] leading-relaxed text-zinc-500 dark:text-zinc-500">
               {t.breastCancer.sourcesLabel}
             </p>
           </Reveal>

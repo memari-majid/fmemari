@@ -2,6 +2,8 @@ import { CLINIC, SITE, SITE_URL, SCHOLAR_METRICS } from "@/lib/site";
 import type { Locale } from "@/lib/i18n";
 
 const PERSIAN_NAME = "دکتر فریدون معماری";
+/** Persian name without the honorific — Iranians often search this way. */
+const PERSIAN_NAME_BARE = "فریدون معماری";
 
 export function JsonLd({ locale }: { locale: Locale }) {
   const sameAs = [
@@ -13,24 +15,38 @@ export function JsonLd({ locale }: { locale: Locale }) {
     SITE.nobatIr,
   ].filter((s): s is string => Boolean(s && s.length > 0));
 
-  // Both locales advertise the same set of name spellings so search engines
-  // associate each variant with the same Person.
+  // Cover every spelling people might search for — Latin script (with and
+  // without the "Dr." prefix), the alternate transliteration "Fereydoon",
+  // and Persian script (with and without "دکتر"). Helps Google associate
+  // every variant with the same Person and surface the FA site for Persian
+  // queries.
+  const primaryName = locale === "fa" ? PERSIAN_NAME : SITE.fullName;
   const alternateNames = [
+    SITE.fullName,
     SITE.shortName,
     SITE.nameAlternate,
+    "Fereydoon Memari",
     PERSIAN_NAME,
-  ].filter((n) => n !== SITE.fullName);
+    PERSIAN_NAME_BARE,
+  ].filter((n) => n !== primaryName);
 
   const data = {
     "@context": "https://schema.org",
     "@type": "Physician",
-    name: locale === "fa" ? PERSIAN_NAME : SITE.fullName,
+    "@id": `${SITE_URL}#person`,
+    name: primaryName,
     alternateName: alternateNames,
     honorificPrefix: SITE.honorific,
     url: locale === "fa" ? `${SITE_URL}/fa` : SITE_URL,
+    mainEntityOfPage: locale === "fa" ? `${SITE_URL}/fa` : SITE_URL,
+    inLanguage: locale === "fa" ? "fa-IR" : "en",
+    nationality: { "@type": "Country", name: "Iran" },
     image: `${SITE_URL}/fereidoon-memari.jpg`,
-    jobTitle: `${SITE.academicRank}, Surgical Oncologist`,
-    description: SITE.description,
+    jobTitle:
+      locale === "fa"
+        ? SITE.jobTitleFa
+        : `${SITE.academicRank}, Surgical Oncologist`,
+    description: locale === "fa" ? SITE.descriptionFa : SITE.description,
     email: `mailto:${SITE.email}`,
     sameAs,
     medicalSpecialty: SITE.specialties,
@@ -135,10 +151,51 @@ export function JsonLd({ locale }: { locale: Locale }) {
     ],
   };
 
+  // Locale-specific WebSite + WebPage nodes so Google reads each /fa URL
+  // as authoritative Persian content and each / URL as authoritative English,
+  // both pointing at the same Person via @id.
+  const pageUrl = locale === "fa" ? `${SITE_URL}/fa` : SITE_URL;
+  const pageLanguage = locale === "fa" ? "fa-IR" : "en";
+  const pageName =
+    locale === "fa"
+      ? "دکتر فریدون معماری — جراح سرطان پستان"
+      : `${SITE.fullName} — Breast Cancer Surgeon`;
+
+  const siteAndPage = {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "WebSite",
+        "@id": `${SITE_URL}#website`,
+        url: SITE_URL,
+        name: SITE.fullName,
+        alternateName: PERSIAN_NAME,
+        inLanguage: ["en", "fa-IR"],
+        publisher: { "@id": `${SITE_URL}#person` },
+      },
+      {
+        "@type": "WebPage",
+        "@id": `${pageUrl}#webpage`,
+        url: pageUrl,
+        name: pageName,
+        inLanguage: pageLanguage,
+        isPartOf: { "@id": `${SITE_URL}#website` },
+        about: { "@id": `${SITE_URL}#person` },
+        primaryImageOfPage: `${SITE_URL}/fereidoon-memari.jpg`,
+      },
+    ],
+  };
+
   return (
-    <script
-      type="application/ld+json"
-      dangerouslySetInnerHTML={{ __html: JSON.stringify(data) }}
-    />
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(data) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(siteAndPage) }}
+      />
+    </>
   );
 }

@@ -8,7 +8,7 @@ export default function OpenGraphImage() {
   return ogImageResponse({
     eyebrow: "fmemari.com",
     title: "Dr. Fereidoon Memari",
-    subtitle: "Associate Professor of Surgery, TUMS · Practicing surgery since 1993",
+    subtitle: "Associate Professor of Surgery, TUMS · Practicing surgery since 1992",
     dir: "ltr",
   });
 }
