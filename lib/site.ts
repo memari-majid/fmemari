@@ -12,6 +12,12 @@ export const SITE = {
   academicRank: "Associate Professor",
   description:
     "Academic site of Dr. Fereidoon Memari — Associate Professor of Surgery at Tehran University of Medical Sciences and breast cancer surgeon at the Cancer Institute, Imam Khomeini Hospital Complex. Practicing surgery since 1993, with a focus on breast oncoplastic surgery alongside gastrointestinal and thyroid cancer cases, plus translational research in cancer biology, non-coding RNAs, immunotherapy, and digital health for cancer survivors.",
+  /** Persian description used in JSON-LD when locale is fa, so Google reads
+   *  the /fa pages as authoritative Persian content rather than translations. */
+  descriptionFa:
+    "وب‌سایت رسمی دکتر فریدون معماری — دانشیار جراحی دانشگاه علوم پزشکی تهران و فوق‌تخصص جراحی سرطان پستان در انستیتو کانسر، مجتمع بیمارستانی امام خمینی. با سابقه‌ی فعالیت جراحی از سال ۱۳۷۲، با تمرکز ویژه بر جراحی انکوپلاستی پستان در کنار جراحی سرطان‌های دستگاه گوارش و تیروئید، و پژوهش ترجمانی در زیست‌شناسی سرطان، RNAهای غیرکدکننده، ایمنی‌درمانی و سلامت دیجیتال برای بازماندگان سرطان.",
+  /** Persian job title — used as `jobTitle` on the /fa Person schema. */
+  jobTitleFa: "دانشیار جراحی، فوق‌تخصص جراحی سرطان پستان",
   email: "memarife@tums.ac.ir",
   emailDisplay: "memarife@tums.ac.ir",
   affiliation: "Cancer Institute of Iran",

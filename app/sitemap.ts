@@ -38,7 +38,10 @@ export default function sitemap(): MetadataRoute.Sitemap {
       url: faUrl,
       lastModified: now,
       changeFrequency: "monthly",
-      priority: Math.max(0.5, page.priority - 0.1),
+      // Match the EN priority — historically the FA pages were demoted
+      // by 0.1 which dampened indexing; for a clinician practicing in Iran
+      // the FA pages are equally important to the EN ones.
+      priority: page.priority,
       alternates,
     });
   }
