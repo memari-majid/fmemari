@@ -1,5 +1,4 @@
-import { createOpenAI } from "@ai-sdk/openai";
-import { generateObject } from "ai";
+import { gateway, generateObject } from "ai";
 import { z } from "zod";
 
 const inquirySchema = z.object({
@@ -16,16 +15,15 @@ const inquirySchema = z.object({
 
 export type InquiryCategory = z.infer<typeof inquirySchema>["category"];
 
-export async function classifyInquiry(input: {
-  name: string;
-  message: string;
-  apiKey: string;
-  modelId: string;
-}) {
-  const openai = createOpenAI({ apiKey: input.apiKey });
+export async function classifyInquiry(input: { name: string; message: string; modelId: string }) {
   const { object } = await generateObject({
-    model: openai(input.modelId),
+    model: gateway(input.modelId),
     schema: inquirySchema,
+    providerOptions: {
+      gateway: {
+        tags: ["site:fmemari", "feature:contact-classify", `env:${process.env.VERCEL_ENV ?? "dev"}`],
+      },
+    },
     prompt: `You are the intake assistant for the academic website of Dr. Fereidoon Memari, a surgical oncologist and cancer researcher at the Cancer Research Center, Cancer Institute of Iran (Tehran University of Medical Sciences).
 
 Classify this contact form message into exactly one category:
