@@ -36,13 +36,13 @@ export function NavBar({ t }: { t: Dictionary["nav"] }) {
         >
           <span
             aria-hidden
-            className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-gradient-to-br from-emerald-500 to-teal-600 text-sm font-bold text-white shadow-sm"
+            className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-gradient-to-br from-pink-500 to-rose-600 text-sm font-bold text-white shadow-sm"
           >
             FM
           </span>
           <span className="min-w-0 text-lg font-semibold tracking-tight text-zinc-900 dark:text-zinc-100">
             {t.monogramLine1}
-            <span className="text-emerald-600 dark:text-emerald-400">
+            <span className="text-pink-600 dark:text-pink-400">
               {" "}
               {t.monogramLine2}
             </span>
@@ -63,7 +63,7 @@ export function NavBar({ t }: { t: Dictionary["nav"] }) {
           <ThemeToggle />
           <Link
             href={contactHref}
-            className="whitespace-nowrap rounded-lg bg-emerald-600 px-4 py-2.5 text-sm font-medium text-white transition hover:bg-emerald-500"
+            className="whitespace-nowrap rounded-lg bg-pink-600 px-4 py-2.5 text-sm font-medium text-white transition hover:bg-pink-500"
           >
             {t.cta}
           </Link>
@@ -119,7 +119,7 @@ export function NavBar({ t }: { t: Dictionary["nav"] }) {
           <Link
             href={contactHref}
             onClick={() => setMenuOpen(false)}
-            className="block rounded-lg bg-emerald-600 px-4 py-3 text-center text-sm font-medium text-white transition hover:bg-emerald-500"
+            className="block rounded-lg bg-pink-600 px-4 py-3 text-center text-sm font-medium text-white transition hover:bg-pink-500"
           >
             {t.cta}
           </Link>

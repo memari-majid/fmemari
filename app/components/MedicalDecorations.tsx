@@ -69,7 +69,7 @@ export function AwarenessRibbon({
 
 /**
  * Repeating DNA double-helix pattern. Fills its parent — usually used as an
- * absolutely-positioned background element with `text-emerald-500/15` or
+ * absolutely-positioned background element with `text-pink-500/15` or
  * similar low-opacity color to make it a watermark.
  */
 export function DnaHelixBackground({ className = "" }: DecorationProps) {

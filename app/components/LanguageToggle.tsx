@@ -42,7 +42,7 @@ export function LanguageToggle({
       href={target}
       hrefLang={isFa ? "en" : "fa"}
       aria-label={ariaLabel}
-      className={`inline-flex h-11 min-h-[44px] items-center gap-1.5 rounded-lg border border-zinc-300 bg-white px-3 text-xs font-semibold text-zinc-700 transition hover:border-emerald-500 hover:text-emerald-700 dark:border-zinc-700 dark:bg-zinc-900/80 dark:text-zinc-200 dark:hover:border-emerald-500 dark:hover:text-emerald-400 ${className}`}
+      className={`inline-flex h-11 min-h-[44px] items-center gap-1.5 rounded-lg border border-zinc-300 bg-white px-3 text-xs font-semibold text-zinc-700 transition hover:border-pink-500 hover:text-pink-700 dark:border-zinc-700 dark:bg-zinc-900/80 dark:text-zinc-200 dark:hover:border-pink-500 dark:hover:text-pink-400 ${className}`}
     >
       <svg className="h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2} aria-hidden>
         <path

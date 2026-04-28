@@ -69,7 +69,7 @@ export function Chatbot({
         onClick={() => setOpen((v) => !v)}
         aria-label={t.launcherLabel}
         aria-expanded={open}
-        className={`fixed bottom-[max(1rem,env(safe-area-inset-bottom))] ${anchorClass} z-40 inline-flex min-h-[52px] items-center gap-2 rounded-full bg-emerald-600 px-5 py-3 text-sm font-semibold text-white shadow-lg shadow-emerald-600/30 transition hover:bg-emerald-500 motion-safe:animate-[pulse_3s_ease-in-out_infinite]`}
+        className={`fixed bottom-[max(1rem,env(safe-area-inset-bottom))] ${anchorClass} z-40 inline-flex min-h-[52px] items-center gap-2 rounded-full bg-pink-600 px-5 py-3 text-sm font-semibold text-white shadow-lg shadow-pink-600/30 transition hover:bg-pink-500 motion-safe:animate-[pulse_3s_ease-in-out_infinite]`}
       >
         <svg
           className="h-5 w-5"
@@ -94,7 +94,7 @@ export function Chatbot({
           aria-label={t.title}
         >
           {/* Header */}
-          <div className="flex items-start justify-between gap-3 border-b border-zinc-200 bg-gradient-to-br from-emerald-50 to-teal-50 px-4 py-3 dark:border-zinc-800 dark:from-emerald-950/40 dark:to-teal-950/40">
+          <div className="flex items-start justify-between gap-3 border-b border-zinc-200 bg-gradient-to-br from-pink-50 to-rose-50 px-4 py-3 dark:border-zinc-800 dark:from-pink-950/40 dark:to-rose-950/40">
             <div>
               <p className="text-sm font-semibold text-zinc-900 dark:text-zinc-100">
                 {t.title}
@@ -139,7 +139,7 @@ export function Chatbot({
                 key={m.id}
                 className={
                   m.role === "user"
-                    ? "ms-auto max-w-[85%] rounded-xl bg-emerald-600 px-3 py-2 text-white"
+                    ? "ms-auto max-w-[85%] rounded-xl bg-pink-600 px-3 py-2 text-white"
                     : "me-auto max-w-[85%] rounded-xl bg-zinc-100 px-3 py-2 text-zinc-800 dark:bg-zinc-900 dark:text-zinc-200"
                 }
               >
@@ -173,12 +173,12 @@ export function Chatbot({
               placeholder={t.placeholder}
               aria-label={t.placeholder}
               disabled={isBusy}
-              className="min-w-0 flex-1 rounded-lg border border-zinc-300 bg-white px-3 py-2 text-sm text-zinc-900 placeholder:text-zinc-400 focus:border-emerald-500 focus:outline-none disabled:opacity-60 dark:border-zinc-700 dark:bg-zinc-900 dark:text-zinc-100 dark:placeholder:text-zinc-500"
+              className="min-w-0 flex-1 rounded-lg border border-zinc-300 bg-white px-3 py-2 text-sm text-zinc-900 placeholder:text-zinc-400 focus:border-pink-500 focus:outline-none disabled:opacity-60 dark:border-zinc-700 dark:bg-zinc-900 dark:text-zinc-100 dark:placeholder:text-zinc-500"
             />
             <button
               type="submit"
               disabled={isBusy || input.trim().length === 0}
-              className="shrink-0 rounded-lg bg-emerald-600 px-3 py-2 text-sm font-semibold text-white transition hover:bg-emerald-500 disabled:cursor-not-allowed disabled:opacity-60"
+              className="shrink-0 rounded-lg bg-pink-600 px-3 py-2 text-sm font-semibold text-white transition hover:bg-pink-500 disabled:cursor-not-allowed disabled:opacity-60"
             >
               {isBusy ? t.sending : t.send}
             </button>

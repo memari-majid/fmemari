@@ -26,13 +26,13 @@ import {
  * order): breast → stomach → colon → thyroid.
  *
  * Each color comes with a slightly brighter dark-mode variant so the ribbon
- * stays legible on the dark emerald-tinted pill background.
+ * stays legible on the dark pink-tinted pill background.
  */
 const CANCER_RIBBON_COLORS: readonly string[] = [
   "text-pink-500 dark:text-pink-300", // breast cancer
   "text-sky-500 dark:text-sky-300", // stomach cancer
   "text-blue-700 dark:text-blue-400", // colorectal cancer
-  "text-teal-500 dark:text-teal-300", // thyroid cancer
+  "text-teal-500 dark:text-teal-300", // thyroid cancer (teal is the international convention)
 ];
 
 /* ------------------------------------------------------------------ */
@@ -132,7 +132,7 @@ function ResearchIcon({ kind }: { kind: string }) {
     ),
   };
   return (
-    <span className="text-emerald-600 dark:text-emerald-400">
+    <span className="text-pink-600 dark:text-pink-400">
       {map[kind] ?? map.dna}
     </span>
   );
@@ -235,8 +235,8 @@ export function HomePageContent({
           {/* Subtle molecular-bond accents in the corners — soft scientific
               motif that signals the cancer-research focus without competing
               with the headline copy. */}
-          <MolecularBonds className="absolute start-6 top-24 hidden h-20 w-20 text-emerald-600/30 dark:text-emerald-400/25 sm:block sm:h-28 sm:w-28" />
-          <MolecularBonds className="absolute end-6 bottom-32 hidden h-24 w-24 -rotate-12 text-teal-600/25 dark:text-teal-400/20 sm:block sm:h-32 sm:w-32" />
+          <MolecularBonds className="absolute start-6 top-24 hidden h-20 w-20 text-pink-600/30 dark:text-pink-400/25 sm:block sm:h-28 sm:w-28" />
+          <MolecularBonds className="absolute end-6 bottom-32 hidden h-24 w-24 -rotate-12 text-rose-600/25 dark:text-rose-400/20 sm:block sm:h-32 sm:w-32" />
         </div>
 
         <div className="relative z-10 mx-auto min-w-0 max-w-4xl px-4 text-center sm:px-6">
@@ -287,7 +287,7 @@ export function HomePageContent({
                   href={SITE.affiliationParentUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="transition-colors hover:text-emerald-700 dark:hover:text-emerald-400"
+                  className="transition-colors hover:text-pink-700 dark:hover:text-pink-400"
                 >
                   {t.hero.affiliationParent}
                 </a>{" "}
@@ -326,10 +326,10 @@ export function HomePageContent({
               details most visitors come here for, so they surface directly
               on the hero rather than being tucked into the Contact page. */}
           <Reveal delay={400}>
-            <div className="mx-auto mt-10 max-w-3xl rounded-2xl border border-emerald-200/70 bg-white/80 p-5 text-start shadow-sm backdrop-blur dark:border-emerald-900/40 dark:bg-zinc-900/60 sm:mt-14 sm:p-6">
+            <div className="mx-auto mt-10 max-w-3xl rounded-2xl border border-pink-200/70 bg-white/80 p-5 text-start shadow-sm backdrop-blur dark:border-pink-900/40 dark:bg-zinc-900/60 sm:mt-14 sm:p-6">
               <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
                 <div className="min-w-0">
-                  <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-emerald-700 dark:text-emerald-400">
+                  <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-pink-700 dark:text-pink-400">
                     {t.contact.cards.clinicLabel}
                   </p>
                   <p className="mt-1 text-base font-semibold text-zinc-900 dark:text-zinc-100">
@@ -346,7 +346,7 @@ export function HomePageContent({
                   <a
                     href={`tel:${CLINIC.phone}`}
                     dir="ltr"
-                    className="inline-flex w-full items-center justify-center gap-2 rounded-full bg-emerald-600 px-5 py-3 text-sm font-semibold text-white shadow-sm transition hover:bg-emerald-500 sm:w-auto sm:py-2.5"
+                    className="inline-flex w-full items-center justify-center gap-2 rounded-full bg-pink-600 px-5 py-3 text-sm font-semibold text-white shadow-sm transition hover:bg-pink-500 sm:w-auto sm:py-2.5"
                   >
                     <svg
                       className="h-4 w-4"
@@ -374,7 +374,7 @@ export function HomePageContent({
                     href={CLINIC.mapsUrl}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-xs font-medium text-emerald-700 hover:text-emerald-800 dark:text-emerald-400 dark:hover:text-emerald-300"
+                    className="text-xs font-medium text-pink-700 hover:text-pink-800 dark:text-pink-400 dark:hover:text-pink-300"
                   >
                     {t.contact.cards.clinicMapsLabel} →
                   </a>
@@ -405,14 +405,14 @@ export function HomePageContent({
           <div className="mt-12 grid gap-12 md:grid-cols-5 md:items-start">
             <Reveal delay={80} className="md:col-span-2">
               <div className="relative mx-auto w-fit md:mx-0">
-                <DnaHelixBackground className="pointer-events-none absolute -inset-6 -z-10 h-[calc(100%+3rem)] w-[calc(100%+3rem)] text-emerald-500/15 dark:text-emerald-400/10" />
+                <DnaHelixBackground className="pointer-events-none absolute -inset-6 -z-10 h-[calc(100%+3rem)] w-[calc(100%+3rem)] text-pink-500/15 dark:text-pink-400/10" />
 
                 <div
-                  className="pointer-events-none absolute -inset-3 -z-10 rounded-3xl bg-gradient-to-br from-emerald-500/25 via-teal-500/15 to-transparent blur-2xl"
+                  className="pointer-events-none absolute -inset-3 -z-10 rounded-3xl bg-gradient-to-br from-pink-500/25 via-rose-500/15 to-transparent blur-2xl"
                   aria-hidden
                 />
 
-                <div className="relative h-80 w-64 overflow-hidden rounded-2xl shadow-xl shadow-emerald-900/10 ring-1 ring-zinc-200 dark:shadow-emerald-950/40 dark:ring-zinc-700 sm:h-96 sm:w-72">
+                <div className="relative h-80 w-64 overflow-hidden rounded-2xl shadow-xl shadow-pink-900/10 ring-1 ring-zinc-200 dark:shadow-pink-950/40 dark:ring-zinc-700 sm:h-96 sm:w-72">
                   <Image
                     src="/fereidoon-memari.jpg"
                     alt={`${t.hero.title} — ${t.hero.role}`}
@@ -429,7 +429,7 @@ export function HomePageContent({
 
                 {/* Floating credential badge — uses logical positioning so it
                     sits at the reading-end side of the photo in both LTR/RTL */}
-                <div className="absolute -bottom-3 -end-3 flex items-center gap-1.5 rounded-full border border-emerald-200 bg-white px-3 py-1.5 text-xs font-semibold text-emerald-700 shadow-lg dark:border-emerald-900/50 dark:bg-zinc-900 dark:text-emerald-400">
+                <div className="absolute -bottom-3 -end-3 flex items-center gap-1.5 rounded-full border border-pink-200 bg-white px-3 py-1.5 text-xs font-semibold text-pink-700 shadow-lg dark:border-pink-900/50 dark:bg-zinc-900 dark:text-pink-400">
                   <svg
                     className="h-4 w-4"
                     viewBox="0 0 24 24"
@@ -454,9 +454,9 @@ export function HomePageContent({
                   href={SITE.affiliationUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="group flex items-start gap-3 rounded-xl border border-zinc-200/80 bg-white p-3 transition hover:border-emerald-400 dark:border-zinc-800/60 dark:bg-zinc-900/40 dark:hover:border-emerald-600"
+                  className="group flex items-start gap-3 rounded-xl border border-zinc-200/80 bg-white p-3 transition hover:border-pink-400 dark:border-zinc-800/60 dark:bg-zinc-900/40 dark:hover:border-pink-600"
                 >
-                  <span className="mt-0.5 flex h-8 w-8 shrink-0 items-center justify-center rounded-md bg-emerald-100 text-emerald-700 dark:bg-emerald-950/50 dark:text-emerald-400">
+                  <span className="mt-0.5 flex h-8 w-8 shrink-0 items-center justify-center rounded-md bg-pink-100 text-pink-700 dark:bg-pink-950/50 dark:text-pink-400">
                     <svg className="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.75} aria-hidden>
                       <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 21h16.5M4.5 3h15M5.25 3v18m13.5-18v18M9 6.75h1.5m-1.5 3h1.5m-1.5 3h1.5m4.5-6H16.5m-1.5 3H16.5m-1.5 3H16.5M9 21v-3.375c0-.621.504-1.125 1.125-1.125h3.75c.621 0 1.125.504 1.125 1.125V21" />
                     </svg>
@@ -465,7 +465,7 @@ export function HomePageContent({
                     <span className="block text-[11px] font-medium uppercase tracking-wider text-zinc-500 dark:text-zinc-500">
                       {t.about.refClinical}
                     </span>
-                    <span className="block text-sm font-semibold text-zinc-900 group-hover:text-emerald-700 dark:text-zinc-100 dark:group-hover:text-emerald-400">
+                    <span className="block text-sm font-semibold text-zinc-900 group-hover:text-pink-700 dark:text-zinc-100 dark:group-hover:text-pink-400">
                       {t.hero.affiliation}
                     </span>
                     <span className="mt-0.5 block text-[11px] text-zinc-500 dark:text-zinc-500">
@@ -477,9 +477,9 @@ export function HomePageContent({
                   href={SITE.affiliationParentUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="group flex items-start gap-3 rounded-xl border border-zinc-200/80 bg-white p-3 transition hover:border-emerald-400 dark:border-zinc-800/60 dark:bg-zinc-900/40 dark:hover:border-emerald-600"
+                  className="group flex items-start gap-3 rounded-xl border border-zinc-200/80 bg-white p-3 transition hover:border-pink-400 dark:border-zinc-800/60 dark:bg-zinc-900/40 dark:hover:border-pink-600"
                 >
-                  <span className="mt-0.5 flex h-8 w-8 shrink-0 items-center justify-center rounded-md bg-emerald-100 text-emerald-700 dark:bg-emerald-950/50 dark:text-emerald-400">
+                  <span className="mt-0.5 flex h-8 w-8 shrink-0 items-center justify-center rounded-md bg-pink-100 text-pink-700 dark:bg-pink-950/50 dark:text-pink-400">
                     <svg className="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.75} aria-hidden>
                       <path strokeLinecap="round" strokeLinejoin="round" d="M4.26 10.147a60.438 60.438 0 0 0-.491 6.347A48.62 48.62 0 0 1 12 20.904a48.62 48.62 0 0 1 8.232-4.41 60.46 60.46 0 0 0-.491-6.347m-15.482 0a50.636 50.636 0 0 0-2.658-.813A59.906 59.906 0 0 1 12 3.493a59.903 59.903 0 0 1 10.399 5.84c-.896.248-1.783.52-2.658.814m-15.482 0A50.717 50.717 0 0 1 12 13.489a50.702 50.702 0 0 1 7.74-3.342" />
                     </svg>
@@ -488,7 +488,7 @@ export function HomePageContent({
                     <span className="block text-[11px] font-medium uppercase tracking-wider text-zinc-500 dark:text-zinc-500">
                       {t.about.refAcademic}
                     </span>
-                    <span className="block text-sm font-semibold text-zinc-900 group-hover:text-emerald-700 dark:text-zinc-100 dark:group-hover:text-emerald-400">
+                    <span className="block text-sm font-semibold text-zinc-900 group-hover:text-pink-700 dark:text-zinc-100 dark:group-hover:text-pink-400">
                       {t.hero.affiliationParent}
                     </span>
                     <span className="mt-0.5 block text-[11px] text-zinc-500 dark:text-zinc-500">
@@ -511,7 +511,7 @@ export function HomePageContent({
                         href={SITE.affiliationParentUrl}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="text-emerald-700 underline decoration-emerald-700/30 hover:decoration-emerald-700 dark:text-emerald-400"
+                        className="text-pink-700 underline decoration-pink-700/30 hover:decoration-pink-700 dark:text-pink-400"
                       >
                         {t.hero.affiliationParent}
                       </a>
@@ -521,7 +521,7 @@ export function HomePageContent({
                         href={SITE.affiliationUrl}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="font-semibold text-zinc-900 underline decoration-zinc-300 hover:decoration-emerald-600 dark:text-zinc-100 dark:decoration-zinc-600 dark:hover:decoration-emerald-400"
+                        className="font-semibold text-zinc-900 underline decoration-zinc-300 hover:decoration-pink-600 dark:text-zinc-100 dark:decoration-zinc-600 dark:hover:decoration-pink-400"
                       >
                         {t.hero.affiliation}, {t.hero.affiliationDetail}
                       </a>
@@ -583,7 +583,7 @@ export function HomePageContent({
                 href={SITE.affiliationUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-emerald-700 underline decoration-emerald-700/30 hover:decoration-emerald-700 dark:text-emerald-400"
+                className="text-pink-700 underline decoration-pink-700/30 hover:decoration-pink-700 dark:text-pink-400"
               >
                 {t.hero.affiliation}, {t.hero.affiliationDetail}
               </a>
@@ -610,7 +610,7 @@ export function HomePageContent({
                       {card.bullets.map((b, j) => (
                         <li
                           key={b}
-                          className="inline-flex items-center gap-1.5 rounded-full border border-emerald-200/80 bg-emerald-50/60 px-2.5 py-0.5 text-[11px] font-medium text-emerald-800 dark:border-emerald-900/50 dark:bg-emerald-950/40 dark:text-emerald-300"
+                          className="inline-flex items-center gap-1.5 rounded-full border border-pink-200/80 bg-pink-50/60 px-2.5 py-0.5 text-[11px] font-medium text-pink-800 dark:border-pink-900/50 dark:bg-pink-950/40 dark:text-pink-300"
                         >
                           {isCancerCard ? (
                             <span className={CANCER_RIBBON_COLORS[j] ?? ""}>
@@ -631,8 +631,8 @@ export function HomePageContent({
           </div>
 
           <Reveal delay={200}>
-            <div className="mt-12 rounded-2xl border border-emerald-200/80 bg-emerald-50/60 px-5 py-6 dark:border-emerald-900/40 dark:bg-emerald-950/20 sm:px-8">
-              <p className="text-xs font-semibold uppercase tracking-wider text-emerald-700 dark:text-emerald-400">
+            <div className="mt-12 rounded-2xl border border-pink-200/80 bg-pink-50/60 px-5 py-6 dark:border-pink-900/40 dark:bg-pink-950/20 sm:px-8">
+              <p className="text-xs font-semibold uppercase tracking-wider text-pink-700 dark:text-pink-400">
                 {t.services.feedback.eyebrow}
               </p>
               <p className="mt-3 text-sm leading-relaxed text-zinc-700 dark:text-zinc-300 sm:text-base">
@@ -641,7 +641,7 @@ export function HomePageContent({
                   href={SITE.paziresh24 || "https://paziresh24.com/"}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-emerald-700 underline decoration-emerald-700/30 hover:decoration-emerald-700 dark:text-emerald-400"
+                  className="text-pink-700 underline decoration-pink-700/30 hover:decoration-pink-700 dark:text-pink-400"
                 >
                   Paziresh24
                 </a>{" "}
@@ -650,7 +650,7 @@ export function HomePageContent({
                   href={SITE.nobatIr || "https://www.nobat.ir/"}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-emerald-700 underline decoration-emerald-700/30 hover:decoration-emerald-700 dark:text-emerald-400"
+                  className="text-pink-700 underline decoration-pink-700/30 hover:decoration-pink-700 dark:text-pink-400"
                 >
                   Nobat.ir
                 </a>
@@ -703,7 +703,7 @@ export function HomePageContent({
                   >
                     <span
                       aria-hidden
-                      className="absolute inset-x-0 top-0 h-0.5 bg-gradient-to-r from-emerald-400 via-teal-400 to-sky-400 opacity-70"
+                      className="absolute inset-x-0 top-0 h-0.5 bg-gradient-to-r from-pink-400 via-rose-400 to-sky-400 opacity-70"
                     />
                     <h3 className="text-lg font-semibold text-zinc-900 dark:text-zinc-100">
                       {card.title}
@@ -711,7 +711,7 @@ export function HomePageContent({
                     <p className="mt-2 flex-1 text-sm leading-relaxed text-zinc-600 dark:text-zinc-400">
                       {card.body}
                     </p>
-                    <p className="mt-4 text-sm font-medium text-emerald-700 group-hover:text-emerald-800 dark:text-emerald-400 dark:group-hover:text-emerald-300">
+                    <p className="mt-4 text-sm font-medium text-pink-700 group-hover:text-pink-800 dark:text-pink-400 dark:group-hover:text-pink-300">
                       {card.cta} <span aria-hidden>→</span>
                     </p>
                   </Link>
@@ -878,7 +878,7 @@ export function HomePageContent({
       >
         {/* Microscopic cell-cluster watermark — calls out the cancer-biology
             focus of the research themes below */}
-        <CellClusterBackground className="pointer-events-none absolute inset-0 -z-0 h-full w-full text-emerald-600/10 dark:text-emerald-400/[0.06]" />
+        <CellClusterBackground className="pointer-events-none absolute inset-0 -z-0 h-full w-full text-pink-600/10 dark:text-pink-400/[0.06]" />
         <div className="relative mx-auto max-w-6xl">
           <Reveal>
             <p className="text-center text-xs font-medium uppercase tracking-[0.2em] text-zinc-500 dark:text-zinc-400">
@@ -921,13 +921,13 @@ export function HomePageContent({
         {/* Subtle helix motif — ties the news strip visually to the research
             themes (ncRNA, CAR-T, gene editing) while keeping the card area
             readable. */}
-        <DnaHelixBackground className="pointer-events-none absolute -top-10 end-0 -z-0 hidden h-80 w-80 rotate-12 text-emerald-500/10 dark:text-emerald-400/[0.08] sm:block" />
+        <DnaHelixBackground className="pointer-events-none absolute -top-10 end-0 -z-0 hidden h-80 w-80 rotate-12 text-pink-500/10 dark:text-pink-400/[0.08] sm:block" />
         <div className="relative mx-auto max-w-6xl">
           <Reveal>
             <div className="flex items-center justify-center gap-2">
               <span
                 aria-hidden
-                className="inline-flex h-2 w-2 rounded-full bg-emerald-500 shadow-[0_0_0_4px_rgba(16,185,129,0.15)] motion-safe:animate-pulse"
+                className="inline-flex h-2 w-2 rounded-full bg-pink-500 shadow-[0_0_0_4px_rgba(16,185,129,0.15)] motion-safe:animate-pulse"
               />
               <p className="text-center text-xs font-medium uppercase tracking-[0.2em] text-zinc-500 dark:text-zinc-400">
                 {t.news.eyebrow}
@@ -946,10 +946,10 @@ export function HomePageContent({
                 <article className="card group relative flex h-full flex-col overflow-hidden p-6">
                   <span
                     aria-hidden
-                    className="absolute inset-x-0 top-0 h-0.5 bg-gradient-to-r from-emerald-400 via-teal-400 to-sky-400 opacity-70"
+                    className="absolute inset-x-0 top-0 h-0.5 bg-gradient-to-r from-pink-400 via-rose-400 to-sky-400 opacity-70"
                   />
                   <div className="flex items-center justify-between gap-3">
-                    <span className="inline-flex items-center gap-1.5 rounded-full border border-emerald-200/80 bg-emerald-50/70 px-2.5 py-0.5 text-[11px] font-medium text-emerald-800 dark:border-emerald-900/50 dark:bg-emerald-950/40 dark:text-emerald-300">
+                    <span className="inline-flex items-center gap-1.5 rounded-full border border-pink-200/80 bg-pink-50/70 px-2.5 py-0.5 text-[11px] font-medium text-pink-800 dark:border-pink-900/50 dark:bg-pink-950/40 dark:text-pink-300">
                       <span className="text-pink-500 dark:text-pink-300">
                         <AwarenessRibbon className="h-3 w-2" />
                       </span>
@@ -996,7 +996,7 @@ export function HomePageContent({
               {t.publications.subtitleBefore}
               <a
                 href={routes.contact}
-                className="text-emerald-700 underline decoration-emerald-700/30 hover:decoration-emerald-700 dark:text-emerald-400"
+                className="text-pink-700 underline decoration-pink-700/30 hover:decoration-pink-700 dark:text-pink-400"
               >
                 {t.publications.subtitleLink}
               </a>
@@ -1014,7 +1014,7 @@ export function HomePageContent({
                   href={SITE.scholar}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 rounded-full border border-zinc-300 bg-white px-6 py-3 text-sm font-medium text-zinc-800 transition hover:border-emerald-500 hover:text-emerald-700 dark:border-zinc-700 dark:bg-zinc-900/60 dark:text-zinc-200 dark:hover:border-emerald-500"
+                  className="inline-flex items-center gap-2 rounded-full border border-zinc-300 bg-white px-6 py-3 text-sm font-medium text-zinc-800 transition hover:border-pink-500 hover:text-pink-700 dark:border-zinc-700 dark:bg-zinc-900/60 dark:text-zinc-200 dark:hover:border-pink-500"
                 >
                   {t.publications.fullList}
                   <svg
@@ -1063,7 +1063,7 @@ export function HomePageContent({
                   href={SITE.affiliationParentUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="font-semibold text-zinc-900 underline decoration-zinc-300 hover:decoration-emerald-600 dark:text-zinc-100 dark:decoration-zinc-600 dark:hover:decoration-emerald-400"
+                  className="font-semibold text-zinc-900 underline decoration-zinc-300 hover:decoration-pink-600 dark:text-zinc-100 dark:decoration-zinc-600 dark:hover:decoration-pink-400"
                 >
                   {t.hero.affiliationParent}
                 </a>
@@ -1072,7 +1072,7 @@ export function HomePageContent({
                   href={SITE.affiliationUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="font-semibold text-zinc-900 underline decoration-zinc-300 hover:decoration-emerald-600 dark:text-zinc-100 dark:decoration-zinc-600 dark:hover:decoration-emerald-400"
+                  className="font-semibold text-zinc-900 underline decoration-zinc-300 hover:decoration-pink-600 dark:text-zinc-100 dark:decoration-zinc-600 dark:hover:decoration-pink-400"
                 >
                   {t.hero.affiliation}, {t.hero.affiliationDetail}
                 </a>
@@ -1085,7 +1085,7 @@ export function HomePageContent({
                 {t.teaching.body3Before}
                 <Link
                   href={routes.contact}
-                  className="text-emerald-700 underline decoration-emerald-700/30 hover:decoration-emerald-700 dark:text-emerald-400"
+                  className="text-pink-700 underline decoration-pink-700/30 hover:decoration-pink-700 dark:text-pink-400"
                 >
                   {t.teaching.body3Link}
                 </Link>
@@ -1128,11 +1128,11 @@ export function HomePageContent({
                 href={`mailto:${SITE.email}`}
                 className="card group flex flex-col gap-1 p-6"
               >
-                <p className="text-xs font-medium uppercase tracking-wider text-emerald-700 dark:text-emerald-400">
+                <p className="text-xs font-medium uppercase tracking-wider text-pink-700 dark:text-pink-400">
                   {t.contact.cards.emailLabel}
                 </p>
                 <p
-                  className="text-base font-semibold text-zinc-900 transition-colors group-hover:text-emerald-700 dark:text-zinc-100 dark:group-hover:text-emerald-400"
+                  className="text-base font-semibold text-zinc-900 transition-colors group-hover:text-pink-700 dark:text-zinc-100 dark:group-hover:text-pink-400"
                   dir="ltr"
                 >
                   {SITE.emailDisplay}
@@ -1149,10 +1149,10 @@ export function HomePageContent({
                 rel="noopener noreferrer"
                 className="card group flex flex-col gap-1 p-6"
               >
-                <p className="text-xs font-medium uppercase tracking-wider text-emerald-700 dark:text-emerald-400">
+                <p className="text-xs font-medium uppercase tracking-wider text-pink-700 dark:text-pink-400">
                   {t.contact.cards.affiliationLabel}
                 </p>
-                <p className="text-base font-semibold text-zinc-900 transition-colors group-hover:text-emerald-700 dark:text-zinc-100 dark:group-hover:text-emerald-400">
+                <p className="text-base font-semibold text-zinc-900 transition-colors group-hover:text-pink-700 dark:text-zinc-100 dark:group-hover:text-pink-400">
                   {t.hero.affiliation}
                 </p>
                 <p className="mt-1 text-xs text-zinc-500 dark:text-zinc-500">
@@ -1166,7 +1166,7 @@ export function HomePageContent({
             </Reveal>
             <Reveal delay={160}>
               <div className="card flex flex-col gap-2 p-6">
-                <p className="text-xs font-medium uppercase tracking-wider text-emerald-700 dark:text-emerald-400">
+                <p className="text-xs font-medium uppercase tracking-wider text-pink-700 dark:text-pink-400">
                   {t.contact.cards.clinicLabel}
                 </p>
                 <p className="text-base font-semibold text-zinc-900 dark:text-zinc-100">
@@ -1186,7 +1186,7 @@ export function HomePageContent({
                     <a
                       href={`tel:${CLINIC.phone}`}
                       dir="ltr"
-                      className="font-medium text-zinc-800 transition-colors hover:text-emerald-700 dark:text-zinc-200 dark:hover:text-emerald-400"
+                      className="font-medium text-zinc-800 transition-colors hover:text-pink-700 dark:text-zinc-200 dark:hover:text-pink-400"
                     >
                       {locale === "fa"
                         ? localizeDigits(CLINIC.phoneDisplayFa, locale)
@@ -1209,7 +1209,7 @@ export function HomePageContent({
                   href={CLINIC.mapsUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="mt-2 inline-flex w-max items-center gap-1 text-xs font-medium text-emerald-700 hover:text-emerald-800 dark:text-emerald-400 dark:hover:text-emerald-300"
+                  className="mt-2 inline-flex w-max items-center gap-1 text-xs font-medium text-pink-700 hover:text-pink-800 dark:text-pink-400 dark:hover:text-pink-300"
                 >
                   {t.contact.cards.clinicMapsLabel}
                   <span aria-hidden>→</span>
@@ -1243,7 +1243,7 @@ export function HomePageContent({
               <div className="flex items-center gap-2.5">
                 <span
                   aria-hidden
-                  className="flex h-7 w-7 shrink-0 items-center justify-center rounded-md bg-gradient-to-br from-emerald-500 to-teal-600 text-[11px] font-bold text-white"
+                  className="flex h-7 w-7 shrink-0 items-center justify-center rounded-md bg-gradient-to-br from-pink-500 to-rose-600 text-[11px] font-bold text-white"
                 >
                   FM
                 </span>
@@ -1283,7 +1283,7 @@ export function HomePageContent({
                       href={l.href}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="text-xs text-zinc-600 transition hover:text-emerald-700 dark:text-zinc-400 dark:hover:text-emerald-400"
+                      className="text-xs text-zinc-600 transition hover:text-pink-700 dark:text-zinc-400 dark:hover:text-pink-400"
                     >
                       {l.label} →
                     </a>

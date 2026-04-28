@@ -52,7 +52,7 @@ export function ClinicMap({
             href={CLINIC.mapsUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className="font-medium text-emerald-700 hover:text-emerald-800 dark:text-emerald-400 dark:hover:text-emerald-300"
+            className="font-medium text-pink-700 hover:text-pink-800 dark:text-pink-400 dark:hover:text-pink-300"
           >
             {t.openNeshan} →
           </a>
@@ -62,7 +62,7 @@ export function ClinicMap({
             )}`}
             target="_blank"
             rel="noopener noreferrer"
-            className="font-medium text-emerald-700 hover:text-emerald-800 dark:text-emerald-400 dark:hover:text-emerald-300"
+            className="font-medium text-pink-700 hover:text-pink-800 dark:text-pink-400 dark:hover:text-pink-300"
           >
             {t.openGoogle} →
           </a>

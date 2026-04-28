@@ -316,7 +316,7 @@ export const en: Dictionary = {
   },
 
   hero: {
-    role: "Associate Professor · Surgical Oncologist · Cancer Researcher",
+    role: "Associate Professor · Breast Cancer Surgeon · Surgical Oncologist",
     title: "Dr. Fereidoon Memari",
     affiliation: "Cancer Institute of Iran",
     affiliationDetail: "Imam Khomeini Hospital Complex",
@@ -470,7 +470,7 @@ export const en: Dictionary = {
       "Most of these findings are not cancer, but they should always be evaluated. Early assessment widens the available treatment options and usually improves the long-term outcome.",
     approachHeading: "Dr. Memari's approach",
     approachBody:
-      "Each patient is discussed in a multidisciplinary context (surgery, oncology, radiology, pathology) before the operative plan is set. Whenever it is oncologically safe, breast-conserving and oncoplastic techniques are preferred over mastectomy. When mastectomy is the right choice, skin- and nipple-sparing approaches with immediate reconstruction are considered to preserve quality of life. Follow-up combines standard surveillance with the patient-reported-outcome monitoring tools that feature in Dr. Memari's digital-health research.",
+      "Each patient is discussed in a multidisciplinary context (surgery, oncology, radiology, pathology) before the operative plan is set. Whenever it is oncologically safe, breast-conserving and oncoplastic techniques are preferred over mastectomy. When mastectomy is the right choice, skin- and nipple-sparing approaches with immediate reconstruction are considered to preserve quality of life. Follow-up combines standard surveillance with the patient-reported-outcome monitoring tools that feature in Dr. Memari's digital-health research. For asymptomatic women, screening recommendations remain straightforward: a monthly self-examination from age 20, a clinical breast exam every one to three years through age 39, and annual mammography starting at age 40 — earlier and more frequently for those with a strong family history or a known BRCA1/BRCA2 mutation.",
     cta: "Discuss a case",
     sourcesLabel: "Figures: WHO breast-cancer fact sheet, GLOBOCAN 2022, and peer-reviewed reviews.",
   },
@@ -587,43 +587,43 @@ export const en: Dictionary = {
 
   news: {
     eyebrow: "Field updates",
-    heading: "Recent advances in cancer research",
+    heading: "Recent advances in breast cancer",
     subtitle:
-      "A curated, non-exhaustive view of 2025 breakthroughs closest to Dr. Memari's research lines — surgical oncology, non-coding RNAs and immunotherapy, and digital / AI-assisted detection.",
+      "Curated 2024–2025 breakthroughs across breast-cancer therapy, screening, and surveillance — the lines most relevant to Dr. Memari's clinical practice.",
     items: [
       {
-        tag: "mRNA vaccines",
-        year: "2024–2025",
-        title: "Personalized mRNA cancer vaccines cross the clinical threshold",
-        body: "Phase-2 data for mRNA-4157 with pembrolizumab showed a ~44% reduction in melanoma recurrence, and a pancreatic-cancer trial at Memorial Sloan Kettering with BioNTech reported vaccine-induced T-cell responses persisting for nearly four years after treatment.",
+        tag: "HER2-low therapy",
+        year: "2024",
+        title: "Trastuzumab deruxtecan redefines HER2-low metastatic disease",
+        body: "DESTINY-Breast06 phase-3 results extended trastuzumab deruxtecan's benefit to HER2-low and HER2-ultralow hormone-receptor-positive metastatic breast cancer, improving progression-free survival over chemotherapy and prompting regulatory label expansion in multiple regions.",
       },
       {
-        tag: "KRAS inhibitors",
+        tag: "Immunotherapy",
         year: "2025",
-        title: "First-in-class KRAS-G12D drugs enter human trials",
-        body: "A phase-1 inhibitor targeting KRAS-G12D produced substantial tumor shrinkage in roughly 61% of early non-small-cell lung-cancer patients — the first drug against a mutation long considered undruggable. Pan-KRAS compounds and PROTAC degraders are advancing in parallel for pancreatic cancer.",
+        title: "KEYNOTE-522 five-year update sustains TNBC benefit",
+        body: "At five-year follow-up, neoadjuvant pembrolizumab plus chemotherapy continued to improve event-free survival in early-stage triple-negative breast cancer — cementing its role as a standard of care for high-risk early disease.",
       },
       {
-        tag: "Cellular therapy",
+        tag: "PARP inhibitors",
         year: "2025",
-        title: "CAR-T crosses into solid tumors",
-        body: "CLDN18.2-directed CAR-T cells demonstrated survival benefits in advanced gastric and gastroesophageal-junction cancers — the first clear solid-tumor CAR-T win — while off-the-shelf allogeneic CAR-T platforms continued progressing through phase 1/2 trials.",
+        title: "OlympiA confirms long-term olaparib benefit in BRCA-mutated breast cancer",
+        body: "Updated OlympiA data showed adjuvant olaparib continues to deliver invasive disease-free and overall survival benefit in germline BRCA1/2-mutated, high-risk HER2-negative early breast cancer — reinforcing the case for universal BRCA testing in this population.",
       },
       {
-        tag: "Multi-cancer early detection",
+        tag: "AI mammography",
         year: "2025",
-        title: "AI-powered liquid biopsy approaches multi-cancer screening",
-        body: "A cell-free-RNA assay combined with AI classifiers detected colorectal, lung, prostate, pancreatic, and breast cancers across 1,000+ patient samples with a 92% AUC and 80% sensitivity for stage-I disease — moving multi-cancer early detection (MCED) blood tests closer to primary-care use.",
+        title: "AI-augmented mammography matches specialist readers at scale",
+        body: "Large prospective studies in Sweden, Germany, and the UK showed AI-assisted mammography detects more cancers without raising false-positive rates, with several health systems beginning routine deployment alongside human radiologist review.",
       },
       {
-        tag: "Gene editing",
+        tag: "ctDNA monitoring",
         year: "2025",
-        title: "CRISPR-edited TILs erase metastases in gastrointestinal cancer",
-        body: "A University of Minnesota team reported that CRISPR-edited tumor-infiltrating lymphocytes cleared metastatic disease in a patient with advanced gastrointestinal cancer — an early but striking demonstration of gene-edited adoptive cell therapy in solid tumors.",
+        title: "Liquid biopsy flags breast cancer recurrence months before imaging",
+        body: "Circulating tumor DNA assays now reliably detect molecular relapse 6–12 months before radiographic recurrence in early-stage breast cancer, with phase-3 trials evaluating ctDNA-guided escalation and de-escalation strategies.",
       },
     ],
     footnote:
-      "Summaries from AACR, ASCO, and peer-reviewed coverage. Individual trial results do not constitute medical advice.",
+      "Summaries from ASCO, SABCS, AACR, and peer-reviewed coverage. Individual trial results do not constitute medical advice.",
   },
 
   faq: {
@@ -719,9 +719,9 @@ export const en: Dictionary = {
 
   liveFeed: {
     eyebrow: "Live from PubMed",
-    heading: "Latest cancer research papers",
+    heading: "Latest breast cancer research papers",
     subtitle:
-      "Recently indexed papers in oncology, immunotherapy, and clinical trials — fetched directly from PubMed and refreshed every couple of hours.",
+      "Recently indexed breast-cancer papers — therapy, screening, and clinical trials — fetched directly from PubMed and refreshed every couple of hours.",
     sourceLabel: "Source: PubMed",
     empty:
       "The live feed is temporarily unavailable. Try the curated list above, or open PubMed directly.",
@@ -784,7 +784,7 @@ export const fa: Dictionary = {
   },
 
   hero: {
-    role: "دانشیار · جراحی عمومی و فلوشیپ جراحی سرطان · پژوهشگر سرطان",
+    role: "دانشیار · جراح سرطان پستان · فوق‌تخصص جراحی سرطان",
     title: "دکتر فریدون معماری",
     affiliation: "انستیتو کانسر ایران",
     affiliationDetail: "مجتمع بیمارستانی امام خمینی",
@@ -943,7 +943,7 @@ export const fa: Dictionary = {
       "بیشتر این یافته‌ها سرطان نیستند، اما همیشه باید ارزیابی شوند. ارزیابی زودهنگام طیف گزینه‌های درمانی را گسترش می‌دهد و معمولاً پیامد بلندمدت را بهتر می‌کند.",
     approachHeading: "رویکرد دکتر معماری",
     approachBody:
-      "هر بیمار پیش از تعیین طرح عمل، در یک تیم چندتخصصی (جراحی، سرطان‌شناسی، رادیولوژی، پاتولوژی) بررسی می‌شود. هرجا که از نظر درمان سرطان امکان‌پذیر باشد، روش‌های پستان‌حفظ‌کننده و انکوپلاستی بر ماستکتومی ترجیح داده می‌شوند. در مواردی که ماستکتومی انتخاب درست است، رویکردهای «حفظ پوست» و «حفظ نوک پستان» همراه با بازسازی فوری، برای حفظ کیفیت زندگی در نظر گرفته می‌شود. پیگیری پس از عمل، مراقبت استاندارد را با ابزارهای پایش خودگزارش‌دهی بیمار — همان خط پژوهشی سلامت دیجیتال دکتر معماری — ترکیب می‌کند.",
+      "هر بیمار پیش از تعیین طرح عمل، در یک تیم چندتخصصی (جراحی، سرطان‌شناسی، رادیولوژی، پاتولوژی) بررسی می‌شود. هرجا که از نظر درمان سرطان امکان‌پذیر باشد، روش‌های پستان‌حفظ‌کننده و انکوپلاستی بر ماستکتومی ترجیح داده می‌شوند. در مواردی که ماستکتومی انتخاب درست است، رویکردهای «حفظ پوست» و «حفظ نوک پستان» همراه با بازسازی فوری، برای حفظ کیفیت زندگی در نظر گرفته می‌شود. پیگیری پس از عمل، مراقبت استاندارد را با ابزارهای پایش خودگزارش‌دهی بیمار — همان خط پژوهشی سلامت دیجیتال دکتر معماری — ترکیب می‌کند. برای زنان بدون علامت، توصیه‌های غربالگری روشن است: خودآزمایی پستان به‌صورت ماهانه از سن ۲۰ سالگی، معاینه‌ی بالینی پستان هر یک تا سه سال در سنین ۲۰ تا ۳۹، و ماموگرافی سالانه از سن ۴۰ سالگی — زودتر و با فاصله‌ی کوتاه‌تر برای کسانی که سابقه‌ی خانوادگی قوی یا جهش شناخته‌شده‌ی BRCA1/BRCA2 دارند.",
     cta: "مشاوره درباره‌ی پرونده",
     sourcesLabel: "ارقام از گزارش WHO در زمینه‌ی سرطان پستان، GLOBOCAN 2022 و مرورهای داوری‌شده.",
   },
@@ -1062,43 +1062,43 @@ export const fa: Dictionary = {
 
   news: {
     eyebrow: "رویدادهای علمی",
-    heading: "تازه‌ترین پیشرفت‌های پژوهش سرطان",
+    heading: "تازه‌ترین پیشرفت‌های سرطان پستان",
     subtitle:
-      "گزیده‌ای از مهم‌ترین دستاوردهای سال ۲۰۲۵ در زمینه‌های نزدیک به خط پژوهشی دکتر معماری — جراحی سرطان، RNAهای غیرکدکننده و ایمنی‌درمانی، و تشخیص دیجیتال با کمک هوش مصنوعی.",
+      "گزیده‌ای از دستاوردهای سال‌های ۲۰۲۴–۲۰۲۵ در درمان، غربالگری و پایش سرطان پستان — همان خطوطی که در فعالیت بالینی دکتر معماری بیشترین اهمیت را دارند.",
     items: [
       {
-        tag: "واکسن‌های mRNA",
-        year: "۲۰۲۴–۲۰۲۵",
-        title: "عبور واکسن‌های شخصی‌سازی‌شده mRNA از آستانه‌ی بالینی",
-        body: "داده‌های فاز ۲ واکسن mRNA-4157 همراه با پمبرولیزوماب حدود ۴۴ درصد کاهش عود ملانوم را نشان داد و کارآزمایی سرطان پانکراس در مرکز اسلون‌کترینگ با همکاری BioNTech گزارش کرد که پاسخ سلول‌های T حاصل از واکسن تا حدود چهار سال پس از درمان پایدار مانده است.",
+        tag: "درمان HER2-پایین",
+        year: "۲۰۲۴",
+        title: "بازتعریف سرطان پستان متاستاتیک HER2-پایین با تراستوزوماب-دروکستکان",
+        body: "نتایج فاز ۳ مطالعه‌ی DESTINY-Breast06 نشان داد که داروی تراستوزوماب-دروکستکان در سرطان پستان متاستاتیک HER2-پایین و حتی HER2-بسیارپایین با گیرنده‌ی هورمونی مثبت، بقای بدون پیشرفت بیماری را در مقایسه با شیمی‌درمانی بهبود می‌دهد — موضوعی که به گسترش مجوز دارو در چندین منطقه منجر شد.",
       },
       {
-        tag: "مهارکننده‌های KRAS",
+        tag: "ایمنی‌درمانی",
         year: "۲۰۲۵",
-        title: "ورود نخستین داروهای KRAS-G12D به کارآزمایی‌های انسانی",
-        body: "یک مهارکننده‌ی فاز ۱ علیه جهش KRAS-G12D در حدود ۶۱ درصد از بیماران سرطان ریه‌ی غیرسلول‌کوچک، کاهش قابل‌توجه اندازه‌ی تومور ایجاد کرد — نخستین داروی موفق علیه جهشی که تا امروز «غیرقابل مهار» دانسته می‌شد. ترکیبات پان-KRAS و تخریب‌کننده‌های PROTAC نیز به‌موازات برای سرطان پانکراس در دست توسعه‌اند.",
+        title: "تأیید مزیت پنج‌ساله‌ی KEYNOTE-522 در TNBC",
+        body: "پیگیری پنج‌ساله‌ی کارآزمایی KEYNOTE-522 نشان داد افزودن پمبرولیزوماب به شیمی‌درمانی نئوادجوانت در سرطان پستان سه‌گانه‌منفی مرحله اولیه، بقای بدون رویداد را به‌طور پایدار بهبود می‌بخشد و این رژیم را به استاندارد درمان در بیماری اولیه‌ی پرخطر تبدیل کرده است.",
       },
       {
-        tag: "سلول‌درمانی",
+        tag: "مهارکننده‌های PARP",
         year: "۲۰۲۵",
-        title: "گذر CAR-T به تومورهای جامد",
-        body: "در مهم‌ترین نشست‌های علمی ۲۰۲۵، سلول‌های CAR-T هدف‌گرفته با CLDN18.2 در سرطان‌های پیشرفته‌ی معده و محل اتصال معده و مری، مزیت بقا نشان دادند — نخستین پیروزی روشن CAR-T در یک تومور جامد. سکوهای CAR-T آلوژنیک و «آماده‌مصرف» نیز در کارآزمایی‌های فاز ۱/۲ پیش رفتند.",
+        title: "تأیید بلندمدت اولاپاریب در سرطان پستان BRCA-جهش‌یافته",
+        body: "داده‌های به‌روزشده‌ی OlympiA نشان داد اولاپاریب کمکی همچنان در سرطان پستان اولیه‌ی پرخطر HER2-منفی با جهش زمینه‌ای BRCA1/2، بقای بدون بیماری مهاجم و بقای کلی را بهبود می‌دهد — تأییدی بر ضرورت آزمایش BRCA در این گروه از بیماران.",
       },
       {
-        tag: "تشخیص زودهنگام چندسرطانی",
+        tag: "ماموگرافی هوش مصنوعی",
         year: "۲۰۲۵",
-        title: "نزدیک‌شدن بیوپسی مایع مبتنی بر هوش مصنوعی به غربالگری چندگانه",
-        body: "یک آزمایش مبتنی بر RNAی خارج‌سلولی همراه با طبقه‌بندی‌کننده‌های هوش مصنوعی در بیش از ۱۰۰۰ نمونه، پنج سرطان روده‌ی بزرگ، ریه، پروستات، پانکراس و پستان را با AUC حدود ۹۲٪ و حساسیت ۸۰٪ برای بیماری مرحله‌ی I تشخیص داد؛ گامی مهم برای نزدیک‌تر شدن آزمایش‌های خون MCED به مراقبت اولیه.",
+        title: "همتایی ماموگرافی به‌کمک هوش مصنوعی با خوانندگان متخصص در مقیاس بالا",
+        body: "مطالعات گسترده در سوئد، آلمان و بریتانیا نشان داد ماموگرافی به‌کمک هوش مصنوعی، تعداد بیشتری سرطان را بدون افزایش مثبت‌های کاذب تشخیص می‌دهد و چندین نظام سلامت آن را به‌صورت روتین در کنار خوانش رادیولوژیست انسانی به کار گرفته‌اند.",
       },
       {
-        tag: "ویرایش ژن",
+        tag: "پایش ctDNA",
         year: "۲۰۲۵",
-        title: "پاک‌سازی متاستاز سرطان گوارش با TIL ویرایش‌شده با CRISPR",
-        body: "پژوهشگران دانشگاه مینه‌سوتا گزارش کردند که لنفوسیت‌های نفوذکننده به تومور (TIL) پس از ویرایش با CRISPR توانستند بیماری متاستاتیک را در یک بیمار مبتلا به سرطان پیشرفته‌ی گوارش از بین ببرند — نمایشی اولیه اما چشم‌گیر از سلول‌درمانی اتولوگ ویرایش‌شده‌ی ژنی در تومورهای جامد.",
+        title: "تشخیص عود سرطان پستان توسط بیوپسی مایع، ماه‌ها پیش از تصویربرداری",
+        body: "آزمایش‌های ctDNA اکنون می‌توانند عود مولکولی را در سرطان پستان مرحله اولیه ۶ تا ۱۲ ماه پیش از عود رادیوگرافیک تشخیص دهند و کارآزمایی‌های فاز ۳ در حال ارزیابی راهبردهای تشدید و کاهش درمان مبتنی بر ctDNA هستند.",
       },
     ],
     footnote:
-      "برگرفته از گزارش‌های AACR، ASCO و منابع داوری‌شده. نتایج کارآزمایی‌های منفرد جایگزین توصیه‌ی پزشکی نیستند.",
+      "برگرفته از گزارش‌های ASCO، SABCS، AACR و منابع داوری‌شده. نتایج کارآزمایی‌های منفرد جایگزین توصیه‌ی پزشکی نیستند.",
   },
 
   faq: {
@@ -1195,9 +1195,9 @@ export const fa: Dictionary = {
 
   liveFeed: {
     eyebrow: "به‌روزرسانی زنده از PubMed",
-    heading: "تازه‌ترین مقالات پژوهش سرطان",
+    heading: "تازه‌ترین مقالات پژوهش سرطان پستان",
     subtitle:
-      "مقالات تازه‌نمایه‌شده در حوزه‌ی سرطان، ایمنی‌درمانی و کارآزمایی‌های بالینی — مستقیم از PubMed و با به‌روزرسانی هر چند ساعت یک‌بار.",
+      "مقالات تازه‌نمایه‌شده در سرطان پستان — درمان، غربالگری و کارآزمایی‌های بالینی — مستقیم از PubMed و با به‌روزرسانی هر چند ساعت یک‌بار.",
     sourceLabel: "منبع: PubMed",
     empty:
       "فید زنده موقتاً در دسترس نیست. می‌توانید از فهرست گزیده‌ی بالا استفاده کنید یا مستقیم به PubMed مراجعه کنید.",

@@ -49,7 +49,7 @@ export async function LiveNewsFeed({
               href={searchUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="mt-3 inline-block text-emerald-700 underline decoration-emerald-700/30 hover:decoration-emerald-700 dark:text-emerald-400"
+              className="mt-3 inline-block text-pink-700 underline decoration-pink-700/30 hover:decoration-pink-700 dark:text-pink-400"
             >
               {t.openSearch}
             </a>
@@ -89,7 +89,7 @@ export async function LiveNewsFeed({
                     href={p.url}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="mt-3 inline-flex w-max items-center gap-1 text-xs font-medium text-emerald-700 hover:text-emerald-800 dark:text-emerald-400 dark:hover:text-emerald-300"
+                    className="mt-3 inline-flex w-max items-center gap-1 text-xs font-medium text-pink-700 hover:text-pink-800 dark:text-pink-400 dark:hover:text-pink-300"
                     dir="ltr"
                   >
                     {t.openPaper} <span aria-hidden>→</span>
@@ -102,7 +102,7 @@ export async function LiveNewsFeed({
                 href={searchUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-sm font-medium text-emerald-700 hover:text-emerald-800 dark:text-emerald-400 dark:hover:text-emerald-300"
+                className="text-sm font-medium text-pink-700 hover:text-pink-800 dark:text-pink-400 dark:hover:text-pink-300"
               >
                 {t.openSearch} →
               </a>

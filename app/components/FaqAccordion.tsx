@@ -20,7 +20,7 @@ export function FaqAccordion({ items }: { items: Dictionary["faq"]["items"] }) {
                 {faq.q}
               </span>
               <svg
-                className={`h-5 w-5 shrink-0 text-emerald-600 transition-transform duration-300 dark:text-emerald-400 ${
+                className={`h-5 w-5 shrink-0 text-pink-600 transition-transform duration-300 dark:text-pink-400 ${
                   isOpen ? "rotate-180" : ""
                 }`}
                 fill="none"

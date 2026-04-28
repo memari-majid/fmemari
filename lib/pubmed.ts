@@ -50,8 +50,8 @@ export async function fetchLatestOncologyPapers(
   count = 6,
 ): Promise<PubmedPaper[]> {
   const term = [
-    "(cancer[tiab] OR oncology[tiab] OR tumor[tiab])",
-    "(breakthrough[tiab] OR clinical trial[tiab] OR immunotherapy[tiab] OR CAR-T[tiab] OR mRNA vaccine[tiab] OR liquid biopsy[tiab])",
+    '("breast cancer"[tiab] OR "breast neoplasms"[mh])',
+    "(clinical trial[pt] OR randomized controlled trial[pt] OR systematic review[pt] OR HER2[tiab] OR trastuzumab[tiab] OR pembrolizumab[tiab] OR oncoplastic[tiab] OR mammography[tiab] OR BRCA[tiab] OR breakthrough[tiab])",
     "2025:2026[dp]",
   ].join(" AND ");
 

@@ -36,7 +36,7 @@ function PubItem({
   return (
     <li className="card flex flex-col gap-3 p-5 sm:flex-row sm:items-start sm:gap-5">
       <div className="flex shrink-0 flex-row items-center gap-3 sm:w-32 sm:flex-col sm:items-end sm:gap-1 sm:text-end">
-        <span className="text-2xl font-bold tabular-nums text-emerald-600 dark:text-emerald-400">
+        <span className="text-2xl font-bold tabular-nums text-pink-600 dark:text-pink-400">
           {p.citations === null ? "—" : formatNumber(p.citations, locale)}
         </span>
         <span className="text-[11px] font-medium uppercase tracking-wider text-zinc-500 dark:text-zinc-500">
@@ -57,7 +57,7 @@ function PubItem({
               href={p.url}
               target="_blank"
               rel="noopener noreferrer"
-              className="transition hover:text-emerald-700 dark:hover:text-emerald-400"
+              className="transition hover:text-pink-700 dark:hover:text-pink-400"
             >
               {p.title}
             </a>
@@ -120,7 +120,7 @@ export function Publications({
               onClick={() => setSortBy("citations")}
               className={`px-3 py-1.5 text-xs font-medium transition ${
                 sortBy === "citations"
-                  ? "bg-emerald-600 text-white"
+                  ? "bg-pink-600 text-white"
                   : "text-zinc-700 hover:bg-zinc-100 dark:text-zinc-300 dark:hover:bg-zinc-800"
               }`}
             >
@@ -131,7 +131,7 @@ export function Publications({
               onClick={() => setSortBy("year")}
               className={`px-3 py-1.5 text-xs font-medium transition ${
                 sortBy === "year"
-                  ? "bg-emerald-600 text-white"
+                  ? "bg-pink-600 text-white"
                   : "text-zinc-700 hover:bg-zinc-100 dark:text-zinc-300 dark:hover:bg-zinc-800"
               }`}
             >
@@ -150,7 +150,7 @@ export function Publications({
             id="topic-filter"
             value={topic}
             onChange={(e) => setTopic(e.target.value as TopicFilter)}
-            className="min-h-[36px] rounded-lg border border-zinc-300 bg-white px-3 py-1.5 text-xs text-zinc-800 focus:border-emerald-600 focus:outline-none dark:border-zinc-700 dark:bg-zinc-900/60 dark:text-zinc-200"
+            className="min-h-[36px] rounded-lg border border-zinc-300 bg-white px-3 py-1.5 text-xs text-zinc-800 focus:border-pink-600 focus:outline-none dark:border-zinc-700 dark:bg-zinc-900/60 dark:text-zinc-200"
           >
             {TOPIC_OPTIONS.map((key) => (
               <option key={key} value={key}>

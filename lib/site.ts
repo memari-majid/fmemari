@@ -11,7 +11,7 @@ export const SITE = {
   role: "Associate Professor · Surgical Oncologist · Cancer Researcher",
   academicRank: "Associate Professor",
   description:
-    "Academic site of Dr. Fereidoon Memari — Associate Professor of Surgery at Tehran University of Medical Sciences and surgical oncologist at the Cancer Institute, Imam Khomeini Hospital Complex. Practicing surgery since 1993 across breast, gastrointestinal, and thyroid cancers, with translational research in cancer biology, non-coding RNAs, immunotherapy, and digital health for cancer survivors.",
+    "Academic site of Dr. Fereidoon Memari — Associate Professor of Surgery at Tehran University of Medical Sciences and breast cancer surgeon at the Cancer Institute, Imam Khomeini Hospital Complex. Practicing surgery since 1993, with a focus on breast oncoplastic surgery alongside gastrointestinal and thyroid cancer cases, plus translational research in cancer biology, non-coding RNAs, immunotherapy, and digital health for cancer survivors.",
   email: "memarife@tums.ac.ir",
   emailDisplay: "memarife@tums.ac.ir",
   affiliation: "Cancer Institute of Iran",

@@ -5,7 +5,7 @@ import { SITE } from "@/lib/site";
 import type { Dictionary } from "@/lib/i18n";
 
 const inputClass =
-  "w-full rounded-lg border border-zinc-300 bg-white px-4 py-2.5 text-base text-zinc-900 placeholder:text-zinc-500 focus:border-emerald-600 focus:outline-none focus:ring-1 focus:ring-emerald-600 sm:text-sm dark:border-zinc-800 dark:bg-zinc-900/60 dark:text-zinc-100 dark:placeholder:text-zinc-500";
+  "w-full rounded-lg border border-zinc-300 bg-white px-4 py-2.5 text-base text-zinc-900 placeholder:text-zinc-500 focus:border-pink-600 focus:outline-none focus:ring-1 focus:ring-pink-600 sm:text-sm dark:border-zinc-800 dark:bg-zinc-900/60 dark:text-zinc-100 dark:placeholder:text-zinc-500";
 
 export function ContactForm({ t }: { t: Dictionary["contact"]["form"] }) {
   const [name, setName] = useState("");
@@ -127,13 +127,13 @@ export function ContactForm({ t }: { t: Dictionary["contact"]["form"] }) {
         <button
           type="submit"
           disabled={status === "loading"}
-          className="rounded-lg bg-emerald-600 px-6 py-2.5 text-sm font-semibold text-white transition hover:bg-emerald-500 disabled:opacity-60"
+          className="rounded-lg bg-pink-600 px-6 py-2.5 text-sm font-semibold text-white transition hover:bg-pink-500 disabled:opacity-60"
         >
           {status === "loading" ? t.submitting : t.submit}
         </button>
         {status === "success" && (
-          <div className="w-full space-y-3 rounded-xl border border-emerald-200 bg-emerald-50/80 px-4 py-3 text-start dark:border-emerald-900/50 dark:bg-emerald-950/20">
-            <p className="text-sm font-medium text-emerald-800 dark:text-emerald-400">
+          <div className="w-full space-y-3 rounded-xl border border-pink-200 bg-pink-50/80 px-4 py-3 text-start dark:border-pink-900/50 dark:bg-pink-950/20">
+            <p className="text-sm font-medium text-pink-800 dark:text-pink-400">
               {t.successHeading}
             </p>
             {category && (
@@ -159,7 +159,7 @@ export function ContactForm({ t }: { t: Dictionary["contact"]["form"] }) {
         {t.preferEmail}{" "}
         <a
           href={`mailto:${SITE.email}`}
-          className="break-all text-emerald-600 hover:underline dark:text-emerald-400"
+          className="break-all text-pink-600 hover:underline dark:text-pink-400"
           dir="ltr"
         >
           {SITE.emailDisplay}
