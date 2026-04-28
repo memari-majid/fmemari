@@ -114,8 +114,8 @@ export function JsonLd({ locale }: { locale: Locale }) {
       },
       {
         "@type": "PropertyValue",
-        name: "Years of professional experience",
-        value: SITE.experienceYears,
+        name: "Practicing since",
+        value: SITE.practiceSince,
       },
       {
         "@type": "PropertyValue",

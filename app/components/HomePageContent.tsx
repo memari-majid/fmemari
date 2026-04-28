@@ -66,15 +66,15 @@ function renderInline(text: string): ReactNode[] {
 
 /**
  * Render the affiliation-line bio text, replacing the {{tums}} and
- * {{cancerInstitute}} tokens with proper external links and the {{years}}
- * token with the locale-formatted experience.
+ * {{cancerInstitute}} tokens with proper external links and the {{since}}
+ * token with the locale-formatted practice-start year.
  */
 function renderAffiliationLine(
   template: string,
-  links: { tums: ReactNode; cancerInstitute: ReactNode; years: ReactNode },
+  links: { tums: ReactNode; cancerInstitute: ReactNode; since: ReactNode },
 ): ReactNode[] {
   const out: ReactNode[] = [];
-  const tokenRe = /\{\{(tums|cancerInstitute|years)\}\}/g;
+  const tokenRe = /\{\{(tums|cancerInstitute|since)\}\}/g;
   let cursor = 0;
   let key = 0;
   let m: RegExpExecArray | null;
@@ -84,7 +84,7 @@ function renderAffiliationLine(
       out.push(<span key={key++}>{renderInline(slice)}</span>);
     }
     out.push(
-      <span key={key++}>{links[m[1] as "tums" | "cancerInstitute" | "years"]}</span>,
+      <span key={key++}>{links[m[1] as "tums" | "cancerInstitute" | "since"]}</span>,
     );
     cursor = tokenRe.lastIndex;
   }
@@ -297,7 +297,7 @@ export function HomePageContent({
           </Reveal>
           <Reveal delay={240}>
             <p className="mx-auto mt-8 max-w-2xl text-base leading-relaxed text-zinc-600 dark:text-zinc-400">
-              {renderInline(t.hero.description(SITE.experienceYears))}
+              {renderInline(t.hero.description)}
             </p>
             <p className="mx-auto mt-4 flex max-w-2xl flex-wrap items-center justify-center gap-x-3 gap-y-1 text-xs text-zinc-500 dark:text-zinc-500">
               <span>{t.hero.licenseLine(SITE.licenseNumber, t.hero.specialtiesText)}</span>
@@ -445,7 +445,7 @@ export function HomePageContent({
                     <path d="M9 10c0 2 1.5 3 3 3s3-1 3-3" />
                     <path d="M9 15c0 2 1.5 3 3 3s3-1 3-3" />
                   </svg>
-                  <span>{t.about.badge(SITE.experienceYears)}</span>
+                  <span>{t.about.badge}</span>
                 </div>
               </div>
 
@@ -526,9 +526,14 @@ export function HomePageContent({
                         {t.hero.affiliation}, {t.hero.affiliationDetail}
                       </a>
                     ),
-                    years: (
+                    since: (
                       <strong className="text-zinc-900 dark:text-zinc-100">
-                        {formatNumber(SITE.experienceYears, locale)}
+                        {formatNumber(
+                          locale === "fa"
+                            ? SITE.practiceSinceFa
+                            : SITE.practiceSince,
+                          locale,
+                        )}
                       </strong>
                     ),
                   })}
@@ -543,7 +548,7 @@ export function HomePageContent({
                   />
                   <CredentialCard
                     label={t.about.credentialLabels.experience}
-                    value={t.about.credentialLabels.experienceValue(SITE.experienceYears)}
+                    value={t.about.credentialLabels.experienceValue}
                   />
                   <CredentialCard
                     label={t.about.credentialLabels.license}

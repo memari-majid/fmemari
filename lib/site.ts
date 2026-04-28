@@ -11,7 +11,7 @@ export const SITE = {
   role: "Associate Professor · Surgical Oncologist · Cancer Researcher",
   academicRank: "Associate Professor",
   description:
-    "Academic site of Dr. Fereidoon Memari — Associate Professor of Surgery at Tehran University of Medical Sciences and surgical oncologist at the Cancer Institute, Imam Khomeini Hospital Complex. Over 33 years of professional surgical experience across breast, gastrointestinal, and thyroid cancers, with translational research in cancer biology, non-coding RNAs, immunotherapy, and digital health for cancer survivors.",
+    "Academic site of Dr. Fereidoon Memari — Associate Professor of Surgery at Tehran University of Medical Sciences and surgical oncologist at the Cancer Institute, Imam Khomeini Hospital Complex. Practicing surgery since 1993 across breast, gastrointestinal, and thyroid cancers, with translational research in cancer biology, non-coding RNAs, immunotherapy, and digital health for cancer survivors.",
   email: "memarife@tums.ac.ir",
   emailDisplay: "memarife@tums.ac.ir",
   affiliation: "Cancer Institute of Iran",
@@ -25,7 +25,10 @@ export const SITE = {
   addressCountry: "IR",
   /** Iranian Medical Council license number. */
   licenseNumber: "26743",
-  experienceYears: 33,
+  /** Year Dr. Memari began clinical practice. Used to render "since 1993" / "از سال ۱۳۷۲" without needing yearly updates. */
+  practiceSince: 1993,
+  /** Same year on the Iranian (Hijri Shamsi) calendar — 1993 Gregorian ≈ 1372. */
+  practiceSinceFa: 1372,
   specialties: ["Surgical Oncology", "General Surgery"] as const,
   scholar:
     "https://scholar.google.com/citations?user=IirhdFIAAAAJ&hl=en",

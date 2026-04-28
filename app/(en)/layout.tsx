@@ -23,7 +23,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: SITE.fullName,
     description:
-      "Associate Professor of Surgery at Tehran University of Medical Sciences and surgical oncologist at the Cancer Institute, Imam Khomeini Hospital Complex. 33+ years of surgical practice across breast, GI, and thyroid cancers, plus translational cancer research.",
+      "Associate Professor of Surgery at Tehran University of Medical Sciences and surgical oncologist at the Cancer Institute, Imam Khomeini Hospital Complex. Practicing surgery since 1993 across breast, GI, and thyroid cancers, plus translational cancer research.",
     url: SITE_URL,
     siteName: SITE.name,
     type: "profile",
@@ -42,7 +42,7 @@ export const metadata: Metadata = {
     card: "summary",
     title: "Dr. Fereidoon Memari — Associate Professor of Surgery, TUMS",
     description:
-      "Surgical oncologist with 33+ years of practice. Cancer surgery, oncoplastic reconstruction, and translational cancer research at Tehran University of Medical Sciences.",
+      "Surgical oncologist practicing since 1993. Cancer surgery, oncoplastic reconstruction, and translational cancer research at Tehran University of Medical Sciences.",
     images: ["/fereidoon-memari.jpg"],
   },
   robots: {
