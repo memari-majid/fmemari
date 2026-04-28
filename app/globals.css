@@ -67,9 +67,111 @@
   }
 }
 
-/* Academic accent — emerald → teal */
+/* ---------------------------------------------------------------------------
+ * Per-page ribbon-color theming.
+ *
+ * Brand chrome defaults to surgical green. Pages dedicated to a specific
+ * cancer wrap their content in a `theme-{color}` class (see below) which
+ * overrides Tailwind 4's `--color-green-*` and `--color-emerald-*` tokens
+ * with the corresponding ribbon-color tokens. Existing utilities like
+ * `text-green-700` and `bg-green-100` resolve to the per-page color
+ * automatically, no component refactor needed.
+ *
+ *   .theme-pink   — Breast cancer (pink ribbon)
+ *   .theme-sky    — Stomach cancer (periwinkle ribbon)
+ *   .theme-blue   — Colorectal cancer (dark-blue ribbon)
+ *   .theme-teal   — Thyroid cancer (teal ribbon)
+ * ------------------------------------------------------------------------- */
+
+.theme-pink {
+  --color-green-50: var(--color-pink-50);
+  --color-green-100: var(--color-pink-100);
+  --color-green-200: var(--color-pink-200);
+  --color-green-300: var(--color-pink-300);
+  --color-green-400: var(--color-pink-400);
+  --color-green-500: var(--color-pink-500);
+  --color-green-600: var(--color-pink-600);
+  --color-green-700: var(--color-pink-700);
+  --color-green-800: var(--color-pink-800);
+  --color-green-900: var(--color-pink-900);
+  --color-green-950: var(--color-pink-950);
+  --color-emerald-300: var(--color-pink-300);
+  --color-emerald-400: var(--color-pink-400);
+  --color-emerald-500: var(--color-pink-500);
+  --color-emerald-600: var(--color-pink-600);
+  --color-emerald-700: var(--color-pink-700);
+  --color-emerald-800: var(--color-pink-800);
+}
+
+.theme-sky {
+  --color-green-50: var(--color-sky-50);
+  --color-green-100: var(--color-sky-100);
+  --color-green-200: var(--color-sky-200);
+  --color-green-300: var(--color-sky-300);
+  --color-green-400: var(--color-sky-400);
+  --color-green-500: var(--color-sky-500);
+  --color-green-600: var(--color-sky-600);
+  --color-green-700: var(--color-sky-700);
+  --color-green-800: var(--color-sky-800);
+  --color-green-900: var(--color-sky-900);
+  --color-green-950: var(--color-sky-950);
+  --color-emerald-300: var(--color-sky-300);
+  --color-emerald-400: var(--color-sky-400);
+  --color-emerald-500: var(--color-sky-500);
+  --color-emerald-600: var(--color-sky-600);
+  --color-emerald-700: var(--color-sky-700);
+  --color-emerald-800: var(--color-sky-800);
+}
+
+.theme-blue {
+  --color-green-50: var(--color-blue-50);
+  --color-green-100: var(--color-blue-100);
+  --color-green-200: var(--color-blue-200);
+  --color-green-300: var(--color-blue-300);
+  --color-green-400: var(--color-blue-400);
+  --color-green-500: var(--color-blue-500);
+  --color-green-600: var(--color-blue-600);
+  --color-green-700: var(--color-blue-700);
+  --color-green-800: var(--color-blue-800);
+  --color-green-900: var(--color-blue-900);
+  --color-green-950: var(--color-blue-950);
+  --color-emerald-300: var(--color-blue-300);
+  --color-emerald-400: var(--color-blue-400);
+  --color-emerald-500: var(--color-blue-500);
+  --color-emerald-600: var(--color-blue-600);
+  --color-emerald-700: var(--color-blue-700);
+  --color-emerald-800: var(--color-blue-800);
+}
+
+.theme-teal {
+  --color-green-50: var(--color-teal-50);
+  --color-green-100: var(--color-teal-100);
+  --color-green-200: var(--color-teal-200);
+  --color-green-300: var(--color-teal-300);
+  --color-green-400: var(--color-teal-400);
+  --color-green-500: var(--color-teal-500);
+  --color-green-600: var(--color-teal-600);
+  --color-green-700: var(--color-teal-700);
+  --color-green-800: var(--color-teal-800);
+  --color-green-900: var(--color-teal-900);
+  --color-green-950: var(--color-teal-950);
+  --color-emerald-300: var(--color-teal-300);
+  --color-emerald-400: var(--color-teal-400);
+  --color-emerald-500: var(--color-teal-500);
+  --color-emerald-600: var(--color-teal-600);
+  --color-emerald-700: var(--color-teal-700);
+  --color-emerald-800: var(--color-teal-800);
+}
+
+/* Hero-name shimmer — uses the active brand tokens so it shifts with the
+ * page theme. Outside a theme- wrapper it reads as surgical green. */
 .gradient-text {
-  background: linear-gradient(135deg, #15803d 0%, #047857 50%, #15803d 100%);
+  background: linear-gradient(
+    135deg,
+    var(--color-green-700) 0%,
+    var(--color-emerald-700) 50%,
+    var(--color-green-700) 100%
+  );
   background-size: 200% auto;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -78,7 +180,12 @@
 }
 
 .dark .gradient-text {
-  background: linear-gradient(135deg, #22c55e 0%, #34d399 50%, #22c55e 100%);
+  background: linear-gradient(
+    135deg,
+    var(--color-green-500) 0%,
+    var(--color-emerald-400) 50%,
+    var(--color-green-500) 100%
+  );
   background-size: 200% auto;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;

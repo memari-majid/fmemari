@@ -916,7 +916,7 @@ export function HomePageContent({
       {show("news") && (
       <section
         id="news"
-        className="relative scroll-mt-20 overflow-hidden border-t border-zinc-200/80 bg-zinc-50/70 px-4 py-16 sm:py-24 lg:py-32 dark:border-zinc-800/40 dark:bg-zinc-900/40 sm:px-6"
+        className="theme-pink relative scroll-mt-20 overflow-hidden border-t border-zinc-200/80 bg-zinc-50/70 px-4 py-16 sm:py-24 lg:py-32 dark:border-zinc-800/40 dark:bg-zinc-900/40 sm:px-6"
       >
         {/* Subtle helix motif — ties the news strip visually to the research
             themes (ncRNA, CAR-T, gene editing) while keeping the card area

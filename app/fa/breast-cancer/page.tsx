@@ -14,7 +14,7 @@ export const metadata: Metadata = {
 export default function BreastCancerPageFa() {
   const t = getDictionary("fa");
   return (
-    <div className="min-h-screen min-w-0 overflow-x-hidden bg-zinc-50 text-zinc-900 dark:bg-zinc-950 dark:text-zinc-100">
+    <div className="theme-pink min-h-screen min-w-0 overflow-x-hidden bg-zinc-50 text-zinc-900 dark:bg-zinc-950 dark:text-zinc-100">
       <JsonLd locale="fa" />
       <NavBar t={t.nav} />
       <HomePageContent t={t} locale="fa" sections={["breastCancer", "footer"]} />
