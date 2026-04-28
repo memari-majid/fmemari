@@ -328,7 +328,7 @@ export const en: Dictionary = {
     affiliationParent: "Tehran University of Medical Sciences",
     locationSuffix: "Tehran, Iran",
     description:
-      "Associate Professor of Surgery, practicing surgery **since 1993**. Translational research at the intersection of cancer biology, non-coding RNAs, surgical oncology, immunotherapy, and digital health for cancer survivors.",
+      "Associate Professor of Surgery, practicing surgery **since 1992**. Translational research at the intersection of cancer biology, non-coding RNAs, surgical oncology, immunotherapy, and digital health for cancer survivors.",
     licenseLine: (license, _specialties) =>
       `Medical license № ${license}`,
     specialtiesText: "Surgical Oncology · General Surgery",
@@ -349,7 +349,7 @@ export const en: Dictionary = {
   about: {
     eyebrow: "About",
     heading: "About Dr. Memari",
-    badge: "Since 1993",
+    badge: "Since 1992",
     refClinical: "Clinical practice",
     refAcademic: "Academic appointment",
     bio: {
@@ -364,7 +364,7 @@ export const en: Dictionary = {
     credentialLabels: {
       academicRank: "Academic rank",
       experience: "Experience",
-      experienceValue: "Since 1993",
+      experienceValue: "Since 1992",
       license: "Medical license",
       licenseValue: (n) => `№ ${n}`,
     },
@@ -846,14 +846,14 @@ export const fa: Dictionary = {
   about: {
     eyebrow: "درباره",
     heading: "زندگی‌نامه و پیشینه حرفه‌ای",
-    badge: "از سال ۱۳۷۲",
+    badge: "از سال ۱۳۷۱",
     refClinical: "فعالیت بالینی",
     refAcademic: "سمت دانشگاهی",
     bio: {
       affiliationLine:
         "ایشان به عنوان **دانشیار** و عضو هیئت علمی رسمی {{tums}} فعالیت می‌کنند. بخش مهمی از فعالیت‌های ایشان شامل آموزش دانشجویان پزشکی و رزیدنت‌های جراحی در {{cancerInstitute}} است. ایشان همچنین مقالات پژوهشی متعددی در ژورنال‌های معتبر بین‌المللی در زمینه‌هایی مانند سرطان سینه، روش‌های نوین جراحی گوارش و ایمونوتراپی به چاپ رسانده‌اند.",
       experienceLine:
-        "دکتر فریدون معماری (شماره نظام پزشکی: ۲۶۷۴۳) با سابقه‌ی فعالیت پزشکی از سال ۱۳۷۲، از فارغ‌التحصیلان ممتاز دانشگاه‌های برتر ایران است. ایشان پس از گذراندن دوره پزشکی عمومی و تخصص جراحی عمومی، با ادامه تحصیل در مقطع فلوشیپ جراحی سرطان، بر درمان تومورهای بدخیم و جراحی‌های پیچیده‌ی سرطان متمرکز شدند.",
+        "دکتر فریدون معماری (شماره نظام پزشکی: ۲۶۷۴۳) با سابقه‌ی فعالیت پزشکی از سال ۱۳۷۱، از فارغ‌التحصیلان ممتاز دانشگاه‌های برتر ایران است. ایشان پس از گذراندن دوره پزشکی عمومی و تخصص جراحی عمومی، با ادامه تحصیل در مقطع فلوشیپ جراحی سرطان، بر درمان تومورهای بدخیم و جراحی‌های پیچیده‌ی سرطان متمرکز شدند.",
       researchLine:
         "در حوزه پژوهش، کارهای ترجمانی ایشان از جمله نقش RNAهای غیرکدکننده (از جمله siRNA، microRNA، piRNA، lncRNA و شبکه‌های ceRNA) در سرطان، ایمنی‌درمانی، و پایش از راه دور بازماندگان سرطان روده بزرگ با تلفن همراه و اینترنت اشیاء را در بر می‌گیرد؛ از جمله مقاله‌ای در *JMIR Cancer* درباره همین موضوع پایش از راه دور.",
       publicationsLine:
@@ -862,7 +862,7 @@ export const fa: Dictionary = {
     credentialLabels: {
       academicRank: "سمت دانشگاهی",
       experience: "سابقه",
-      experienceValue: "از سال ۱۳۷۲",
+      experienceValue: "از سال ۱۳۷۱",
       license: "نظام پزشکی",
       licenseValue: (n) => `شماره ${toFaDigits(n)}`,
     },
