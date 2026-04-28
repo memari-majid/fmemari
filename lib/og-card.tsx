@@ -89,12 +89,12 @@ export function ogImageResponse({
             style={{
               fontSize: 24,
               fontWeight: 500,
-              letterSpacing: "0.12em",
-              textTransform: "uppercase",
+              letterSpacing: dir === "rtl" ? "0" : "0.12em",
+              textTransform: dir === "rtl" ? "none" : "uppercase",
               opacity: 0.85,
             }}
           >
-            Breast Cancer Surgeon · Tehran
+            {line}
           </span>
           <span
             style={{

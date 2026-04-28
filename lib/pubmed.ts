@@ -57,9 +57,8 @@ export async function fetchLatestOncologyPapers(
 
   // Cache upstream responses for 2 hours. Tag allows Vercel Cron + `revalidateTag`
   // to refresh the live news strip, `/rss.xml`, and OG consumers together.
-  const fetchOpts = {
-    next: { revalidate: 7200, tags: ["pubmed-oncology"] },
-  } as const;
+  const fetchOpts: RequestInit & { next?: { revalidate: number; tags: string[] } } =
+    { next: { revalidate: 7200, tags: ["pubmed-oncology"] } };
 
   try {
     const searchUrl = `${EUTILS}/esearch.fcgi?db=pubmed&sort=date&retmode=json&retmax=${count}&term=${encodeURIComponent(

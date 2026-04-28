@@ -8,6 +8,8 @@ import { SITE, SITE_URL } from "@/lib/site";
  * the HTML page. Feed exposure → broader discovery → backlinks → SEO.
  * Re-uses `fetchLatestOncologyPapers` so the cache (2h revalidate) is
  * shared with the on-page LiveNewsFeed instead of doubling PubMed load.
+ * The `pubmed-oncology` cache tag is revalidated on a schedule by
+ * `/api/cron/revalidate-feed` (see `vercel.json`).
  */
 export const revalidate = 7200;
 

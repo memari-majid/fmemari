@@ -1,4 +1,5 @@
-import { NextResponse } from "next/server";
+import { checkBotId } from "botid/server";
+import { NextRequest, NextResponse } from "next/server";
 import { Resend } from "resend";
 import { SITE } from "@/lib/site";
 import {
@@ -15,8 +16,15 @@ const resend = process.env.RESEND_API_KEY
  *  Routed through Vercel AI Gateway — use a `provider/model` slug. */
 const CLASSIFY_MODEL = process.env.CONTACT_CLASSIFY_MODEL ?? "openai/gpt-oss-20b";
 
-export async function POST(request: Request) {
+export async function POST(request: NextRequest) {
   try {
+    const verification = await checkBotId();
+    if (verification.isBot) {
+      return NextResponse.json(
+        { error: "This submission could not be verified. Please try again from the site." },
+        { status: 403 },
+      );
+    }
     const body = await request.json();
     const name = typeof body.name === "string" ? body.name.trim() : "";
     const email = typeof body.email === "string" ? body.email.trim() : "";
