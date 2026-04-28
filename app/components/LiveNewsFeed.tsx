@@ -7,6 +7,11 @@ import type { Dictionary, Locale } from "@/lib/i18n";
  * Next.js (see `lib/pubmed.ts`), so every visitor shares the same
  * ~2-hour-old snapshot instead of hammering NCBI.
  *
+ * Each paper is emitted twice: once as visible HTML, once as a
+ * MedicalScholarlyArticle JSON-LD entry inside an enclosing ItemList
+ * so Google understands this is a curated medical-research feed and
+ * can surface individual entries as rich results.
+ *
  * Intentionally tolerant: if PubMed is unreachable, `fetchLatestOncologyPapers`
  * returns an empty array and we render a small fallback with a direct link
  * to the PubMed search, keeping the page useful.
@@ -18,13 +23,51 @@ export async function LiveNewsFeed({
   locale: Locale;
   t: Dictionary["liveFeed"];
 }) {
-  const papers = await fetchLatestOncologyPapers(6);
+  const papers = await fetchLatestOncologyPapers(12);
 
+  // Public PubMed search the user can open to see fresh results live.
+  // Mirrors the server-side query in lib/pubmed.ts so the feed and the
+  // out-of-site link stay coherent.
   const searchUrl =
-    "https://pubmed.ncbi.nlm.nih.gov/?term=(cancer%5Btiab%5D+OR+oncology%5Btiab%5D)+AND+(breakthrough%5Btiab%5D+OR+clinical+trial%5Btiab%5D+OR+immunotherapy%5Btiab%5D)&sort=date";
+    'https://pubmed.ncbi.nlm.nih.gov/?term=("breast+cancer"%5Btiab%5D+OR+"breast+neoplasms"%5Bmh%5D)+AND+(clinical+trial%5Bpt%5D+OR+HER2%5Btiab%5D+OR+trastuzumab%5Btiab%5D+OR+pembrolizumab%5Btiab%5D+OR+oncoplastic%5Btiab%5D+OR+mammography%5Btiab%5D+OR+BRCA%5Btiab%5D)&sort=date';
+
+  const itemListLd = papers.length > 0 ? {
+    "@context": "https://schema.org",
+    "@type": "ItemList",
+    name: t.heading,
+    description: t.subtitle,
+    numberOfItems: papers.length,
+    itemListElement: papers.map((p, i) => ({
+      "@type": "ListItem",
+      position: i + 1,
+      url: p.url,
+      item: {
+        "@type": "MedicalScholarlyArticle",
+        headline: p.title,
+        url: p.url,
+        identifier: `PMID:${p.pmid}`,
+        ...(p.pubdate ? { datePublished: p.pubdate } : {}),
+        ...(p.authors
+          ? { author: { "@type": "Person", name: p.authors } }
+          : {}),
+        ...(p.journal
+          ? { isPartOf: { "@type": "Periodical", name: p.journal } }
+          : {}),
+        about: "Breast cancer",
+        inLanguage: "en",
+        publisher: { "@type": "Organization", name: "PubMed (NCBI)" },
+      },
+    })),
+  } : null;
 
   return (
     <section className="relative scroll-mt-20 overflow-hidden border-t border-zinc-200/80 bg-white px-4 py-16 sm:py-24 lg:py-32 dark:border-zinc-800/40 dark:bg-zinc-950 sm:px-6">
+      {itemListLd && (
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(itemListLd) }}
+        />
+      )}
       <div className="relative mx-auto max-w-6xl">
         <div className="flex items-center justify-center gap-2">
           <span

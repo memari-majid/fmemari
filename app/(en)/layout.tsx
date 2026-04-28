@@ -1,4 +1,6 @@
 import type { Metadata, Viewport } from "next";
+import { Analytics } from "@vercel/analytics/next";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 import "../globals.css";
 import { CallUsButton } from "@/app/components/CallUsButton";
 import { ThemeProvider } from "@/app/components/ThemeProvider";
@@ -18,6 +20,11 @@ export const metadata: Metadata = {
       en: "/",
       fa: "/fa",
       "x-default": "/",
+    },
+    types: {
+      "application/rss+xml": [
+        { url: "/feed.xml", title: "Breast cancer research feed" },
+      ],
     },
   },
   openGraph: {
@@ -98,6 +105,8 @@ export default function EnRootLayout({
       <body className="min-w-0 overflow-x-hidden antialiased">
         <ThemeProvider>{children}</ThemeProvider>
         <CallUsButton locale="en" label={t.callButton.label} />
+        <Analytics />
+        <SpeedInsights />
       </body>
     </html>
   );

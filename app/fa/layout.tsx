@@ -1,4 +1,6 @@
 import type { Metadata, Viewport } from "next";
+import { Analytics } from "@vercel/analytics/next";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 import { Vazirmatn } from "next/font/google";
 import "../globals.css";
 import { CallUsButton } from "@/app/components/CallUsButton";
@@ -30,6 +32,11 @@ export const metadata: Metadata = {
       en: "/",
       fa: "/fa",
       "x-default": "/",
+    },
+    types: {
+      "application/rss+xml": [
+        { url: "/feed.xml", title: "Breast cancer research feed" },
+      ],
     },
   },
   openGraph: {
@@ -102,6 +109,8 @@ export default function FaRootLayout({
       >
         <ThemeProvider>{children}</ThemeProvider>
         <CallUsButton locale="fa" label={t.callButton.label} />
+        <Analytics />
+        <SpeedInsights />
       </body>
     </html>
   );

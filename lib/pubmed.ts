@@ -55,9 +55,11 @@ export async function fetchLatestOncologyPapers(
     "2025:2026[dp]",
   ].join(" AND ");
 
-  // Cache upstream responses at the Next.js edge for 2 hours so a spike in
-  // traffic doesn't walk into PubMed's rate limit.
-  const fetchOpts = { next: { revalidate: 7200 } } as const;
+  // Cache upstream responses for 2 hours. Tag allows Vercel Cron + `revalidateTag`
+  // to refresh the live news strip, `/rss.xml`, and OG consumers together.
+  const fetchOpts = {
+    next: { revalidate: 7200, tags: ["pubmed-oncology"] },
+  } as const;
 
   try {
     const searchUrl = `${EUTILS}/esearch.fcgi?db=pubmed&sort=date&retmode=json&retmax=${count}&term=${encodeURIComponent(
